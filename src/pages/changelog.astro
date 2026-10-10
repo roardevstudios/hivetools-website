@@ -3,59 +3,41 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import { DISCORD } from '../lib/site';
 
-const releases = [
-  {
-    v: 'v0.0.2', tag: 'Preview · In development', title: 'A smoother Hive release is in the works.', date: 'Installer release not published yet', current: true,
-    video: '/videos/hive-launch-preview-v0.0.2.mp4',
-    items: [
-      ['Planned voice improvements', 'Clearer help for network, account-key, rate-limit and service errors.'],
-      ['Optional support diagnostics', 'Share app version and basic device details, without keys, paths or chat history.'],
-      ['Release status', 'The video is a preview. v0.0.2 is not available to download.'],
-      ['Public Beta status', 'v0.0.1 has been taken down and its installer removed from this website.'],
-    ],
-  },
-  {
-    v: 'v0.0.1', tag: 'First Public Beta', title: 'Hive First Public Beta Launch', date: 'September 2026 · Initial Public Release',
-    items: [
-      ['First Public Beta of Hive', 'The local-first desktop AI assistant that actually takes action on Windows 10 & 11.'],
-      ['Next-Gen Pro Workspace UI', 'Clean 56px pro navigation rail, date-grouped conversation streams, tactile keyboard-driven composer, and sliding artifact canvas panel.'],
-      ['Free 50,000 AI Tokens Daily', 'Free daily quota for all beta testers, resetting every 24 hours.'],
-      ['Live Cited Web Research', 'Real-time web browsing with clickable verified source citations (domain, title, and snippets).'],
-      ['Real PC Automation', 'Safe desktop control allowing Hive to launch software, click, and run shell tasks, always guarded by mandatory human Allow/Deny prompts and audit logging.'],
-      ['Buddy Companion & Notch', 'Screen companion that lives at your cursor or pops from the notch anywhere with Ctrl + Shift + J.'],
-      ['Voice Mode', 'Push-to-talk voice dictation and spoken audio responses.'],
-      ['Agent Swarm', 'Multi-agent concurrency (Scout, Hive, Pulse and Sentry) working together on complex workflows.'],
-      ['Download status', 'The Public Beta was taken down in October 2026; the installer is no longer available from this website.'],
-    ],
-  },
-];
+const release = {
+  version: 'v0.0.1',
+  title: 'Hive v0.0.1 is coming soon.',
+  date: 'Release date to be announced',
+  items: [
+    ['First public release', 'We are preparing Hive v0.0.1 for its first public release.'],
+    ['What to expect', 'A Windows desktop AI workspace for research, agent workflows, and PC actions you approve.'],
+    ['Launch details', 'The installer and full release notes will be posted here when v0.0.1 is ready.'],
+  ],
+};
 ---
-<Base title="Hive — Changelog" description="Hive release updates and Public Beta status.">
-  <PageHero eyebrow="Changelog" title="Hive release updates." lead="The Hive Public Beta has been taken down. The v0.0.1 installer is no longer available from this website." />
+<Base title="Hive v0.0.1 — Coming Soon" description="Hive v0.0.1 is the only upcoming Hive release. Follow the changelog for its launch date and installer.">
+  <PageHero eyebrow="Release updates" title="Hive v0.0.1 is coming soon." lead="We are preparing Hive’s first public release. The launch date and installer will be announced here.">
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+      <a class="btn btn-primary" href={DISCORD} target="_blank" rel="noopener noreferrer">Join the community</a>
+      <a class="btn btn-ghost" href="/download">Release status</a>
+    </div>
+  </PageHero>
   <section class="wrap">
     <ol class="relative border-l border-line pl-6 sm:pl-10">
-      {releases.map((r) => (
-        <li class="relative pb-16 last:pb-0" data-reveal>
-          <span class:list={['absolute -left-[1.95rem] top-1.5 size-3.5 rounded-full border-2 border-ink sm:-left-[2.95rem]', r.current ? 'bg-honey shadow-[0_0_0_6px_rgb(240_138_36/.2)]' : 'bg-line']}></span>
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="font-display text-2xl font-bold text-text">{r.v}</span>
-            <span class="rounded-full border border-honey/30 bg-honey/10 px-2.5 py-0.5 text-xs text-honey-2">{r.tag}</span>
-          </div>
-          <h2 class="mt-3 text-2xl font-semibold sm:text-3xl">{r.title}</h2>
-          <p class="mt-1 text-sm text-dim">{r.date}</p>
-          {r.video && (
-            <video class="mt-6 aspect-video w-full max-w-3xl rounded-2xl border border-line bg-black" controls playsinline preload="metadata" poster="/videos/hive-launch-poster.jpg" aria-label="Hive v0.0.2 launch preview">
-              <source src={r.video} type="video/mp4" />
-            </video>
-          )}
-          <ul class="mt-6 grid max-w-3xl gap-3">
-            {r.items.map(([k, v]) => (
-              <li class="rounded-2xl border border-line bg-panel/60 p-4 text-sm"><strong class="text-text">{k}.</strong> <span class="text-dim">{v}</span></li>
-            ))}
-          </ul>
-          {r.current && <a href={DISCORD} target="_blank" rel="noopener noreferrer" class="btn btn-ghost mt-6">Join the community</a>}
-        </li>
-      ))}
+      <li class="relative pb-16 last:pb-0" data-reveal>
+        <span class="absolute -left-[1.95rem] top-1.5 size-3.5 rounded-full border-2 border-ink bg-honey shadow-[0_0_0_6px_rgb(240_138_36/.2)] sm:-left-[2.95rem]"></span>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="font-display text-2xl font-bold text-text">{release.version}</span>
+          <span class="rounded-full border border-honey/30 bg-honey/10 px-2.5 py-0.5 text-xs text-honey-2">Coming soon</span>
+        </div>
+        <h2 class="mt-3 text-2xl font-semibold sm:text-3xl">{release.title}</h2>
+        <p class="mt-1 text-sm text-dim">{release.date}</p>
+        <ul class="mt-6 grid max-w-3xl gap-3">
+          {release.items.map(([label, detail]) => (
+            <li class="rounded-2xl border border-line bg-panel/60 p-4 text-sm"><strong class="text-text">{label}.</strong> <span class="text-dim">{detail}</span></li>
+          ))}
+        </ul>
+        <a href={DISCORD} target="_blank" rel="noopener noreferrer" class="btn btn-ghost mt-6">Join the community</a>
+      </li>
     </ol>
   </section>
 </Base>
