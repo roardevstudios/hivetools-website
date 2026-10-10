@@ -87,21 +87,29 @@ const scenarios = [
     play(t.dataset.scenario!);
   }));
 
-  // Start when visible; cycle until the visitor picks a tab.
-  let auto = true;
+  // Cycle scenarios only while the demo is on screen and the tab is visible,
+  // until the visitor picks a tab. Off screen it pauses, so it costs nothing.
+  let auto = true, onScreen = false, started = false;
   tabs.forEach((t) => t.addEventListener('click', () => (auto = false), { once: true }));
-  new IntersectionObserver(async ([e], o) => {
-    if (!e.isIntersecting) return;
-    o.disconnect();
+  const visible = () => onScreen && !document.hidden;
+  const untilVisible = () => new Promise<void>((resolve) => {
+    const check = () => { if (visible()) { clearInterval(id); resolve(); } };
+    const id = setInterval(check, 400); check();
+  });
+  async function loop() {
     let i = 0;
-    while (true) {
+    while (auto) {
+      await untilVisible();
       tabs.forEach((x, j) => x.setAttribute('aria-selected', String(j === i)));
       await play(tabs[i].dataset.scenario!);
       await wait(3500);
-      if (!auto) break;
       i = (i + 1) % tabs.length;
     }
-  }, { threshold: .4 }).observe(log);
+  }
+  new IntersectionObserver(([e]) => {
+    onScreen = e.isIntersecting;
+    if (onScreen && !started) { started = true; loop(); }
+  }, { threshold: .25 }).observe(log);
 </script>
 
 <style is:global>

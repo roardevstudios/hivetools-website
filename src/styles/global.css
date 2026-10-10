@@ -33,7 +33,7 @@
   .h-section { @apply text-3xl sm:text-4xl md:text-5xl font-semibold leading-[1.05]; }
   .lead { @apply text-base sm:text-lg text-dim leading-relaxed; }
   .glass {
-    @apply rounded-3xl border border-line bg-panel/70 backdrop-blur-xl;
+    @apply rounded-3xl border border-line bg-panel/90;
     box-shadow: inset 0 1px 0 rgb(255 255 255 / .04), 0 30px 60px -30px rgb(0 0 0 / .8);
   }
   .btn {

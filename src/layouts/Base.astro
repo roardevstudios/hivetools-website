@@ -36,9 +36,9 @@ const {
   </head>
   <body class="min-h-dvh">
     <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 hex-bg"></div>
-    <div aria-hidden="true" id="glow" class="pointer-events-none fixed -z-10 size-[600px] rounded-full opacity-0 transition-opacity duration-700 md:opacity-100"
+    <div aria-hidden="true" id="glow" class="pointer-events-none fixed will-change-transform -z-10 size-[600px] rounded-full opacity-0 transition-opacity duration-700 md:opacity-100"
       style="background:radial-gradient(circle, rgb(240 138 36 / .10), transparent 65%); left:-300px; top:-300px;"></div>
-    <div aria-hidden="true" id="progress" class="fixed inset-x-0 top-0 z-[60] h-0.5 origin-left scale-x-0 bg-gradient-to-r from-honey-2 to-honey"></div>
+    <div aria-hidden="true" id="progress" class="will-change-transform fixed inset-x-0 top-0 z-[60] h-0.5 origin-left scale-x-0 bg-gradient-to-r from-honey-2 to-honey"></div>
     {!bare && <Nav />}
     <main id="main"><slot /></main>
     {!bare && <Footer />}

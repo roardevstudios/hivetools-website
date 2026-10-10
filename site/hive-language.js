@@ -57,12 +57,10 @@
     });
   }
 
-  function translatePage(language) {
-    if (!dictionaries || translating) return;
-    translating = true;
-    activeLanguage = language;
-    document.documentElement.lang = language === 'zh' ? 'zh-CN' : language;
-    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+  function translateTree(root, language) {
+    if (root.nodeType === 3) { if (root.data.trim() && root.parentElement && !root.parentElement.closest('script,style,noscript,svg,select,option')) translateText(root, language); return; }
+    if (root.nodeType !== 1 || root.closest('script,style,noscript,svg,select,option')) return;
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode: function (node) {
         var parent = node.parentElement;
         if (!parent || parent.closest('script,style,noscript,svg,select,option')) return NodeFilter.FILTER_REJECT;
@@ -71,14 +69,35 @@
     });
     var textNode;
     while ((textNode = walker.nextNode())) translateText(textNode, language);
-    document.querySelectorAll('[title],[placeholder],[aria-label],[alt],meta[name="description"]').forEach(function (element) {
-      translateAttributes(element, language);
-    });
+    var attrSel = '[title],[placeholder],[aria-label],[alt],meta[name="description"]';
+    if (root.matches(attrSel)) translateAttributes(root, language);
+    root.querySelectorAll(attrSel).forEach(function (element) { translateAttributes(element, language); });
+  }
+
+  function translatePage(language) {
+    if (!dictionaries || translating) return;
+    translating = true;
+    activeLanguage = language;
+    document.documentElement.lang = language === 'zh' ? 'zh-CN' : language;
+    translateTree(document.body, language);
+    document.querySelectorAll('meta[name="description"]').forEach(function (element) { translateAttributes(element, language); });
     var titleKey = originalTitle;
     var mappedTitle = language !== 'en' && dictionaries[language] && dictionaries[language][titleKey];
     document.title = mappedTitle || titleKey;
     var select = document.getElementById('hive-language-select');
     if (select) select.setAttribute('aria-label', labels[language] || labels.en);
+    translating = false;
+  }
+
+  // Only re-translate the parts of the page that changed, at most once per frame.
+  // (Re-walking the whole page on every DOM change froze the site while animations ran.)
+  var pendingRoots = new Set();
+  function flushPending() {
+    queued = false;
+    if (activeLanguage === 'en' || !dictionaries) { pendingRoots.clear(); return; }
+    var roots = Array.from(pendingRoots); pendingRoots.clear();
+    translating = true;
+    roots.forEach(function (root) { if (root.isConnected) translateTree(root, activeLanguage); });
     translating = false;
   }
 
@@ -110,13 +129,15 @@
 
   function startObserver() {
     observer = new MutationObserver(function (records) {
-      if (queued || translating) return;
-      if (!records.some(function (record) { return record.type === 'childList' || record.type === 'characterData' || record.type === 'attributes'; })) return;
-      queued = true;
-      Promise.resolve().then(function () {
-        queued = false;
-        if (activeLanguage !== 'en') translatePage(activeLanguage);
+      if (translating || activeLanguage === 'en') return;
+      records.forEach(function (record) {
+        if (record.type === 'childList') record.addedNodes.forEach(function (node) { pendingRoots.add(node); });
+        else if (record.type === 'characterData') pendingRoots.add(record.target);
+        else if (record.type === 'attributes') pendingRoots.add(record.target);
       });
+      if (!pendingRoots.size || queued) return;
+      queued = true;
+      requestAnimationFrame(flushPending);
     });
     observer.observe(document.body, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ['title', 'placeholder', 'aria-label', 'alt', 'content'] });
   }
