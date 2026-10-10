@@ -8,14 +8,16 @@ Built with [Astro](https://astro.build) + Tailwind CSS v4 + [Motion](https://mot
 ```bash
 npm install
 npm run dev       # http://localhost:4321
-npm run build     # outputs dist/
+npm run build     # outputs site/ (the files you upload)
 npm run preview   # serve the built site
 ```
 
 ## Deploy (Spaceship / Apache)
 
-1. `npm run build`
-2. Upload the **contents** of `dist/` to the web root (it includes `.htaccess`, so enable "show hidden files" in your FTP client).
+**The `site/` folder is the ready-to-upload website.** It is rebuilt and committed with every change.
+
+1. Upload the **contents** of `site/` to the Spaceship web root (`public_html`). It includes `.htaccess`, so enable "show hidden files" in the File Manager / FTP client.
+2. After editing anything in `src/` or `public/`, run `npm run build` to refresh `site/`, then commit it.
 3. Copy the large media that is not kept in git from the
    [Original website backup](https://github.com/roardevstudios/hivetools-website/releases/tag/source-backup-2026-10-10) release into `videos/` on the server:
    `hive-launch-v4.mp4` (homepage tour) and `hive-launch-preview-v0.0.2.mp4` (changelog).

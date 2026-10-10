@@ -5,6 +5,8 @@ import tailwindcss from '@tailwindcss/vite';
 // format: 'file' keeps /pricing -> pricing.html so the existing .htaccess routes still work.
 export default defineConfig({
   site: 'https://hivetools.pro',
+  // Built files go to site/, which is committed: upload its contents to the Spaceship web root.
+  outDir: './site',
   build: { format: 'file' },
   vite: { plugins: [tailwindcss()] },
 });

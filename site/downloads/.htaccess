@@ -1,0 +1,7 @@
+Options -Indexes
+
+# Installer downloads must pass through download-installer.php, which verifies
+# the signed-in Hive account before streaming the file.
+<FilesMatch "(?i)\.exe$">
+  Require all denied
+</FilesMatch>
