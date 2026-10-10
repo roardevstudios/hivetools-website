@@ -1,0 +1,121 @@
+---
+// Scripted preview of the Hive app. Nothing here touches the visitor's PC.
+const scenarios = [
+  { id: 'research', label: 'Research' },
+  { id: 'pc', label: 'PC control' },
+  { id: 'crew', label: 'AI crew' },
+];
+---
+<div class="glass overflow-hidden" id="demo" data-reveal>
+  <div class="flex items-center gap-2 border-b border-line px-4 py-3">
+    <span class="size-3 rounded-full bg-white/10"></span><span class="size-3 rounded-full bg-white/10"></span><span class="size-3 rounded-full bg-white/10"></span>
+    <span class="ml-3 text-sm font-semibold text-text">Hive</span>
+    <span class="ml-auto rounded-full border border-honey/30 bg-honey/10 px-2.5 py-0.5 text-xs text-honey-2">Auto</span>
+  </div>
+  <div role="tablist" aria-label="Demo scenarios" class="flex gap-1 overflow-x-auto border-b border-line px-3 py-2 [scrollbar-width:none]">
+    {scenarios.map((s, i) => (
+      <button role="tab" type="button" data-scenario={s.id} aria-selected={i === 0 ? 'true' : 'false'}
+        class="shrink-0 rounded-full px-3.5 py-1.5 text-sm text-dim transition aria-selected:bg-white/10 aria-selected:text-text">{s.label}</button>
+    ))}
+  </div>
+  <div id="demo-log" class="flex h-[380px] flex-col gap-3 overflow-y-auto p-4 sm:h-[420px] sm:p-6" aria-live="polite"></div>
+  <div class="flex items-center gap-2 border-t border-line p-3">
+    <div id="demo-input" class="min-h-11 flex-1 truncate rounded-xl border border-line bg-panel-2 px-4 py-2.5 text-sm text-dim">Ask Hive anything…</div>
+    <span class="grid size-11 place-items-center rounded-xl bg-honey text-ink" aria-hidden="true">↑</span>
+  </div>
+  <p class="border-t border-line px-4 py-2.5 text-center text-xs text-dim">A scripted preview. Nothing here touches your PC.</p>
+</div>
+
+<script>
+  type Step = { r: 'me' | 'ai' | 'ask' | 'status'; h: string };
+  const SCRIPTS: Record<string, Step[]> = {
+    research: [
+      { r: 'me', h: 'Research the best laptop under $1000 for coding' },
+      { r: 'status', h: 'Searched 9 sources · 4 cited' },
+      { r: 'ai', h: 'Top pick: <b>MacBook Air M3</b> for battery and build <sup>1</sup>. On Windows, the <b>ASUS Zenbook 14 OLED</b> wins on screen and keyboard <sup>2</sup>.<div class="mt-3 flex flex-wrap gap-2"><span class="src">1 · rtings.com</span><span class="src">2 · notebookcheck.net</span><span class="src">3 · theverge.com</span></div>' },
+    ],
+    pc: [
+      { r: 'me', h: 'Open Notepad and write my to-do list for tomorrow' },
+      { r: 'ask', h: 'Buddy wants to open <b>Notepad</b> and type 4 lines.' },
+      { r: 'status', h: 'Buddy · notepad.exe launched · 4 lines typed' },
+      { r: 'ai', h: 'Done. Your list is open in Notepad. I did not save the file — say the word and I will.' },
+    ],
+    crew: [
+      { r: 'me', h: 'Compare Supabase vs Firebase for a small SaaS' },
+      { r: 'status', h: 'Crew · Scout researched · Pulse checked · Critic reviewed' },
+      { r: 'ai', h: '<b>Supabase</b>: Postgres, real SQL, predictable pricing <sup>1</sup>. <b>Firebase</b>: fastest start, realtime built in <sup>2</sup>. With relational data, Supabase fits better.' },
+    ],
+  };
+  const log = document.getElementById('demo-log')!;
+  const input = document.getElementById('demo-input')!;
+  const tabs = [...document.querySelectorAll<HTMLButtonElement>('[data-scenario]')];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const wait = (ms: number) => new Promise((r) => setTimeout(r, reduce ? 0 : ms));
+  let run = 0;
+
+  const bubble = (s: Step) => {
+    const el = document.createElement('div');
+    el.className = 'demo-msg ' + s.r;
+    el.innerHTML = s.r === 'ask'
+      ? `<div class="text-xs font-semibold uppercase tracking-wider text-honey-2">Permission</div><p class="mt-1">${s.h}</p><div class="mt-3 flex gap-2"><span class="allow">Allow</span><span class="deny">Deny</span></div>`
+      : s.r === 'status' ? `<span class="live-dot"></span>${s.h}` : s.h;
+    log.appendChild(el);
+    requestAnimationFrame(() => el.classList.add('in'));
+    log.scrollTo({ top: log.scrollHeight, behavior: reduce ? 'auto' : 'smooth' });
+    return el;
+  };
+
+  async function play(id: string) {
+    const me = ++run;
+    log.innerHTML = '';
+    for (const s of SCRIPTS[id]) {
+      if (me !== run) return;
+      if (s.r === 'me') {
+        const text = s.h;
+        for (let i = 1; i <= text.length; i++) { if (me !== run) return; input.textContent = text.slice(0, i); input.classList.add('text-text'); await wait(22); }
+        await wait(250); input.textContent = 'Ask Hive anything…'; input.classList.remove('text-text');
+        bubble(s); await wait(600);
+      } else if (s.r === 'ask') {
+        const el = bubble(s); await wait(1300);
+        el.querySelector('.allow')?.classList.add('pressed'); await wait(500);
+      } else { bubble(s); await wait(s.r === 'status' ? 900 : 400); }
+    }
+  }
+
+  tabs.forEach((t) => t.addEventListener('click', () => {
+    tabs.forEach((x) => x.setAttribute('aria-selected', String(x === t)));
+    play(t.dataset.scenario!);
+  }));
+
+  // Start when visible; cycle until the visitor picks a tab.
+  let auto = true;
+  tabs.forEach((t) => t.addEventListener('click', () => (auto = false), { once: true }));
+  new IntersectionObserver(async ([e], o) => {
+    if (!e.isIntersecting) return;
+    o.disconnect();
+    let i = 0;
+    while (true) {
+      tabs.forEach((x, j) => x.setAttribute('aria-selected', String(j === i)));
+      await play(tabs[i].dataset.scenario!);
+      await wait(3500);
+      if (!auto) break;
+      i = (i + 1) % tabs.length;
+    }
+  }, { threshold: .4 }).observe(log);
+</script>
+
+<style is:global>
+  .demo-msg { max-width: 88%; border-radius: 1.1rem; padding: .7rem 1rem; font-size: .92rem; line-height: 1.55; opacity: 0; transform: translateY(10px) scale(.98); transition: all .45s var(--ease-spring); }
+  .demo-msg.in { opacity: 1; transform: none; }
+  .demo-msg.me { align-self: flex-end; background: linear-gradient(135deg, var(--color-honey-2), var(--color-honey)); color: var(--color-ink); font-weight: 500; }
+  .demo-msg.ai { background: var(--color-panel-2); border: 1px solid var(--color-line); color: var(--color-soft); }
+  .demo-msg.ai b { color: var(--color-text); }
+  .demo-msg sup { color: var(--color-honey-2); }
+  .demo-msg.status { display: flex; align-items: center; gap: .5rem; padding: .25rem 0; font-size: .78rem; color: var(--color-dim); }
+  .demo-msg.ask { border: 1px solid rgb(240 138 36 / .4); background: rgb(240 138 36 / .08); color: var(--color-soft); }
+  .demo-msg .src { border: 1px solid var(--color-line); border-radius: 999px; padding: .15rem .6rem; font-size: .72rem; color: var(--color-dim); }
+  .demo-msg .allow, .demo-msg .deny { border-radius: 999px; padding: .3rem .9rem; font-size: .8rem; font-weight: 600; transition: all .25s; }
+  .demo-msg .allow { background: var(--color-mint); color: #04130d; }
+  .demo-msg .allow.pressed { transform: scale(.92); box-shadow: 0 0 0 6px rgb(16 185 129 / .25); }
+  .demo-msg .deny { border: 1px solid var(--color-line); color: var(--color-dim); }
+</style>

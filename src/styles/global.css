@@ -81,3 +81,9 @@
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
   .js [data-reveal] { opacity: 1; transform: none; }
 }
+
+/* Hero intro: hidden until Motion animates it in (only with JS + motion allowed) */
+#hero-title .word { display: inline-block; }
+@media (prefers-reduced-motion: no-preference) {
+  .js #hero-title .word, .js .hero-in { opacity: 0; }
+}
