@@ -11,6 +11,7 @@
   var activeLanguage = 'en';
   var observer = null;
   var queued = false;
+  var translating = false;
 
   function getSavedLanguage() {
     try {
@@ -20,14 +21,14 @@
   }
 
   function preserveSpace(source, translated) {
-    var leading = (source.match(/^\s*/) || [''])[0];
-    var trailing = (source.match(/\s*$/) || [''])[0];
+    var leading = (source.match(/^\\s*/) || [''])[0];
+    var trailing = (source.match(/\\s*$/) || [''])[0];
     return leading + translated + trailing;
   }
 
   function translateText(node, language) {
     if (!originals.has(node)) originals.set(node, node.data);
-    else if (lastText.has(node) && node.data !== lastText.get(node)) originals.set(node, node.data);
+    else if (!translating && lastText.has(node) && node.data !== lastText.get(node)) originals.set(node, node.data);
     var source = originals.get(node);
     var key = source.trim();
     var result = language === 'en' || !dictionaries[language] || !dictionaries[language][key]
@@ -43,7 +44,7 @@
       var values = originalAttributes.get(element);
       if (!values) { values = {}; originalAttributes.set(element, values); }
       var last = lastAttributes.get(element);
-      if (!Object.prototype.hasOwnProperty.call(values, name) || (last && last[name] !== element.getAttribute(name))) {
+      if (!Object.prototype.hasOwnProperty.call(values, name) || (!translating && last && last[name] !== element.getAttribute(name))) {
         values[name] = element.getAttribute(name);
       }
       var source = values[name];
@@ -57,6 +58,8 @@
   }
 
   function translatePage(language) {
+    if (!dictionaries || translating) return;
+    translating = true;
     activeLanguage = language;
     document.documentElement.lang = language === 'zh' ? 'zh-CN' : language;
     var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
@@ -76,6 +79,7 @@
     document.title = mappedTitle || titleKey;
     var select = document.getElementById('hive-language-select');
     if (select) select.setAttribute('aria-label', labels[language] || labels.en);
+    translating = false;
   }
 
   var originalTitle = document.title;
@@ -106,7 +110,7 @@
 
   function startObserver() {
     observer = new MutationObserver(function (records) {
-      if (queued) return;
+      if (queued || translating) return;
       if (!records.some(function (record) { return record.type === 'childList' || record.type === 'characterData' || record.type === 'attributes'; })) return;
       queued = true;
       Promise.resolve().then(function () {
