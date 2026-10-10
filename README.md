@@ -20,7 +20,7 @@ npm run preview   # serve the built site
 2. After editing anything in `src/` or `public/`, run `npm run build` to refresh `site/`, then commit it.
 3. Copy the large media that is not kept in git from the
    [Original website backup](https://github.com/roardevstudios/hivetools-website/releases/tag/source-backup-2026-10-10) release into `videos/` on the server:
-   `hive-launch-v4.mp4` (homepage tour) and `hive-launch-preview-v0.0.2.mp4` (changelog).
+   `hive-launch-v4.mp4` (homepage tour). The changelog lists only the upcoming v0.0.1 release.
 
 Pages build as `name.html` (`build.format: 'file'`), so the existing `.htaccess` clean-URL rules (`/pricing` → `pricing.html`) keep working.
 
