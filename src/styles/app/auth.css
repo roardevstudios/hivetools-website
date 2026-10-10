@@ -1,0 +1,90 @@
+/* Page styles carried over from legacy/auth.html */
+@keyframes wzIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.app-legacy {
+
+  /* ══════════════════ Auth ══════════════════ */
+  body { display: flex; flex-direction: column; }
+
+  .auth-wrap {
+    width: 100%; max-width: 480px; margin: 0 auto;
+    padding: 0 20px 80px; position: relative; z-index: 1;
+    flex: 1; display: flex; flex-direction: column; justify-content: center;
+    min-height: 100dvh;
+  }
+  .auth-top { display: flex; align-items: center; gap: 10px; padding: 26px 4px 22px; }
+
+  .auth-card {
+    background: var(--surface-1); border: 1px solid var(--line);
+    border-radius: var(--r-2xl); padding: 36px 30px;
+    position: relative; overflow: hidden; box-shadow: var(--sh-3);
+  }
+  .auth-card::before {
+    content: ''; position: absolute; top: -1px; left: 16%; right: 16%; height: 1px;
+    background: var(--grad-hair);
+  }
+  .auth-card h1 { font-size: 1.55rem; letter-spacing: -.028em; margin-bottom: 8px; }
+  .auth-card .sub { color: var(--dim); font-size: var(--fs-sm); margin-bottom: 24px; line-height: 1.6; }
+
+  .btn.google { margin-top: 0; }
+  .btn.google svg { flex-shrink: 0; }
+
+  .tabs { margin-bottom: 20px; }
+
+  #auth-msg { font-size: 13.5px; color: var(--dim); margin-top: 14px; min-height: 20px; text-align: center; line-height: 1.55; }
+  #auth-msg.ok { color: var(--green); }
+  #auth-msg.err { color: var(--red); }
+
+  /* ── onboarding wizard ── */
+  #wizard { display: none; }
+  .wz-progress { display: flex; gap: 8px; justify-content: center; margin-bottom: 28px; }
+  .wz-progress span { width: 54px; height: 4px; border-radius: var(--r-pill); background: var(--line-2); transition: background var(--dur) var(--ease); }
+  .wz-progress span.done { background: var(--grad-warm); }
+  .wz-step { display: none; }
+  .wz-step.active { display: block; animation: wzIn .4s var(--ease) both; }
+  
+  .wz-step h2 { font-size: 1.35rem; text-align: center; letter-spacing: -.02em; }
+  .wz-step .wz-sub { text-align: center; color: var(--dim); font-size: var(--fs-sm); margin: 8px 0 22px; }
+  .wz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .wz-card {
+    display: flex; align-items: center; gap: 10px; text-align: left;
+    background: var(--surface-2); border: 1px solid var(--line-2);
+    border-radius: var(--r-md); padding: 14px 16px; cursor: pointer;
+    font: 500 13.5px inherit; color: var(--text); width: 100%;
+    transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+  }
+  .wz-card:hover { border-color: var(--orange-35); }
+  .wz-card.sel { border-color: var(--orange); background: var(--orange-08); }
+  .wz-card .dot {
+    margin-left: auto; width: 20px; height: 20px; border-radius: 50%;
+    border: 1.5px solid var(--line-3); flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 12px; color: #140c02;
+  }
+  .wz-card.sel .dot { background: var(--grad-brand); border-color: transparent; }
+  .wz-card.sel .dot::after { content: '✓'; font-weight: 800; }
+  .wz-card.wide { grid-column: 1 / -1; flex-direction: column; align-items: flex-start; gap: 7px; }
+  .wz-card.wide .row1 { display: flex; align-items: center; gap: 10px; width: 100%; font-weight: 700; font-size: 14.5px; }
+  .wz-card.wide p { font-size: 13px; color: var(--dim); line-height: 1.55; margin: 0; }
+  .wz-check {
+    width: 20px; height: 20px; border-radius: 6px; border: 1.5px solid var(--line-3); flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 12px; color: #140c02;
+  }
+  .wz-card.sel .wz-check { background: var(--grad-brand); border-color: transparent; }
+  .wz-card.sel .wz-check::after { content: '✓'; font-weight: 800; }
+  .wz-next { margin-top: 22px; }
+  .wz-skip {
+    display: block; margin: 14px auto 0; background: none; border: none;
+    color: var(--dim); font: inherit; font-size: 13.5px; cursor: pointer;
+  }
+  .wz-skip:hover { color: var(--text); }
+
+  .foot { text-align: center; color: var(--dim-2); font-size: 12.5px; margin-top: 26px; }
+  .foot a { color: var(--dim); }
+  .foot a:hover { color: var(--orange); }
+
+  @media (max-width: 480px) {
+    .wz-grid { grid-template-columns: 1fr; }
+    .auth-card { padding: 30px 22px; }
+  }
+
+}

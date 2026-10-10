@@ -1,0 +1,935 @@
+<a href="#app" class="skip-link">Skip to main content</a>
+
+
+
+
+
+
+<div class="progress-bar" id="progress-bar"></div>
+
+<div class="wrap">
+  <div class="crumb">
+    <a href="/">← Hive</a>
+    <a class="btn ghost sm" href="/download" target="_blank" rel="noopener">Download page ↗</a>
+  </div>
+
+  <!-- ── Sign-in gate ── -->
+  <div id="gate" class="spotlight-card" style="background:var(--surface-2);border-color:var(--orange-35);">
+    <h1 style="font-size:1.35rem;color:var(--orange);margin-bottom:6px;">Admin sign in</h1>
+    <p class="card-note" style="font-size:13.5px;color:var(--dim);margin-bottom:16px;">Sign in with the owner account. No account yet? <a href="/auth?mode=signup&next=/admin" style="color:var(--orange);">Create one</a>.</p>
+    <label>Email</label>
+    <input id="adm-email" type="email" autocomplete="username" placeholder="you@example.com" aria-label="Admin email" />
+    <label>Password</label>
+    <input id="adm-pass" type="password" autocomplete="current-password" aria-label="Admin password" />
+    <p style="margin-top:18px;"><button class="primary" type="button" id="adm-in">Sign in</button></p>
+    <p id="login-msg"></p>
+  </div>
+
+  <!-- ── Main dashboard content ── -->
+  <div id="admin-content" style="display:none;">
+
+    <div id="app">
+      <h2 style="font-size:1.25rem;margin-bottom:6px;">Dashboard</h2>
+      <p class="hint">Manage Hive accounts, approve requests, and review activity.</p>
+
+      <!-- Stats row (glow cards) -->
+      <div class="glow-stats" id="stats-row">
+        <div class="glow-card glow-border">
+          <span class="num" id="stat-count">—</span>
+          <span class="label">Total accounts</span>
+        </div>
+        <div class="glow-card glow-border">
+          <span class="num" id="stat-pending">—</span>
+          <span class="label">Pending review</span>
+        </div>
+        <div class="glow-card glow-border">
+          <span class="num" id="stat-approved">—</span>
+          <span class="label">Approved</span>
+        </div>
+        <div class="glow-card glow-border">
+          <span class="num" id="stat-denied">—</span>
+          <span class="label">Denied</span>
+        </div>
+        <div class="glow-card glow-border">
+          <span class="num" id="stat-quota-users">—</span>
+          <span class="label">Quota accounts</span>
+        </div>
+        <div class="glow-card glow-border">
+          <span class="num" id="stat-reported-used">—</span>
+          <span class="label">Reported tokens used</span>
+        </div>
+        <div class="glow-card glow-border">
+          <span class="num" id="stat-effective-limit">—</span>
+          <span class="label">Effective allowance</span>
+        </div>
+        <div class="glow-card glow-border">
+          <span class="num" id="stat-active-installs">—</span>
+          <span class="label">Installs active · 24h</span>
+        </div>
+      </div>
+       <p id="usage-msg" class="msg-line" style="margin-top:10px;">Usage has not been loaded yet.</p>
+       <div class="row-actions" style="margin-top:8px;">
+         <button class="btn ghost sm" id="dashboard-refresh" type="button">↻ Refresh dashboard</button>
+       </div>
+
+      <!-- Marquee ticker -->
+      <div class="features-section">
+        <h2>Activity</h2>
+        <p>The features currently in use across Hive.</p>
+        <div class="marquee" aria-label="System status ticker">
+          <div class="marquee-track">
+            <div class="marquee-group">
+              <span class="chip"><i></i>Cited research</span>
+              <span class="chip"><i></i>Real PC control</span>
+              <span class="chip"><i></i>Buddy at your cursor</span>
+              <span class="chip"><i></i>Buddy notch</span>
+              <span class="chip"><i></i>Voice in, voice out</span>
+              <span class="chip"><i></i>Command palette</span>
+              <span class="chip"><i></i>Fast · Auto · Heavy · Max</span>
+              <span class="chip"><i></i>Agent swarm</span>
+              <span class="chip"><i></i>HiveBox</span>
+              <span class="chip"><i></i>Audit log</span>
+            </div>
+            <div class="marquee-group" aria-hidden="true">
+              <span class="chip"><i></i>Cited research</span>
+              <span class="chip"><i></i>Real PC control</span>
+              <span class="chip"><i></i>Buddy at your cursor</span>
+              <span class="chip"><i></i>Buddy notch</span>
+              <span class="chip"><i></i>Voice in, voice out</span>
+              <span class="chip"><i></i>Command palette</span>
+              <span class="chip"><i></i>Fast · Auto · Heavy · Max</span>
+              <span class="chip"><i></i>Agent swarm</span>
+              <span class="chip"><i></i>HiveBox</span>
+              <span class="chip"><i></i>Audit log</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bento grid: feature cards -->
+      <div class="bento-grid">
+        <div class="bento-card wide">
+          <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 4 7.1 17 2.6-7.3L21 11.1z"/></svg></div>
+          <h3>Account Management</h3>
+          <p>View all Hive accounts, see approval status, and manage reviews. Users can request access directly, or admins can create new accounts.</p>
+        </div>
+        <div class="bento-card">
+          <div class="bento-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 11 13 2 13 22 2 11"/><circle cx="13" cy="11" r="3"/></svg></div>
+          <h3>Real-time activity</h3>
+          <p>See active requests, approvals, and denials as they happen across all Hive instances.</p>
+        </div>
+        <div class="bento-card">
+          <div class="bento-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><polyline points="8 12 12 16 16 12"/></svg></div>
+          <h3>Access control</h3>
+          <p>Approve or deny new user requests. Access codes are generated and automatically delivered to the requesting user.</p>
+        </div>
+        <div class="bento-card purple">
+          <div class="bento-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 16 14"/></svg></div>
+          <h3>System health</h3>
+          <p>Monitor token usage, active sessions, and API status from the dashboard at a glance.</p>
+        </div>
+      </div>
+
+      <!-- ── User list ── -->
+       <section class="sec">
+         <h2>Accounts</h2>
+         <p class="hint" style="margin:6px 0 0;">Approve access, suspend accounts, and apply an entitlement upgrade. Plan changes update the daily quota immediately; manual grants do not create a PayPal subscription.</p>
+         <div class="row-list" id="user-list">
+          <p style="color:var(--dim);text-align:center;padding:20px;">No accounts yet.</p>
+        </div>
+      </section>
+
+      <!-- ── New access request ── -->
+      <section class="sec">
+        <div class="row-actions" style="margin-top:0;">
+           <button class="primary" id="req-btn" type="button" style="min-width:170px;">+ New access request</button>
+          <input id="req-email" placeholder="user@example.com" style="max-width:280px;width:auto;flex:1;" aria-label="New user email" />
+          <button class="btn ghost" id="req-submit" type="button">Create</button>
+        </div>
+        <p id="req-note" class="msg-line">Creates a pending request for a new user.</p>
+      </section>
+
+      <!-- ── Access codes ── -->
+      <section class="sec">
+        <h2>Access codes</h2>
+        <p class="hint" style="margin-bottom:14px;">Generate download codes for buyers. Each PayPal purchase auto-claims one via <code>claim_access_code</code>. Set how many times each code can be used.</p>
+        <div class="panel">
+          <label style="margin-top:0;">Label (optional)</label>
+          <input id="code-label" placeholder="e.g. batch-1" aria-label="Code label" />
+          <div class="grid-4" style="margin-top:10px;">
+            <div><label>How many codes</label><input id="code-count" type="number" min="1" max="50" value="5" aria-label="How many codes" /></div>
+            <div><label>Uses per code</label><input id="code-uses" type="number" min="1" max="100" value="1" aria-label="Uses per code" /></div>
+          </div>
+          <div class="row-actions">
+            <button class="primary" id="code-gen" type="button" style="min-width:170px;">Generate codes</button>
+            <button class="btn ghost" id="code-refresh" type="button">Refresh</button>
+            <button type="button" id="code-delete-used" style="font-size:12.5px;">Delete spent codes</button>
+          </div>
+        </div>
+        <p id="code-msg" class="msg-line"></p>
+        <div class="row-list" id="code-list">
+          <p style="color:var(--dim);text-align:center;padding:20px;">No codes loaded yet.</p>
+        </div>
+      </section>
+
+      <!-- ── Sales ── -->
+      <section class="sec">
+        <h2>Sales</h2>
+        <p class="hint" style="margin-bottom:14px;">Start a custom sale — the active sale's prices show live on <code>/pricing</code> with a countdown. Public checkout is paused during the Public Beta, so saved sales are not applied until checkout is re-enabled.</p>
+        <div class="panel">
+          <label style="margin-top:0;">Sale name</label>
+          <input id="sale-label" placeholder="e.g. Weekend free Unlock" aria-label="Sale name" />
+          <div class="grid-4" style="margin-top:10px;">
+            <div><label>Unlock €</label><input id="sale-unlock" type="number" min="0" step="0.01" value="0.00" aria-label="Unlock price in EUR" /></div>
+            <div><label>Plus first mo €</label><input id="sale-plus" type="number" min="0" step="0.01" value="7.59" aria-label="Tokens Plus first month price in EUR" /></div>
+            <div><label>Max first mo €</label><input id="sale-max" type="number" min="0" step="0.01" value="10.59" aria-label="Tokens Max first month price in EUR" /></div>
+            <div><label>Ends at (optional)</label><input id="sale-ends" type="datetime-local" aria-label="Sale end date and time" /></div>
+          </div>
+          <div class="row-actions">
+            <button class="primary" id="sale-start" type="button" style="min-width:150px;">▶ Start sale</button>
+            <button class="btn ghost" id="sale-end" type="button">■ End sale</button>
+            <span class="hint">Quick:</span>
+            <button type="button" data-preset-end="24" style="font-size:12px;">+24h</button>
+            <button type="button" data-preset-end="72" style="font-size:12px;">+3 days</button>
+            <button type="button" data-preset-end="168" style="font-size:12px;">+7 days</button>
+          </div>
+        </div>
+        <p id="sale-msg" class="msg-line"></p>
+        <div id="sale-active" style="margin-top:14px;"></div>
+        <details class="block" id="old-sales">
+          <summary>Old sales <span id="old-sales-count" style="color:var(--dim);font-weight:400;"></span></summary>
+          <div class="row-list" id="sale-list" style="margin:10px 0 14px;">
+            <p style="color:var(--dim);text-align:center;padding:20px;">No sales loaded yet.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- ── Claims inbox ── -->
+      <section class="sec">
+        <h2>Claims inbox</h2>
+        <p class="hint" style="margin-bottom:12px;">Every successful download logs here with the buyer's receipt email — reply from <code>apis.new.world@gmail.com</code>.</p>
+        <div class="row-actions" style="margin-top:0;">
+          <button class="btn ghost" id="claims-refresh" type="button">Refresh inbox</button>
+        </div>
+        <p id="claims-msg" class="msg-line"></p>
+        <details class="block" id="sent-emails">
+          <summary>Sent emails <span id="sent-emails-count" style="color:var(--dim);font-weight:400;"></span></summary>
+          <div class="row-list" id="claims-list" style="margin:10px 0 14px;">
+            <p style="color:var(--dim);text-align:center;padding:20px;">No claims loaded yet.</p>
+          </div>
+        </details>
+      </section>
+
+      <section class="sec">
+        <h2>Upgrade requests</h2>
+        <p class="hint" style="margin-bottom:12px;">People who requested Tokens Plus or Tokens Max from the pricing page appear here. Apply the entitlement from their account row when ready.</p>
+        <div class="row-actions" style="margin-top:0;">
+          <button class="btn ghost" id="upgrade-refresh" type="button">Refresh upgrade requests</button>
+        </div>
+        <p id="upgrade-msg" class="msg-line"></p>
+        <div class="row-list" id="upgrade-list">
+          <p style="color:var(--dim);text-align:center;padding:20px;">No upgrade requests loaded yet.</p>
+        </div>
+      </section>
+
+      <!-- ── Audit log ── -->
+      <section class="sec">
+        <details class="block">
+          <summary>Recent admin actions</summary>
+          <p id="audit-log">No activity logged yet.</p>
+        </details>
+      </section>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+<script>
+(function () {
+  /* ═══════════════════════════ Supabase ═══════════════════════ */
+  var SB = null;
+  var HIVE_USER = null;
+  var PROFILE_ROWS = [];
+  var QUOTA_BY_USER = {};
+  var SUBSCRIPTION_BY_USER = {};
+  var INSTALLS_BY_USER = {};
+  var AUDIT_ENTRIES = [];
+
+  try {
+    SB = window.supabase.createClient('https://nqkmnmwbmikbgopwkvse.supabase.co',
+      'sb_publishable_p5TvTFyNO0-kS5yUQSkRXw_GBSsHec4', {
+        auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: 'pkce' }
+      });
+  } catch (e) { SB = null; }
+
+  function msg(id, text) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = text;
+    el.style.color = text.startsWith('OK') ? '#10B981' : (/error|failed|invalid|required|not signed|unknown/i.test(text) ? '#F04438' : '');
+  }
+
+  function setButtonBusy(button, busy, label) {
+    if (!button) return;
+    if (busy) {
+      button.dataset.idleText = button.textContent;
+      button.disabled = true;
+      button.textContent = label || 'Working…';
+    } else {
+      button.disabled = false;
+      button.textContent = button.dataset.idleText || button.textContent;
+    }
+  }
+
+  function audit(message) {
+    var el = document.getElementById('audit-log');
+    if (!el) return;
+    AUDIT_ENTRIES.unshift(new Date().toLocaleString() + ' — ' + message);
+    el.textContent = AUDIT_ENTRIES.slice(0, 20).join('\n');
+  }
+
+  /* ═══════════════════════════ Auto-load ═══════════════════════ */
+  async function loadSession() {
+    if (!SB) {
+      msg('login-msg', 'Site owner: add Supabase keys first (README.md).');
+      return;
+    }
+    var s = await SB.auth.getSession();
+    var session = s && s.data && s.data.session;
+    if (!session) return;
+    await enterAdmin(session.user);
+    return session;
+  }
+
+  async function enterAdmin(user) {
+    if (!SB || !user) return false;
+    var check = await SB.rpc('is_hive_admin');
+    if (check.error || check.data !== true) {
+      HIVE_USER = null;
+      var gate = document.getElementById('gate');
+      var content = document.getElementById('admin-content');
+      if (gate) gate.style.display = 'block';
+      if (content) content.style.display = 'none';
+      msg('login-msg', 'This account does not have admin access.');
+      return false;
+    }
+    HIVE_USER = user;
+    void updateDashboard();
+    return true;
+  }
+
+  async function updateDashboard() {
+    if (!HIVE_USER) return;
+    var gate = document.getElementById('gate');
+    var content = document.getElementById('admin-content');
+    if (gate) gate.style.display = 'none';
+    if (content) content.style.display = 'block';
+     await Promise.all([loadStats(), loadUsage(), loadCodes(), loadSales(), loadClaims(), loadUpgradeRequests()]);
+    await loadUsers();
+  }
+
+  document.getElementById('dashboard-refresh').addEventListener('click', async function () {
+    if (!HIVE_USER) { msg('login-msg', 'Sign in first.'); return; }
+    setButtonBusy(this, true, 'Refreshing…');
+    msg('usage-msg', 'Refreshing dashboard…');
+    try {
+      await updateDashboard();
+      msg('usage-msg', 'Dashboard refreshed.');
+    } catch (e) {
+      msg('usage-msg', 'Refresh failed: ' + (e.message || 'Unknown error'));
+    } finally {
+      setButtonBusy(this, false);
+    }
+  });
+
+  /* ═══════════════════════════ Login ═══════════════════════════ */
+  document.getElementById('adm-in').addEventListener('click', async function () {
+    if (!SB) { msg('login-msg', 'Supabase keys missing (see README.md).'); return; }
+    var em = document.getElementById('adm-email').value.trim();
+    var pw = document.getElementById('adm-pass').value;
+    if (!em || !pw) { msg('login-msg', 'Enter email and password.'); return; }
+    msg('login-msg', 'Signing in…');
+    try {
+      var r = await SB.auth.signInWithPassword({ email: em, password: pw });
+      if (r.error) { msg('login-msg', r.error.message || 'Sign-in failed.'); return; }
+      if (await enterAdmin(r.data.user)) msg('login-msg', 'OK');
+    } catch (e) { msg('login-msg', e.message || 'Sign-in failed.'); }
+  });
+
+  /* ═══════════════════════════ Stats ═══════════════════════════ */
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function formatNumber(value) {
+    return Number(value || 0).toLocaleString();
+  }
+
+  function formatWhen(value) {
+    if (!value) return 'never';
+    var date = new Date(value);
+    return isNaN(date.getTime()) ? 'unknown' : date.toLocaleString();
+  }
+
+  async function loadUsage() {
+    if (!SB || !HIVE_USER) return;
+    var results = await Promise.all([
+      SB.from('usage_quotas').select('*').limit(1000),
+      SB.from('subscriptions').select('user_id,plan,status,updated_at').limit(1000),
+      SB.from('app_sessions').select('user_id,install_id,app_version,platform,last_seen').limit(2000)
+    ]);
+    var quotaResult = results[0];
+    var subscriptionResult = results[1];
+    var sessionResult = results[2];
+    var quotaRows = quotaResult.data || [];
+    var subscriptionRows = subscriptionResult.data || [];
+    var sessionRows = sessionResult.data || [];
+    QUOTA_BY_USER = {};
+    SUBSCRIPTION_BY_USER = {};
+    INSTALLS_BY_USER = {};
+    quotaRows.forEach(function (row) { QUOTA_BY_USER[row.user_id] = row; });
+    subscriptionRows.forEach(function (row) { SUBSCRIPTION_BY_USER[row.user_id] = row; });
+    sessionRows.forEach(function (row) {
+      if (!INSTALLS_BY_USER[row.user_id]) INSTALLS_BY_USER[row.user_id] = [];
+      INSTALLS_BY_USER[row.user_id].push(row);
+    });
+    var reportedUsed = quotaRows.reduce(function (sum, row) { return sum + Number(row.used || 0); }, 0);
+    var effectiveLimit = quotaRows.reduce(function (sum, row) {
+      return sum + Number(row.token_limit || 0) + Number(row.bonus || 0);
+    }, 0);
+    var cutoff = Date.now() - 24 * 60 * 60 * 1000;
+    var activeInstalls = sessionRows.filter(function (row) {
+      return row.last_seen && new Date(row.last_seen).getTime() >= cutoff;
+    }).length;
+    document.getElementById('stat-quota-users').textContent = formatNumber(quotaRows.length);
+    document.getElementById('stat-reported-used').textContent = formatNumber(reportedUsed);
+    document.getElementById('stat-effective-limit').textContent = formatNumber(effectiveLimit);
+    document.getElementById('stat-active-installs').textContent = formatNumber(activeInstalls);
+    var errors = [];
+    if (quotaResult.error) errors.push('quota: ' + quotaResult.error.message);
+    if (subscriptionResult.error) errors.push('subscriptions: ' + subscriptionResult.error.message);
+    if (sessionResult.error) errors.push('sessions: ' + sessionResult.error.message);
+    var usageMessage = document.getElementById('usage-msg');
+    if (usageMessage) {
+      usageMessage.textContent = errors.length
+        ? 'Some usage data could not be loaded — ' + errors.join(' · ')
+        : 'Current quota snapshot loaded. Values are client-reported counters, not all-time billing-grade usage.';
+      usageMessage.style.color = errors.length ? '#F04438' : '';
+    }
+   }
+
+   async function loadStats() {
+    if (!SB || !HIVE_USER) return;
+    try {
+      var r = await SB.from('profiles').select('status', { count: 'exact' });
+      if (r.error) throw new Error(r.error.message);
+      var total = (typeof r.count === 'number') ? r.count : ((r.data && r.data.length) || 0);
+      var pending = 0, approved = 0, denied = 0;
+      if (r.data) {
+        r.data.forEach(function (u) {
+          if (u.status === 'pending') pending++;
+          else if (u.status === 'approved') approved++;
+          else if (u.status === 'denied') denied++;
+        });
+      }
+      document.getElementById('stat-count').textContent = total;
+      document.getElementById('stat-pending').textContent = pending;
+      document.getElementById('stat-approved').textContent = approved;
+      document.getElementById('stat-denied').textContent = denied;
+    } catch (e) { console.log(e); }
+  }
+
+  /* ═══════════════════════════ Users ═══════════════════════════ */
+  async function loadUsers() {
+    if (!SB || !HIVE_USER) return;
+    try {
+      var r = await SB.from('profiles').select('*').order('created_at', { ascending: false });
+      var container = document.getElementById('user-list');
+      if (r.error) {
+        container.innerHTML = '<p style="color:#F04438;text-align:center;padding:20px;">Could not load accounts: ' + esc(r.error.message) + '</p>';
+        return;
+      }
+      PROFILE_ROWS = r.data || [];
+      renderUsers(PROFILE_ROWS);
+    } catch (e) {
+      document.getElementById('user-list').innerHTML = '<p style="color:#F04438;text-align:center;padding:20px;">Could not load accounts: ' + esc(e.message || 'Unknown error') + '</p>';
+    }
+  }
+
+  function renderUsers(rows) {
+    var container = document.getElementById('user-list');
+    if (!container) return;
+    if (!rows || rows.length === 0) {
+      container.innerHTML = '<p style="color:var(--dim);text-align:center;padding:20px;">No accounts yet.</p>';
+      return;
+    }
+    var planLabels = { free: 'Free', unlock: 'Unlock', tokens_plus: 'Tokens Plus', token_max: 'Token Max' };
+    var html = rows.map(function (u) {
+      var st = (u.status || 'pending').toLowerCase();
+      var badgeCls = st === 'approved' ? 'approved' : (st === 'denied' || st === 'suspended') ? 'denied' : 'pending';
+      var safeId = esc(u.id);
+      var quota = QUOTA_BY_USER[u.id];
+      var subscription = SUBSCRIPTION_BY_USER[u.id];
+      var installs = INSTALLS_BY_USER[u.id] || [];
+       var plan = u.plan || '';
+       var planLabel = planLabels[plan] || (plan ? plan : 'Free');
+       var planCls = plan ? 'approved' : 'pending';
+       var planActions = [
+         { id: 'free', label: 'Free' },
+         { id: 'unlock', label: 'Unlock' },
+         { id: 'tokens_plus', label: 'Plus' },
+         { id: 'token_max', label: 'Max' }
+       ].map(function (option) {
+         var current = (plan || 'free') === option.id;
+         return '<button type="button" class="' + (current ? 'current' : '') + '" data-set-plan="' + option.id + '" data-user-id="' + safeId + '" aria-pressed="' + (current ? 'true' : 'false') + '">' + option.label + (current ? ' ✓' : '') + '</button>';
+       }).join('');
+       var extra = '';
+      if (u.profession) extra += ' · ' + esc(u.profession);
+      if (u.ui_mode) extra += ' · ' + esc(u.ui_mode) + ' mode';
+      if (u.assistant_prefs) extra += ' · [' + esc(u.assistant_prefs) + ']';
+      if (u.use_case && u.use_case !== u.profession) extra += ' · uses: ' + esc(u.use_case);
+      if (u.referral_source) extra += ' · heard: ' + esc(u.referral_source);
+      extra += ' · plan: ' + esc(planLabel);
+      if (subscription) extra += ' · billing: ' + esc(subscription.plan || 'unknown') + '/' + esc(subscription.status || 'unknown');
+      if (quota) {
+        var effectiveLimit = Number(quota.token_limit || 0) + Number(quota.bonus || 0);
+        extra += ' · ' + formatNumber(quota.used) + ' / ' + formatNumber(effectiveLimit) + ' tokens';
+        if (Number(quota.bonus || 0) > 0) extra += ' (+' + formatNumber(quota.bonus) + ' bonus)';
+        extra += ' · synced ' + esc(formatWhen(quota.updated_at));
+      } else {
+        extra += ' · no quota data';
+      }
+      if (installs.length) {
+        var latestHeartbeat = installs.reduce(function (latest, row) {
+          var current = row.last_seen ? new Date(row.last_seen).getTime() : 0;
+          return current > latest ? current : latest;
+        }, 0);
+        extra += ' · ' + installs.length + ' install' + (installs.length === 1 ? '' : 's') + ' · last ' + esc(latestHeartbeat ? formatWhen(latestHeartbeat) : 'unknown');
+      }
+      var suspendBtn = st === 'suspended'
+        ? '<button type="button" data-unsuspend="' + safeId + '" class="ok" style="min-width:80px;">Unsuspend</button>'
+        : '<button type="button" data-suspend="' + safeId + '" style="min-width:80px;">Suspend</button>';
+      return '<div class="row"><div class="who"><b>' + esc(u.display_name || u.email || 'User') + '</b><span>' + esc(u.email || '') + extra + '</span></div>'
+        + '<div class="acts"><span class="badge ' + planCls + '">' + esc(planLabel) + '</span>'
+        + '<span class="badge ' + badgeCls + '">' + esc(st) + '</span>'
+        + '<button type="button" data-approve="' + safeId + '" class="ok" style="min-width:60px;">Approve</button>'
+        + '<button type="button" data-deny="' + safeId + '" class="no" style="min-width:60px;">Deny</button>'
+         + suspendBtn
+         + '<button type="button" data-del-user="' + safeId + '" class="no" title="Delete account">✕</button></div>'
+         + '<div class="plan-actions"><span>Set plan</span>' + planActions + '</div></div>';
+    }).join('');
+    container.innerHTML = html;
+    container.querySelectorAll('[data-approve]').forEach(function (btn) {
+      btn.addEventListener('click', function () { window.approve(btn.getAttribute('data-approve')); });
+    });
+    container.querySelectorAll('[data-deny]').forEach(function (btn) {
+      btn.addEventListener('click', function () { window.deny(btn.getAttribute('data-deny')); });
+    });
+    container.querySelectorAll('[data-suspend]').forEach(function (btn) {
+      btn.addEventListener('click', function () { window.setStatus(btn.getAttribute('data-suspend'), 'suspended'); });
+    });
+    container.querySelectorAll('[data-unsuspend]').forEach(function (btn) {
+      btn.addEventListener('click', function () { window.setStatus(btn.getAttribute('data-unsuspend'), 'approved'); });
+    });
+    container.querySelectorAll('[data-del-user]').forEach(function (btn) {
+      btn.addEventListener('click', function () { window.deleteUser(btn.getAttribute('data-del-user')); });
+    });
+    container.querySelectorAll('[data-set-plan]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        setPlan(btn.getAttribute('data-user-id'), btn.getAttribute('data-set-plan'), btn);
+      });
+    });
+  }
+
+  async function setPlan(uid, plan, button) {
+    if (!SB || !HIVE_USER) { msg('usage-msg', 'Sign in first.'); return; }
+    var labels = { free: 'Free', unlock: 'Unlock', tokens_plus: 'Tokens Plus', token_max: 'Token Max' };
+    var label = labels[plan] || plan;
+    if (!confirm('Set this account to ' + label + '? This changes its app entitlement and daily allowance.')) return;
+    setButtonBusy(button, true, 'Saving…');
+    try {
+      var r = await SB.rpc('admin_set_user_plan', { p_user_id: uid, p_plan: plan });
+      if (r.error) throw new Error(r.error.message || 'Plan update failed');
+       msg('usage-msg', 'OK — plan set to ' + label + '.');
+       audit('Plan set to ' + label + ' for account ' + uid + '.');
+       await loadUsage();
+      await loadUsers();
+    } catch (e) {
+      msg('usage-msg', 'Error: ' + (e.message || 'Plan update failed'));
+      setButtonBusy(button, false);
+    }
+  }
+
+  /* ═══════════════════════════ Approve / Deny / Suspend / Delete ═══════════════════════ */
+  window.setStatus = async function (uid, status) {
+    if (!SB) { msg('usage-msg', 'Not signed in.'); return; }
+    try {
+      var r = await SB.from('profiles').update({ status: status }).eq('id', uid).select();
+      if (r.error) { msg('usage-msg', 'Error: ' + r.error.message); return; }
+      msg('usage-msg', 'OK — ' + status);
+      audit('Status changed to ' + status + ' for account ' + uid + '.');
+      loadUsers();
+      loadStats();
+    } catch (e) { msg('usage-msg', e.message || 'Error.'); }
+  };
+
+   window.deleteUser = async function (uid) {
+     if (!SB || !HIVE_USER) { msg('usage-msg', 'Not signed in.'); return; }
+     if (uid === HIVE_USER.id) { msg('usage-msg', 'You cannot delete the active admin account.'); return; }
+     if (!confirm('Permanently delete this account and revoke its login? This removes its profile, quota, subscription, and app sessions.')) return;
+     try {
+       msg('usage-msg', 'Deleting account…');
+       var r = await SB.rpc('admin_delete_user', { p_user_id: uid });
+       if (r.error) { msg('usage-msg', 'Delete failed: ' + r.error.message); return; }
+       if (r.data !== true) { msg('usage-msg', 'Delete failed: the account was not removed.'); return; }
+        PROFILE_ROWS = PROFILE_ROWS.filter(function (row) { return row.id !== uid; });
+        delete QUOTA_BY_USER[uid];
+        delete SUBSCRIPTION_BY_USER[uid];
+        delete INSTALLS_BY_USER[uid];
+        renderUsers(PROFILE_ROWS);
+       msg('usage-msg', 'OK — account and login deleted.');
+       audit('Account and login deleted for ' + uid + '.');
+       await loadStats();
+       await loadUsage();
+       await loadUsers();
+     } catch (e) { msg('usage-msg', 'Delete failed: ' + (e.message || 'Unknown error')); }
+   };
+
+  window.approve = async function (uid) { return window.setStatus(uid, 'approved'); };
+
+  window.deny = async function (uid) {
+    if (!SB) { msg('usage-msg', 'Not signed in.'); return; }
+    try {
+      var r = await SB.from('profiles').update({ status: 'denied' }).eq('id', uid);
+      if (r.error) { msg('usage-msg', 'Error: ' + r.error.message); return; }
+      msg('usage-msg', 'OK — denied');
+      audit('Status changed to denied for account ' + uid + '.');
+      loadUsers();
+      loadStats();
+    } catch (e) { msg('usage-msg', e.message || 'Error.'); }
+  };
+
+  /* New request — single handler (req-submit delegates to req-btn is gone; keep one path) */
+  async function createRequest() {
+    if (!SB || !HIVE_USER) { msg('req-note', 'Sign in first.'); return; }
+     var email = (document.getElementById('req-email').value || '').trim();
+     if (!email) { msg('req-note', 'Enter an email.'); return; }
+     try {
+       var r = await SB.from('waitlist_emails').insert({ email: email });
+       if (r.error) { msg('req-note', r.error.message || 'Error.'); return; }
+         msg('req-note', 'Request created — ' + email + ' can apply.');
+         audit('Access request created for ' + email + '.');
+         document.getElementById('req-email').value = '';
+       loadUsers();
+       loadStats();
+     } catch (e) {
+       msg('req-note', e.message || 'Error.');
+     }
+  }
+  document.getElementById('req-btn').addEventListener('click', createRequest);
+  document.getElementById('req-submit').addEventListener('click', createRequest);
+
+  /* Mobile menu */
+  (function () {
+    var btn = document.getElementById('menu-btn');
+    var showBtn = function () { if (btn) btn.style.display = window.innerWidth <= 980 ? 'inline-flex' : 'none'; };
+    showBtn();
+    window.addEventListener('resize', showBtn);
+  })();
+
+  /* ═══════════════════════════ Access codes: generate + list ═══════════════════════ */
+  function randomCode() {
+    var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    var s = '';
+    for (var i = 0; i < 6; i++) s += chars.charAt(Math.floor(Math.random() * chars.length));
+    return s;
+  }
+
+  async function loadCodes() {
+    if (!SB || !HIVE_USER) return;
+    var container = document.getElementById('code-list');
+    try {
+      var r = await SB.from('access_codes').select('id,code,label,buyer_email,order_id,is_active,use_count,max_uses,claimed_at,created_at').order('created_at', { ascending: false }).limit(50);
+      if (r.error) { msg('code-msg', 'Error: ' + r.error.message); return; }
+      if (!r.data || !r.data.length) {
+        container.innerHTML = '<p style="color:var(--dim);text-align:center;padding:20px;">No codes yet — generate some above.</p>';
+        return;
+      }
+      container.innerHTML = r.data.map(function (c) {
+        var spent = (c.use_count || 0) >= (c.max_uses || 1);
+        var state, cls;
+        if (!c.is_active) { state = 'revoked'; cls = 'denied'; }
+        else if (spent) { state = '✓ used up (' + (c.use_count || 0) + '/' + (c.max_uses || 1) + ')'; cls = 'denied'; }
+        else if (c.claimed_at) { state = 'claimed · ' + (c.use_count || 0) + '/' + (c.max_uses || 1) + ' used'; cls = 'approved'; }
+        else { state = 'unclaimed'; cls = 'pending'; }
+        return '<div class="row"><div class="who"><b style="font-family:monospace;letter-spacing:.08em;">' + esc(c.code) + '</b>'
+          + '<span>' + esc(c.label || 'no label') + (c.buyer_email ? ' · ✉ ' + esc(c.buyer_email) : '') + ' · uses ' + (c.use_count || 0) + '/' + (c.max_uses || 1) + '</span></div>'
+          + '<div class="acts"><span class="badge ' + cls + '">' + esc(state) + '</span>'
+          + '<button type="button" data-copy="' + esc(c.code) + '">Copy</button>'
+          + '<button type="button" class="no" data-del-code="' + esc(c.id) + '" title="Delete this code">✕</button></div></div>';
+      }).join('');
+       container.querySelectorAll('[data-copy]').forEach(function (btn) {
+         btn.addEventListener('click', async function () {
+           try {
+             await navigator.clipboard.writeText(btn.getAttribute('data-copy'));
+             btn.textContent = 'Copied!';
+             setTimeout(function () { btn.textContent = 'Copy'; }, 1400);
+           } catch (e) {
+             msg('code-msg', 'Copy failed — select the code manually.');
+           }
+         });
+       });
+      container.querySelectorAll('[data-del-code]').forEach(function (btn) {
+        btn.addEventListener('click', function () { deleteCode(btn.getAttribute('data-del-code')); });
+      });
+      msg('code-msg', 'Loaded ' + r.data.length + ' codes.');
+    } catch (e) { msg('code-msg', e.message || 'Error.'); }
+  }
+
+  async function deleteCode(id) {
+    if (!SB || !HIVE_USER) return;
+    if (!confirm('Delete this code?')) return;
+    try {
+      var r = await SB.from('access_codes').delete().eq('id', id);
+      if (r.error) { msg('code-msg', 'Error: ' + r.error.message); return; }
+      msg('code-msg', 'OK — code deleted.');
+      loadCodes();
+    } catch (e) { msg('code-msg', e.message || 'Error.'); }
+  }
+
+  document.getElementById('code-delete-used').addEventListener('click', async function () {
+    if (!SB || !HIVE_USER) { msg('code-msg', 'Sign in first.'); return; }
+    if (!confirm('Delete ALL spent codes (use_count >= max_uses)?')) return;
+    try {
+      var all = await SB.from('access_codes').select('id,use_count,max_uses');
+      if (all.error) { msg('code-msg', 'Error: ' + all.error.message); return; }
+      var spent = (all.data || []).filter(function (c) { return (c.use_count || 0) >= (c.max_uses || 1); });
+      if (!spent.length) { msg('code-msg', 'No spent codes to delete.'); return; }
+      var r = await SB.from('access_codes').delete().in('id', spent.map(function (c) { return c.id; }));
+      if (r.error) { msg('code-msg', 'Error: ' + r.error.message); return; }
+      msg('code-msg', 'OK — deleted ' + spent.length + ' spent codes.');
+      loadCodes();
+    } catch (e) { msg('code-msg', e.message || 'Error.'); }
+  });
+
+  document.getElementById('code-gen').addEventListener('click', async function () {
+    if (!SB || !HIVE_USER) { msg('code-msg', 'Sign in first.'); return; }
+    var label = (document.getElementById('code-label').value || '').trim();
+    var n = Math.max(1, Math.min(50, parseInt(document.getElementById('code-count').value || '5', 10)));
+    var uses = Math.max(1, Math.min(100, parseInt(document.getElementById('code-uses').value || '1', 10)));
+    msg('code-msg', 'Generating ' + n + ' codes (' + uses + ' use' + (uses === 1 ? '' : 's') + ' each)…');
+    var rows = [];
+    for (var i = 0; i < n; i++) rows.push({ code: randomCode(), label: label || null, max_uses: uses });
+    try {
+      var r = await SB.from('access_codes').insert(rows).select('code');
+      if (r.error) { msg('code-msg', 'Error: ' + r.error.message); return; }
+      msg('code-msg', 'OK — generated ' + (r.data ? r.data.length : n) + ' codes, ' + uses + ' use' + (uses === 1 ? '' : 's') + ' each.');
+      loadCodes();
+    } catch (e) { msg('code-msg', e.message || 'Error.'); }
+  });
+  document.getElementById('code-refresh').addEventListener('click', loadCodes);
+
+  /* ═══════════════════════════ Sales: start / end ═══════════════════════ */
+  function saleCountdown(endsAt) {
+    if (!endsAt) return 'no end timer';
+    var ms = new Date(endsAt).getTime() - Date.now();
+    if (ms <= 0) return 'expired';
+    var s = Math.floor(ms / 1000);
+    var d = Math.floor(s / 86400); s -= d * 86400;
+    var h = Math.floor(s / 3600); s -= h * 3600;
+    var m = Math.floor(s / 60);
+    return (d ? d + 'd ' : '') + h + 'h ' + m + 'm left';
+  }
+
+  async function loadSales() {
+    if (!SB || !HIVE_USER) return;
+    var container = document.getElementById('sale-list');
+    var activeBox = document.getElementById('sale-active');
+    var countEl = document.getElementById('old-sales-count');
+    try {
+      var r = await SB.from('sales').select('*').order('created_at', { ascending: false }).limit(20);
+      if (r.error) { msg('sale-msg', 'Error: ' + r.error.message); return; }
+      if (!r.data || !r.data.length) {
+        if (activeBox) activeBox.innerHTML = '';
+        container.innerHTML = '<p style="color:var(--dim);text-align:center;padding:20px;">No sales yet — start one above.</p>';
+        if (countEl) countEl.textContent = '';
+        return;
+      }
+      var now = Date.now();
+      var isLive = function (s) { return s.is_active && !(s.ends_at && new Date(s.ends_at).getTime() <= now); };
+      var live = r.data.filter(isLive);
+      var old = r.data.filter(function (s) { return !isLive(s); });
+      var rowHtml = function (s) {
+        var expired = s.ends_at && new Date(s.ends_at).getTime() <= now;
+        var on = isLive(s);
+        var cls = on ? 'approved' : 'denied';
+        var state = on ? '● ACTIVE' : (expired ? 'expired' : 'ended');
+        var timer = s.is_active ? ' · ⏳ ' + esc(saleCountdown(s.ends_at)) : '';
+        var endStr = s.ends_at ? ' · ends ' + esc(new Date(s.ends_at).toLocaleString()) : ' · no end timer';
+        return '<div class="row"><div class="who"><b>' + esc(s.label || 'Sale') + '</b>'
+          + '<span>Unlock €' + esc(s.unlock_price) + ' · Plus €' + esc(s.plus_price) + ' · Max €' + esc(s.max_price) + endStr + timer + '</span></div>'
+          + '<div class="acts"><span class="badge ' + cls + '">' + state + '</span>'
+          + (s.is_active ? '<button type="button" data-end-sale="' + esc(s.id) + '">End now</button>' : '') + '</div></div>';
+      };
+      if (activeBox) activeBox.innerHTML = live.length
+        ? '<div class="live-tag">LIVE NOW</div>' + live.map(rowHtml).join('')
+        : '<p style="font-size:13px;color:var(--dim);">No active sale — pricing shows defaults.</p>';
+      container.innerHTML = old.length
+        ? old.map(rowHtml).join('')
+        : '<p style="color:var(--dim);text-align:center;padding:20px;">No old sales.</p>';
+      if (countEl) countEl.textContent = old.length ? '(' + old.length + ')' : '';
+      container.querySelectorAll('[data-end-sale]').forEach(function (btn) {
+        btn.addEventListener('click', function () { endSale(btn.getAttribute('data-end-sale')); });
+      });
+      if (activeBox) activeBox.querySelectorAll('[data-end-sale]').forEach(function (btn) {
+        btn.addEventListener('click', function () { endSale(btn.getAttribute('data-end-sale')); });
+      });
+      if (live.length) msg('sale-msg', 'Live: "' + live[0].label + '" — Unlock €' + live[0].unlock_price + ' · ' + saleCountdown(live[0].ends_at) + '.');
+    } catch (e) { msg('sale-msg', e.message || 'Error.'); }
+  }
+
+  async function endSale(id) {
+    if (!SB || !HIVE_USER) return;
+    try {
+      var q = id
+        ? SB.from('sales').update({ is_active: false, ends_at: new Date().toISOString() }).eq('id', id)
+        : SB.from('sales').update({ is_active: false, ends_at: new Date().toISOString() }).eq('is_active', true);
+      var r = await q;
+      if (r.error) { msg('sale-msg', 'Error: ' + r.error.message); return; }
+      msg('sale-msg', 'OK — sale ended. Pricing shows defaults.');
+      loadSales();
+    } catch (e) { msg('sale-msg', e.message || 'Error.'); }
+  }
+
+  document.getElementById('sale-start').addEventListener('click', async function () {
+    if (!SB || !HIVE_USER) { msg('sale-msg', 'Sign in first.'); return; }
+    var label = (document.getElementById('sale-label').value || 'Sale').trim();
+    var unlock = parseFloat(document.getElementById('sale-unlock').value);
+    var plus = parseFloat(document.getElementById('sale-plus').value);
+    var max = parseFloat(document.getElementById('sale-max').value);
+    var endsRaw = document.getElementById('sale-ends').value;
+    if (isNaN(unlock) || isNaN(plus) || isNaN(max) || unlock < 0 || plus < 0 || max < 0) {
+      msg('sale-msg', 'Enter valid prices (0 or more).'); return;
+    }
+    var endsAt = endsRaw ? new Date(endsRaw).toISOString() : null;
+    if (endsAt && new Date(endsAt).getTime() <= Date.now()) { msg('sale-msg', 'End time must be in the future.'); return; }
+    msg('sale-msg', 'Starting sale…');
+    try {
+      await SB.from('sales').update({ is_active: false, ends_at: new Date().toISOString() }).eq('is_active', true);
+      var r = await SB.from('sales').insert([{
+        label: label, unlock_price: unlock, plus_price: plus, max_price: max,
+        is_active: true, ends_at: endsAt
+      }]).select('id');
+      if (r.error) { msg('sale-msg', 'Error: ' + r.error.message); return; }
+      msg('sale-msg', 'OK — "' + label + '" is live on /pricing.' + (endsAt ? ' Ends ' + new Date(endsAt).toLocaleString() + '.' : ''));
+      document.getElementById('sale-ends').value = '';
+      loadSales();
+    } catch (e) { msg('sale-msg', e.message || 'Error.'); }
+  });
+  document.getElementById('sale-end').addEventListener('click', function () { endSale(null); });
+  document.querySelectorAll('[data-preset-end]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var h = parseInt(btn.getAttribute('data-preset-end'), 10);
+      var d = new Date(Date.now() + h * 3600000);
+      var p = function (n) { return String(n).padStart(2, '0'); };
+      document.getElementById('sale-ends').value =
+        d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + 'T' + p(d.getHours()) + ':' + p(d.getMinutes());
+    });
+  });
+  setInterval(function () { if (HIVE_USER) loadUsage(); }, 30000);
+  // Refresh countdowns every minute while dashboard is open
+  setInterval(function () { if (HIVE_USER) loadSales(); }, 60000);
+
+  /* ═══════════════════════════ Claims inbox ═══════════════════════ */
+  async function loadClaims() {
+    if (!SB || !HIVE_USER) return;
+    var container = document.getElementById('claims-list');
+    try {
+      var r = await SB.from('claim_notifications').select('*').order('created_at', { ascending: false }).limit(50);
+      if (r.error) { msg('claims-msg', 'Error: ' + r.error.message); return; }
+      if (!r.data || !r.data.length) {
+        container.innerHTML = '<p style="color:var(--dim);text-align:center;padding:20px;">No claims yet.</p>';
+        return;
+      }
+      container.innerHTML = r.data.map(function (n) {
+        var mailto = n.email ? '<a href="mailto:' + esc(n.email) + '?subject=Hive%20download%20code%20' + esc(n.code) + '" style="color:var(--orange);">✉ reply</a>' : '<span style="color:var(--dim);">no email given</span>';
+        var when = n.created_at ? new Date(n.created_at).toLocaleString() : '';
+        return '<div class="row"><div class="who"><b style="font-family:monospace;letter-spacing:.08em;">' + esc(n.code) + '</b>'
+          + '<span>' + esc(n.email || 'anonymous') + ' · ' + esc(when) + '</span></div>'
+          + '<div class="acts">' + mailto + '</div></div>';
+      }).join('');
+      var countEl = document.getElementById('sent-emails-count');
+      if (countEl) countEl.textContent = '(' + r.data.length + ')';
+      msg('claims-msg', 'Loaded ' + r.data.length + ' claims.');
+    } catch (e) { msg('claims-msg', e.message || 'Error.'); }
+  }
+   document.getElementById('claims-refresh').addEventListener('click', loadClaims);
+
+   async function loadUpgradeRequests() {
+     if (!SB || !HIVE_USER) return;
+     var container = document.getElementById('upgrade-list');
+     try {
+       var r = await SB.from('waitlist_emails')
+         .select('id,email,plan_interest,created_at')
+         .not('plan_interest', 'is', null)
+         .order('created_at', { ascending: false })
+         .limit(100);
+       if (r.error) { msg('upgrade-msg', 'Error: ' + r.error.message); return; }
+       if (!r.data || !r.data.length) {
+         container.innerHTML = '<p style="color:var(--dim);text-align:center;padding:20px;">No upgrade requests yet.</p>';
+         msg('upgrade-msg', 'No upgrade requests.');
+         return;
+       }
+       container.innerHTML = r.data.map(function (n) {
+         var plan = n.plan_interest === 'token_max' ? 'Tokens Max' : 'Tokens Plus';
+         var when = n.created_at ? new Date(n.created_at).toLocaleString() : '';
+         return '<div class="row"><div class="who"><b>' + esc(n.email || 'No email') + '</b>'
+           + '<span>Wants ' + esc(plan) + ' · ' + esc(when) + '</span></div>'
+           + '<div class="acts"><span class="badge pending">' + esc(plan) + '</span></div></div>';
+       }).join('');
+       msg('upgrade-msg', 'Loaded ' + r.data.length + ' upgrade request' + (r.data.length === 1 ? '' : 's') + '.');
+     } catch (e) { msg('upgrade-msg', e.message || 'Error.'); }
+   }
+   document.getElementById('upgrade-refresh').addEventListener('click', loadUpgradeRequests);
+
+   /* ═══════════════════════════ Scroll helpers ═══════════════════════ */
+  var prog = document.getElementById('progress-bar');
+  var toTop = document.getElementById('to-top');
+  if (prog && toTop) {
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        requestAnimationFrame(function () {
+          var h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          var p = (document.documentElement.scrollTop || 0) / h;
+          prog.style.transform = 'scaleX(' + p + ')';
+          prog.setAttribute('aria-valuenow', Math.round(p * 100));
+          toTop.classList.toggle('show', p > 0.3);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+    toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  }
+
+  /* ═══════════════════════════ Spotlight follow ═══════════════════════════ */
+  document.querySelectorAll('.spotlight-card, .bento-card').forEach(function (card) {
+    card.addEventListener('pointermove', function (e) {
+      var r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+  });
+
+  /* ═══════════════════════════ Start ═══════════════════════════ */
+  loadSession();
+
+})();
+</script>

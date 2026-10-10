@@ -1,0 +1,5 @@
+/* Hand-written fixes on top of the generated account-page CSS. */
+.app-legacy .skip-link { position: absolute; left: -9999px; }
+.app-legacy .skip-link:focus { left: 1rem; top: 5rem; z-index: 70; }
+.app-legacy .section-head { max-width: none; text-align: left; margin: 0 0 18px; }
+.app-legacy .hero p:last-child { margin-inline: 0; }

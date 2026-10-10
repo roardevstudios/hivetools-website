@@ -1,0 +1,15 @@
+---
+// Account pages (auth, profile, stats, admin). Their markup and Supabase scripts are
+// carried over verbatim from the legacy site so sign-in flows behave exactly as before.
+import Base from './Base.astro';
+import '../styles/app/app.css';
+import '../styles/app/overrides.css';
+interface Props { title: string; html: string; noindex?: boolean }
+const { title, html, noindex } = Astro.props;
+---
+<Base title={title} noindex={noindex}>
+  <script is:inline src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+  <div class="app-legacy pt-24 sm:pt-28">
+    <Fragment set:html={html} />
+  </div>
+</Base>

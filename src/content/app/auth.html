@@ -1,0 +1,452 @@
+<div class="auth-wrap">
+
+  <div class="auth-card reveal">
+    <div id="auth-box">
+      <h1 id="auth-title">Welcome back</h1>
+      <p class="sub" id="auth-sub">Sign in to manage your plans, codes and downloads.</p>
+
+      <div id="desktop-device-notice" hidden style="margin-bottom: 14px; padding: 14px; background: linear-gradient(135deg, rgba(242, 193, 78, 0.1) 0%, rgba(242, 193, 78, 0.02) 100%); border: 1px solid rgba(242, 193, 78, 0.32); border-radius: 12px; text-align: left;">
+        <strong id="desktop-device-title" style="color: #F2C14E; font-weight: 650; display: block; margin-bottom: 4px;">Sign in to connect this device</strong>
+        <span id="desktop-device-copy" style="display: block; color: var(--text-dim); font-size: 12.5px; line-height: 1.6;">After you sign in, your browser will ask to open the Hive desktop app.</span>
+        <button id="desktop-device-continue" class="btn primary block" type="button" style="display: none; margin-top: 12px;">Continue to Hive</button>
+      </div>
+
+      <div style="margin-bottom: 14px; padding: 12px 14px; background: linear-gradient(135deg, rgba(242, 193, 78, 0.08) 0%, rgba(242, 193, 78, 0.02) 100%); border: 1px solid rgba(242, 193, 78, 0.28); border-radius: 12px; font-size: 12.5px; line-height: 1.6; color: var(--text-dim); text-align: left; display: flex; align-items: flex-start; gap: 11px;">
+        <span style="font-size: 16px; flex-shrink: 0; line-height: 1.35;" aria-hidden="true">🔒</span>
+        <div>
+          <strong style="color: #F2C14E; font-weight: 600; display: block; margin-bottom: 3px;">Public Beta downloads have been taken down</strong>
+          <span>The Hive v0.0.1 installer is no longer available from this website. Signing in still lets you manage your account. Google shows <strong style="color: var(--text); font-weight: 600;">hivetools.pro</strong> so you know it's really us — we only read your name and email address, never your Gmail, contacts or files.</span>
+        </div>
+      </div>
+
+      <button class="btn google block" id="google-btn" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.5 12.3c0-.9-.1-1.5-.3-2.3H12v4.5h6.5c-.1 1.1-.8 2.7-2.4 3.8l-.1.1 3.5 2.7.2.1c2.2-2 3.8-5 3.8-8.9z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 7.9-2.9l-3.8-2.9c-1 .7-2.4 1.2-4.1 1.2-3.2 0-5.9-2.1-6.8-5l-.1.1-3.7 2.9v.1C3.5 21.4 7.5 24 12 24z"/><path fill="#FBBC05" d="M5.2 14.4c-.2-.7-.4-1.5-.4-2.4s.1-1.7.4-2.4l-.1-.1-3.6-2.8-.1.1C.5 8.7 0 10.3 0 12s.5 3.3 1.4 4.7l3.8-2.3z"/><path fill="#EA4335" d="M12 4.7c1.8 0 3 .8 3.7 1.4l3.3-3.2C17.9 1.1 15.2 0 12 0 7.5 0 3.5 2.6 1.4 6.7l3.8 2.9c1-2.9 3.7-4.9 6.8-4.9z"/></svg>
+        Continue with Google
+      </button>
+
+      <div class="divider">or with email</div>
+
+      <div class="tabs">
+        <button type="button" id="tab-in" class="active">Sign in</button>
+        <button type="button" id="tab-up">Create account</button>
+      </div>
+
+      <form id="email-form">
+        <label for="au-email">Email</label>
+        <input id="au-email" type="email" autocomplete="username" placeholder="you@example.com" required />
+        <label for="au-pass">Password</label>
+        <input id="au-pass" type="password" autocomplete="current-password" placeholder="••••••••" required />
+
+        <button class="btn primary block" id="email-submit" type="submit" style="margin-top:20px;">Sign in</button>
+      </form>
+      <p id="auth-msg" role="status" aria-live="polite"></p>
+    </div>
+
+    <!-- ── Post-signup wizard ── -->
+    <div id="wizard">
+      <div class="wz-progress"><span id="wzp-1" class="done"></span><span id="wzp-2"></span><span id="wzp-3"></span></div>
+
+      <div class="wz-step active" id="wzs-1">
+        <h2>What do you do?</h2>
+        <p class="wz-sub">Choose the closest match to your everyday work.</p>
+        <div class="wz-grid" id="wz-prof"></div>
+        <button class="btn primary block wz-next" id="wz-next-1" type="button">Next</button>
+        <button class="wz-skip" data-skip type="button">Skip</button>
+      </div>
+
+      <div class="wz-step" id="wzs-2">
+        <h2>Choose your Hive mode</h2>
+        <p class="wz-sub">How should Hive show its work?</p>
+        <div class="wz-grid">
+          <button type="button" class="wz-card wide" data-mode="power">
+            <span class="row1">⌨ Power mode <span class="dot"></span></span>
+            <p>See commands, code and PC actions as Hive does them. Full detail, Allow/Deny on everything.</p>
+          </button>
+          <button type="button" class="wz-card wide" data-mode="easy">
+            <span class="row1">✨ Easy mode <span class="dot"></span></span>
+            <p>Just results and progress. Hive handles the technical details quietly in the background.</p>
+          </button>
+        </div>
+        <button class="btn primary block wz-next" id="wz-next-2" type="button">Next</button>
+        <button class="wz-skip" data-skip type="button">Skip</button>
+      </div>
+
+      <div class="wz-step" id="wzs-3">
+        <h2>Personalize Hive</h2>
+        <p class="wz-sub">Choose which features to enable.</p>
+        <div class="wz-grid">
+          <button type="button" class="wz-card wide" data-pref="buddy">
+            <span class="row1"><span class="wz-check"></span> Buddy at your cursor</span>
+            <p>Pop Hive open anywhere with Ctrl+Shift+J — even when the app is minimized.</p>
+          </button>
+          <button type="button" class="wz-card wide" data-pref="memory">
+            <span class="row1"><span class="wz-check"></span> Remember my preferences</span>
+            <p>Let Hive remember your settings and work context between sessions.</p>
+          </button>
+          <button type="button" class="wz-card wide" data-pref="voice">
+            <span class="row1"><span class="wz-check"></span> Voice answers</span>
+            <p>Dictate commands and hear responses spoken out loud.</p>
+          </button>
+        </div>
+        <label for="wz-hear">Where did you hear about us?</label>
+        <select id="wz-hear">
+          <option value="">Select…</option>
+          <option>Google / search</option>
+          <option>YouTube</option>
+          <option>Discord</option>
+          <option>Friend / word of mouth</option>
+          <option>Reddit / forum</option>
+          <option>Social media</option>
+          <option>Other</option>
+        </select>
+        <button class="btn primary block wz-next" id="wz-next-3" type="button">Get started</button>
+        <button class="wz-skip" data-skip type="button">Skip</button>
+      </div>
+    </div>
+  </div>
+
+  
+</div>
+
+<script>
+(function () {
+  var SB = null;
+  try {
+    SB = window.supabase.createClient(
+      'https://nqkmnmwbmikbgopwkvse.supabase.co',
+      'sb_publishable_p5TvTFyNO0-kS5yUQSkRXw_GBSsHec4', {
+        auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: 'pkce' }
+      });
+  } catch (e) { SB = null; }
+
+  var query = new URLSearchParams(window.location.search);
+  var storedDesktopLogin = false;
+  try {
+    storedDesktopLogin = sessionStorage.getItem('hive_desktop_login') === '1';
+    if (storedDesktopLogin) sessionStorage.removeItem('hive_desktop_login');
+  } catch (e) {}
+  var desktopLogin = storedDesktopLogin || (query.get('desktop') === '1' && query.get('proto') === '2');
+  var mode = 'in';
+  var authPending = false;
+  var tabIn = document.getElementById('tab-in');
+  var tabUp = document.getElementById('tab-up');
+  var title = document.getElementById('auth-title');
+  var sub = document.getElementById('auth-sub');
+  var submit = document.getElementById('email-submit');
+  var msgBox = document.getElementById('auth-msg');
+  var desktopNotice = document.getElementById('desktop-device-notice');
+  var desktopTitle = document.getElementById('desktop-device-title');
+  var desktopCopy = document.getElementById('desktop-device-copy');
+  var desktopContinue = document.getElementById('desktop-device-continue');
+  var handoffSession = null;
+
+  function showDesktopSession(session) {
+    handoffSession = session;
+    desktopTitle.textContent = 'You’re signed in';
+    desktopCopy.textContent = 'Continue to open Hive on this device.';
+    desktopContinue.style.display = 'block';
+  }
+
+  function handoffToDesktop(session) {
+    if (!desktopLogin || !session || !session.access_token || !session.refresh_token) return false;
+    showDesktopSession(session);
+    var url = 'hive://auth?access_token=' + encodeURIComponent(session.access_token) + '&refresh_token=' + encodeURIComponent(session.refresh_token);
+    window.location.href = url;
+    return true;
+  }
+
+  if (desktopLogin) {
+    desktopNotice.hidden = false;
+    desktopNotice.style.display = 'block';
+    desktopTitle.textContent = 'Sign in to connect this device';
+    desktopCopy.textContent = 'After you sign in, your browser will ask to open the Hive desktop app.';
+  }
+
+  desktopContinue.addEventListener('click', async function () {
+    if (handoffToDesktop(handoffSession)) return;
+    if (!SB) { msg('Sign-in is offline right now.', 'err'); return; }
+    try {
+      var stored = await SB.auth.getSession();
+      var session = stored.data && stored.data.session;
+      if (handoffToDesktop(session)) return;
+      msg('Sign in before continuing to Hive.', 'err');
+    } catch (err) {
+      msg(err.message || 'Could not continue to Hive.', 'err');
+    }
+  });
+
+  if (desktopLogin && SB) {
+    SB.auth.getSession().then(function (stored) {
+      var session = stored.data && stored.data.session;
+      if (session) showDesktopSession(session);
+    }).catch(function () {});
+  }
+
+  function msg(t, cls) {
+    msgBox.textContent = t || '';
+    msgBox.className = cls || '';
+  }
+  function setMode(m) {
+    mode = m;
+    tabIn.classList.toggle('active', m === 'in');
+    tabUp.classList.toggle('active', m === 'up');
+    title.textContent = desktopLogin
+      ? (m === 'in' ? 'Sign in to this device' : 'Create your Hive account')
+      : (m === 'in' ? 'Welcome back' : 'Create your account');
+    sub.textContent = desktopLogin
+      ? (m === 'in' ? 'Use your Hive account to connect this browser to the desktop app.' : 'Create an account, then return to Hive on this device.')
+      : (m === 'in' ? 'Sign in to manage your plans, codes and downloads.' : 'One account for downloads, plans and updates.');
+    submit.textContent = m === 'in' ? 'Sign in' : 'Create account';
+    msg('');
+  }
+  tabIn.addEventListener('click', function () { setMode('in'); });
+  tabUp.addEventListener('click', function () { setMode('up'); });
+  setMode(query.get('mode') === 'signup' ? 'up' : 'in');
+
+  document.querySelectorAll('a[href]').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      if (!authPending) return;
+      var href = link.getAttribute('href') || '';
+      if (!href || href.charAt(0) === '#' || link.target === '_blank' || link.hasAttribute('download')) return;
+      e.preventDefault();
+      msg('Finishing sign in…');
+    });
+  });
+
+  async function saveOnboarding(user) {
+    // Questions live only in the post-signup wizard now (single path).
+    return;
+  }
+
+  /* ── Wizard state ── */
+  var wzUser = null;
+  var wzData = { profession: '', ui_mode: '', prefs: [], referral: '' };
+  var PROFESSIONS = [
+    'Software / Data / AI', 'Business / Freelancing', 'Marketing / Content',
+    'Design / Creative', 'Students / Teaching', 'Research / Science',
+    'Finance / Office work', 'Customer support', 'Gaming / Streaming',
+    'School / Study', 'Everyday PC use', 'Other'
+  ];
+  (function buildProf() {
+    var grid = document.getElementById('wz-prof');
+    PROFESSIONS.forEach(function (p) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'wz-card'; b.setAttribute('data-prof', p);
+      var label = document.createElement('span'); label.textContent = p;
+      var dot = document.createElement('span'); dot.className = 'dot';
+      b.appendChild(label); b.appendChild(dot);
+      b.addEventListener('click', function () {
+        grid.querySelectorAll('.wz-card').forEach(function (x) { x.classList.remove('sel'); });
+        b.classList.add('sel');
+        wzData.profession = p;
+      });
+      grid.appendChild(b);
+    });
+  })();
+  document.querySelectorAll('#wzs-2 [data-mode]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('#wzs-2 [data-mode]').forEach(function (x) { x.classList.remove('sel'); });
+      b.classList.add('sel');
+      wzData.ui_mode = b.getAttribute('data-mode');
+    });
+  });
+  document.querySelectorAll('#wzs-3 [data-pref]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      b.classList.toggle('sel');
+      var p = b.getAttribute('data-pref');
+      var i = wzData.prefs.indexOf(p);
+      if (i >= 0) wzData.prefs.splice(i, 1); else wzData.prefs.push(p);
+    });
+  });
+
+  function wzShow(n) {
+    [1, 2, 3].forEach(function (i) {
+      document.getElementById('wzs-' + i).classList.toggle('active', i === n);
+      document.getElementById('wzp-' + i).classList.toggle('done', i <= n);
+    });
+  }
+  function startWizard(user) {
+    wzUser = user;
+    document.getElementById('auth-box').style.display = 'none';
+    document.getElementById('wizard').style.display = 'block';
+    wzShow(1);
+    window.scrollTo(0, 0);
+  }
+  async function saveWizard(finish) {
+    if (wzUser && SB) {
+      try {
+        wzData.referral = (document.getElementById('wz-hear').value || '').trim();
+        await SB.from('profiles').upsert({
+          id: wzUser.id,
+          email: wzUser.email,
+          profession: wzData.profession || null,
+          ui_mode: wzData.ui_mode || null,
+          assistant_prefs: wzData.prefs.join(',') || null,
+          referral_source: wzData.referral || null,
+          use_case: wzData.profession || null
+        }, { onConflict: 'id' });
+      } catch (e) {}
+    }
+    if (finish) {
+      var current = SB ? await SB.auth.getSession() : null;
+      var currentSession = current && current.data && current.data.session;
+      if (!handoffToDesktop(currentSession)) window.location.href = nextUrl();
+    }
+  }
+  document.getElementById('wz-next-1').addEventListener('click', function () { saveWizard(false); wzShow(2); });
+  document.getElementById('wz-next-2').addEventListener('click', function () { saveWizard(false); wzShow(3); });
+  document.getElementById('wz-next-3').addEventListener('click', function () { saveWizard(true); });
+  document.querySelectorAll('[data-skip]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var cur = document.querySelector('.wz-step.active');
+      if (cur && cur.id === 'wzs-3') saveWizard(true);
+      else if (cur && cur.id === 'wzs-2') { saveWizard(false); wzShow(3); }
+      else if (cur) { saveWizard(false); wzShow(2); }
+    });
+  });
+
+  function nextUrl() {
+    var next = query.get('next');
+    if (!next) {
+      try {
+        next = sessionStorage.getItem('hive_auth_next');
+        if (next) sessionStorage.removeItem('hive_auth_next');
+      } catch (e) {}
+    }
+    return next || '/profile';
+  }
+
+  document.getElementById('google-btn').addEventListener('click', async function () {
+    if (!SB) { msg('Sign-in is offline right now.', 'err'); return; }
+    authPending = true;
+    msg('Opening Google…');
+    try {
+      try {
+        if (desktopLogin) sessionStorage.setItem('hive_desktop_login', '1');
+        if (query.get('next')) sessionStorage.setItem('hive_auth_next', query.get('next'));
+      } catch (e) {}
+      var r = await SB.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: window.location.origin + '/auth?mode=oauth' }
+      });
+      if (r.error) {
+        authPending = false;
+        msg(r.error.message, 'err');
+      }
+    } catch (err) {
+      authPending = false;
+      msg(err.message || 'Could not open Google sign-in.', 'err');
+    }
+  });
+
+  document.getElementById('email-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    if (submit.disabled) return;
+    if (!SB) { msg('Sign-in is offline right now.', 'err'); return; }
+    var em = document.getElementById('au-email').value.trim();
+    var pw = document.getElementById('au-pass').value;
+    if (!em || !pw) { msg('Enter email and password.', 'err'); return; }
+    authPending = true;
+    submit.disabled = true;
+    if (mode === 'in') {
+      msg('Signing in…');
+      try {
+        var r = await SB.auth.signInWithPassword({ email: em, password: pw });
+        if (r.error) { authPending = false; submit.disabled = false; msg(r.error.message, 'err'); return; }
+        var session = r.data && r.data.session;
+        if (!session) {
+          var stored = await SB.auth.getSession();
+          session = stored.data && stored.data.session;
+        }
+        if (!session) {
+          authPending = false;
+          submit.disabled = false;
+          msg('Sign-in finished without saving a session. Please try again.', 'err');
+          return;
+        }
+        if (!handoffToDesktop(session)) window.location.href = nextUrl();
+      } catch (err) {
+        authPending = false;
+        submit.disabled = false;
+        msg(err.message || 'Sign-in failed.', 'err');
+      }
+    } else {
+      if (pw.length < 6) { authPending = false; submit.disabled = false; msg('Password needs 6+ characters.', 'err'); return; }
+      msg('Creating account…');
+      try {
+        var s = await SB.auth.signUp({ email: em, password: pw });
+        if (s.error) { authPending = false; submit.disabled = false; msg(s.error.message, 'err'); return; }
+        if (s.data.user) await saveOnboarding(s.data.user);
+        authPending = false;
+        submit.disabled = false;
+        if (!s.data.session) { msg('Check your inbox to confirm, then sign in.', 'ok'); setMode('in'); return; }
+        startWizard(s.data.user);
+      } catch (err) {
+        authPending = false;
+        submit.disabled = false;
+        msg(err.message || 'Account creation failed.', 'err');
+      }
+    }
+  });
+
+  // Returning from Google OAuth: save profile row, then wizard for new users
+  (async function () {
+    if (!SB) return;
+    if (query.get('mode') !== 'oauth') return;
+    try {
+      var s = await SB.auth.getSession();
+      var user = s.data && s.data.session && s.data.session.user;
+      if (user) {
+        var isNew = true;
+        try {
+          var existing = await SB.from('profiles').select('profession').eq('id', user.id).maybeSingle();
+          if (existing.data && existing.data.profession) isNew = false;
+          else await SB.from('profiles').upsert({ id: user.id, email: user.email }, { onConflict: 'id' });
+        } catch (e) {}
+        if (isNew) startWizard(user);
+        else if (!handoffToDesktop(s.data.session)) window.location.href = nextUrl();
+      }
+    } catch (e) {}
+  })();
+})();
+</script>
+
+
+<script>
+/* Hive shared chrome — scroll progress, back-to-top, scroll reveal, nav elevation.
+   Guarded so it can sit on every page without double-binding. */
+(function () {
+  if (window.__hiveChrome) return;
+  window.__hiveChrome = true;
+  var prog = document.getElementById('scroll-progress');
+  var toTop = document.getElementById('to-top');
+  var nav = document.getElementById('site-nav');
+  var ticking = false;
+  function onScroll() {
+    var h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var p = h > 0 ? (document.documentElement.scrollTop || 0) / h : 0;
+    if (prog) { prog.style.transform = 'scaleX(' + p + ')'; prog.setAttribute('aria-valuenow', Math.round(p * 100)); }
+    if (toTop) toTop.classList.toggle('show', p > 0.25);
+    if (nav) nav.classList.toggle('scrolled', (document.documentElement.scrollTop || 0) > 12);
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
+  }, { passive: true });
+  onScroll();
+  if (toTop) toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+  var els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(function (el) { el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>

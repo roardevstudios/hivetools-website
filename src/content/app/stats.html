@@ -1,0 +1,127 @@
+<main>
+    <section class="hero"><p class="eyebrow">Hive · overview</p><h1>Stats at a glance.</h1><p>Public product information for everyone. Sign in to see details for your Hive account.</p></section>
+    <section aria-labelledby="publicHeading">
+      <div class="section-head"><div><p class="eyebrow">01 · public</p><h2 id="publicHeading">The app</h2></div><span class="tag live">Public stats</span></div>
+      <div class="grid">
+        <article class="tile spotlight"><span class="label">Release status</span><strong>Taken down</strong><small>Public Beta downloads unavailable</small></article>
+        <article class="tile spotlight"><span class="label">Included AI allowance</span><strong data-count="50000">50,000</strong><small>tokens per day · Hive Free</small></article>
+        <article class="tile spotlight"><span class="label">Included voice allowance</span><strong data-count="5">5</strong><small>sessions per day</small></article>
+        <article class="tile spotlight"><span class="label">Workspace features</span><strong>Chat + agents</strong><small>voice, search, and shared Spaces</small></article>
+      </div>
+      <p class="note">These are published product limits and features, not visitor or download counters.</p>
+    </section>
+    <section class="section account" aria-labelledby="accountHeading">
+      <div class="section-head"><div><p class="eyebrow">02 · private</p><h2 id="accountHeading">Your account</h2></div><span class="tag">Only visible when signed in</span></div>
+      <div class="panel gate" id="signedOut" hidden>
+        <h3>Sign in to view your account stats</h3>
+        <p>Your member details and account usage belong to your signed-in Hive account.</p>
+        <div class="actions"><a class="button" href="/auth?next=/stats">Sign in</a><a class="button secondary" href="/auth?mode=signup&amp;next=/stats">Create account</a></div>
+      </div>
+      <div class="panel" id="signedIn" hidden>
+        <div class="signed"><div><h3 class="account-title">Your Hive account</h3><div class="signed-email" id="accountEmail"></div></div><div class="signed-actions"><button class="button secondary" id="refreshAccount" type="button">Refresh stats</button><button class="button secondary" id="signOut" type="button">Sign out</button></div></div>
+        <div class="grid account-grid" id="accountStats" aria-live="polite"></div>
+        <p class="status" id="accountStatus" role="status" aria-live="polite"></p>
+      </div>
+      <p class="status" id="loadStatus" role="status" aria-live="polite">Checking sign-in…</p>
+    </section>
+  </main>
+  
+  
+  <script>
+    (function(){
+      var URL='https://nqkmnmwbmikbgopwkvse.supabase.co';
+      var KEY='sb_publishable_p5TvTFyNO0-kS5yUQSkRXw_GBSsHec4';
+      var out=document.getElementById('signedOut'),inside=document.getElementById('signedIn'),sb=null,authListenerAdded=false;
+      var loadStatus=document.getElementById('loadStatus'),stats=document.getElementById('accountStats');
+      function makeTile(label,value,detail){var a=document.createElement('article');a.className='tile spotlight';var l=document.createElement('span');l.className='label';l.textContent=label;var v=document.createElement('strong');v.textContent=value;var d=document.createElement('small');d.textContent=detail;a.append(l,v,d);return a}
+      function showSignedOut(message){out.hidden=false;inside.hidden=true;loadStatus.textContent=message||''}
+      async function load(){
+        if(!window.supabase){showSignedOut('Account sign-in could not load. Refresh and try again.');return}
+        if(!sb)sb=window.supabase.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:'pkce'}});
+        if(!authListenerAdded){
+          authListenerAdded=true;
+          sb.auth.onAuthStateChange(function(event,session){
+            if(event==='SIGNED_OUT'||(event==='TOKEN_REFRESHED'&&!session))showSignedOut('You have signed out.');
+            else if(event==='SIGNED_IN')window.setTimeout(function(){load().catch(function(){showSignedOut('Could not load account stats. Refresh and try again.')})},0);
+          });
+        }
+        var result=await sb.auth.getSession();
+        if(result.error){showSignedOut('Could not check your sign-in. Refresh and try again.');return}
+        var user=result.data&&result.data.session&&result.data.session.user;
+        if(!user){showSignedOut('');return}
+        out.hidden=true;inside.hidden=false;loadStatus.textContent='';
+        document.getElementById('accountEmail').textContent=user.email||'Hive account';
+        document.getElementById('accountStatus').textContent='Loading your account details…';
+        stats.replaceChildren(makeTile('Account created',user.created_at?new Date(user.created_at).toLocaleDateString():'—','Hive member since'));
+        var profile=await sb.from('profiles').select('created_at,status,plan,customer_number').eq('id',user.id).maybeSingle();
+        var usage=await sb.from('usage_quotas').select('used,token_limit').eq('user_id',user.id).maybeSingle();
+        var plan=profile.data&&profile.data.plan;
+        var planName=plan==='public_beta'||!plan?'Hive Free':String(plan).replaceAll('_',' ');
+        var tiles=[
+          makeTile('Account created',profile.data&&profile.data.created_at?new Date(profile.data.created_at).toLocaleDateString():(user.created_at?new Date(user.created_at).toLocaleDateString():'—'),'Hive member since'),
+          makeTile('Account status',profile.data&&profile.data.status?String(profile.data.status).replaceAll('_',' '):'Active','Your account'),
+          makeTile('Plan',planName,'Current Hive plan')
+        ];
+        if(profile.data&&profile.data.customer_number)tiles.push(makeTile('Member number','#'+profile.data.customer_number,'Hive account'));
+        if(!usage.error&&usage.data){
+          var used=Math.max(0,Number(usage.data.used)||0),limit=Math.max(0,Number(usage.data.token_limit)||0);
+          var percent=limit?Math.min(100,Math.round(used/limit*100)):0;
+          var quotaTile=makeTile('Tokens used',used.toLocaleString()+' / '+limit.toLocaleString(),'Current quota window');
+          quotaTile.classList.add('spotlight','quota-tile');
+          var meter=document.createElement('div');meter.className='quota-meter';meter.setAttribute('role','progressbar');meter.setAttribute('aria-label','Current token quota used');meter.setAttribute('aria-valuemin','0');meter.setAttribute('aria-valuemax','100');meter.setAttribute('aria-valuenow',String(percent));meter.setAttribute('aria-valuetext',used.toLocaleString()+' of '+limit.toLocaleString()+' tokens used');
+          var fill=document.createElement('span');fill.className='quota-meter-fill';fill.style.setProperty('--quota',String(percent/100));meter.appendChild(fill);quotaTile.appendChild(meter);
+          var remaining=document.createElement('small');remaining.className='quota-remaining';remaining.textContent=Math.max(0,limit-used).toLocaleString()+' tokens remaining';quotaTile.appendChild(remaining);
+          tiles.push(quotaTile);
+        }
+        stats.replaceChildren.apply(stats,tiles);
+        var notices=[];
+        if(profile.error)notices.push('Some profile details are unavailable right now.');
+        if(usage.error)notices.push('Token usage is unavailable right now.');
+        document.getElementById('accountStatus').textContent=notices.length?'Signed in. '+notices.join(' '):'These details belong to your signed-in account.';
+        document.getElementById('signOut').onclick=async function(){
+          var button=this;button.disabled=true;document.getElementById('accountStatus').textContent='Signing out…';
+          try{
+            var signedOut=await sb.auth.signOut();
+            if(signedOut.error)throw signedOut.error;
+            showSignedOut('You have signed out.');
+          }catch(_error){button.disabled=false;document.getElementById('accountStatus').textContent='Could not sign out. Please try again.'}
+        };
+      }
+      document.getElementById('refreshAccount').addEventListener('click',async function(){
+        var button=this;button.disabled=true;button.textContent='Refreshing…';
+        document.getElementById('accountStatus').textContent='Refreshing your account stats…';
+        try{await load()}catch(_error){document.getElementById('accountStatus').textContent='Could not refresh your account stats. Try again.'}
+        finally{button.disabled=false;button.textContent='Refresh stats'}
+      });
+      load().catch(function(){showSignedOut('Could not load account stats. Refresh and try again.')});
+    })();
+  </script>
+  <script>
+    (function(){
+      var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(!reduce&&'IntersectionObserver' in window){
+        var observer=new IntersectionObserver(function(entries){
+          entries.forEach(function(entry){
+            if(!entry.isIntersecting)return;
+            var node=entry.target,target=Number(node.getAttribute('data-count'))||0,start=null,duration=720;
+            function frame(now){
+              if(start===null)start=now;
+              var t=Math.min(1,(now-start)/duration),eased=1-Math.pow(1-t,3);
+              node.textContent=Math.round(target*eased).toLocaleString();
+              if(t<1)requestAnimationFrame(frame);
+            }
+            requestAnimationFrame(frame);observer.unobserve(node);
+          });
+        },{threshold:.55});
+        document.querySelectorAll('[data-count]').forEach(function(node){observer.observe(node)});
+      }
+      if(reduce)return;
+      document.addEventListener('pointermove',function(event){
+        if(event.pointerType==='touch')return;
+        var tile=event.target.closest('.spotlight');if(!tile)return;
+        var rect=tile.getBoundingClientRect();
+        tile.style.setProperty('--mx',((event.clientX-rect.left)/rect.width*100)+'%');
+        tile.style.setProperty('--my',((event.clientY-rect.top)/rect.height*100)+'%');
+      },{passive:true});
+    })();
+  </script>
