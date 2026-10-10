@@ -10,3 +10,10 @@ export const NAV = [
   { href: '/benchmarks', label: 'Benchmarks' },
   { href: '/stats', label: 'Stats' },
 ];
+export const X_URL = 'https://x.com/RoarDEV2014';
+export const SITE_URL = 'https://hivetools.pro';
+
+// Public Supabase project + publishable key (safe to ship; access is enforced by RLS).
+// waitlist_emails allows anonymous INSERT only; reads are admin-only.
+export const SUPABASE_URL = 'https://nqkmnmwbmikbgopwkvse.supabase.co';
+export const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_p5TvTFyNO0-kS5yUQSkRXw_GBSsHec4';

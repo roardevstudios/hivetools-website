@@ -3,7 +3,8 @@ import Base from '../layouts/Base.astro';
 import SectionHead from '../components/SectionHead.astro';
 import DemoChat from '../components/DemoChat.astro';
 import BetaNotice from '../components/BetaNotice.astro';
-import { DISCORD, SUPPORT_EMAIL } from '../lib/site';
+import Waitlist from '../components/Waitlist.astro';
+import { DISCORD, SUPPORT_EMAIL, X_URL } from '../lib/site';
 
 const chapters = [[0, 'Intro'], [12, 'PC control'], [18, 'Research'], [36, 'Agent crew'], [43, 'Group chat'], [52, 'HiveBox'], [58, 'Usage'], [63, 'More']] as const;
 
@@ -61,9 +62,12 @@ const faq = [
           <span class="word text-gradient">your</span> <span class="word text-gradient">AI</span> <span class="word text-gradient">crew.</span>
         </h1>
         <p class="hero-in lead mx-auto mt-6 max-w-xl lg:mx-0">Research with sources. Hand off work to your crew. Let Buddy use your PC when you approve. Hive brings the whole workflow into one focused Windows desktop app.</p>
-        <div class="hero-in mt-8 flex flex-col justify-center gap-3 sm:flex-row lg:justify-start">
-          <a href={DISCORD} target="_blank" rel="noopener noreferrer" class="btn btn-primary !min-h-12 !px-6 text-base">Join the community</a>
-          <a href="#tour" class="btn btn-ghost !min-h-12 !px-6 text-base">Watch the tour ↓</a>
+        <div class="hero-in mt-8 flex flex-col items-center lg:items-start">
+          <Waitlist source="hero" cta="Get early access" />
+          <div class="mt-4 flex gap-4 text-sm">
+            <a href="#tour" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">Watch the tour ↓</a>
+            <a href={DISCORD} target="_blank" rel="noopener noreferrer" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">Join the Discord ↗</a>
+          </div>
         </div>
         <ol class="hero-in mt-10 grid grid-cols-3 gap-2 text-left text-xs sm:text-sm">
           {['Ask Hive anything', 'Your crew works together', 'You approve PC actions'].map((s, i) => (
@@ -225,6 +229,25 @@ const faq = [
         <h3 class="text-xl font-semibold">Cloud Computer</h3>
         <p class="mt-2 text-dim">A remote workspace for Hive agents to run tasks, use tools and return results to your desktop. Agent controls will stay in the Hive desktop app.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- Follow the build -->
+  <section id="community" class="wrap py-16">
+    <SectionHead eyebrow="Built in public" title="Follow the build." lead="We share what we’re working on, what broke and what’s next. Ideas from the community shape the roadmap." />
+    <div class="grid gap-4 md:grid-cols-2">
+      <a href={DISCORD} target="_blank" rel="noopener noreferrer" class="glass group block p-7 transition hover:-translate-y-1 hover:border-honey/40" data-reveal>
+        <span class="text-3xl" aria-hidden="true">💬</span>
+        <h3 class="mt-4 text-xl font-semibold">Discord community</h3>
+        <p class="mt-2 text-sm text-dim">Share ideas in #ideas, get help from the team, and hear about releases first in #announcements.</p>
+        <span class="mt-5 inline-block text-sm text-honey-2 transition group-hover:translate-x-1">Join the server →</span>
+      </a>
+      <a href={X_URL} target="_blank" rel="noopener noreferrer" class="glass group block p-7 transition hover:-translate-y-1 hover:border-honey/40" data-reveal style="--i:1">
+        <span class="font-display text-3xl font-bold text-text" aria-hidden="true">𝕏</span>
+        <h3 class="mt-4 text-xl font-semibold">Hive on X</h3>
+        <p class="mt-2 text-sm text-dim">Short demos, build notes and release news from the Apis team.</p>
+        <span class="mt-5 inline-block text-sm text-honey-2 transition group-hover:translate-x-1">Follow @RoarDEV2014 →</span>
+      </a>
     </div>
   </section>
 

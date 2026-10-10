@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import { DISCORD } from '../lib/site';
+import Waitlist from '../components/Waitlist.astro';
 
 const plans = [
   { name: 'Public Beta · v0.0.1', tag: 'Retired · unavailable', price: '€4.59', note: 'future retail price · no longer available', retired: true,
@@ -11,11 +12,11 @@ const plans = [
   { name: 'Tokens Plus', tag: 'Future option', price: '€8.59', per: '/ month', note: 'First month €7.59, then €8.59/mo · cancel anytime', featured: true,
     d: 'For frequent creators who need extra daily headroom. Opens after the public beta.',
     f: ['500,000 AI tokens / day', '100 voice sessions / day', 'Priority agent swarm routing', 'HiveBox cloud disk & background tasks', 'Available after Public Beta'],
-    cta: ['Get notified on Discord', DISCORD] },
+    plan: 'tokens_plus' as const },
   { name: 'Tokens Max', tag: 'Future option', price: '€11.59', per: '/ month', note: 'First month €10.59, then €11.59/mo · cancel anytime',
     d: 'Heavy-duty quota with unlimited voice and highest priority models. Opens after the public beta.',
     f: ['2,000,000 AI tokens / day', 'Unlimited voice sessions', 'Fastest models + priority swarm', 'HiveBox cloud tasks', 'Available after Public Beta'],
-    cta: ['Get notified on Discord', DISCORD] },
+    plan: 'token_max' as const },
 ];
 const compare = [
   ['App access (Windows 10/11)', 'Lifetime', 'Requires unlock', 'Requires unlock'],
@@ -60,7 +61,8 @@ const faq = [
           <ul class="mt-6 flex-1 space-y-2.5 text-sm">
             {p.f.map((f) => <li class="flex gap-2.5"><span class="text-honey">✓</span><span>{f}</span></li>)}
           </ul>
-          <a href={p.cta[1]} {...(p.cta[1].startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})} class:list={['btn mt-8 w-full', p.featured ? 'btn-primary' : 'btn-ghost']}>{p.cta[0]}</a>
+          {p.cta && <a href={p.cta[1]} class="btn btn-ghost mt-8 w-full">{p.cta[0]}</a>}
+          {p.plan && <div class="mt-8"><Waitlist plan={p.plan} source={p.plan} cta="Notify me" compact /></div>}
           {!p.retired && <p class="mt-3 text-center text-xs text-dim">Paid checkout opens after the beta · EUR incl. VAT</p>}
         </article>
       ))}

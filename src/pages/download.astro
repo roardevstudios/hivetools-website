@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { DISCORD } from '../lib/site';
+import Waitlist from '../components/Waitlist.astro';
 ---
 <Base title="Public Beta Taken Down — Hive" description="The Hive v0.0.1 Public Beta is no longer available to download.">
   <section class="wrap grid min-h-[85dvh] place-items-center pt-28 pb-10">
@@ -13,8 +14,9 @@ import { DISCORD } from '../lib/site';
       <div class="relative mt-6 rounded-2xl border border-line bg-panel-2/70 p-4 text-left text-sm text-dim">
         <strong class="text-text">Already installed Hive?</strong><br />This website change only removes the public download. It does not uninstall or alter copies already on your device. We can’t promise continued access to online services for older builds.
       </div>
-      <div class="relative mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-        <a class="btn btn-primary" href="/changelog">Read the latest updates</a>
+      <div class="relative mx-auto mt-8 flex max-w-lg flex-col items-center text-left"><p class="mb-3 self-start text-sm font-medium text-text">Get an email when the next release is ready:</p><Waitlist source="download" cta="Notify me" /></div>
+      <div class="relative mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+        <a class="btn btn-ghost" href="/changelog">Read the latest updates</a>
         <a class="btn btn-ghost" href={DISCORD} target="_blank" rel="noopener noreferrer">Join the community</a>
       </div>
     </div>
