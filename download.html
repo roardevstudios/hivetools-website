@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Public Beta Taken Down — Hive</title>
+<meta name="description" content="The Hive Public Beta has been taken down. The installer is no longer available from this website." />
+<link rel="canonical" href="https://hivetools.pro/download" />
+<meta name="theme-color" content="#080b12" />
+<link rel="icon" type="image/png" href="logohive.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="hive-ui.css?v=20261003" />
+<style>
+.shutdown { width:min(100% - 2rem, 820px); margin:clamp(72px,12vh,130px) auto 90px; text-align:center; }
+.shutdown-card { padding:clamp(26px,6vw,58px); border:1px solid rgba(255,179,108,.24); border-radius:26px; background:radial-gradient(ellipse at 50% 0,rgba(255,138,61,.15),transparent 55%),linear-gradient(150deg,#121a26,#0b1018); box-shadow:0 34px 100px rgba(0,0,0,.4); }
+.shutdown-icon { display:grid; place-items:center; width:58px; height:58px; margin:0 auto 22px; border:1px solid rgba(255,179,108,.24); border-radius:18px; background:rgba(255,138,61,.1); color:#ffbc82; font-size:1.5rem; }
+.shutdown-tag { display:inline-flex; padding:6px 11px; border:1px solid rgba(255,179,108,.24); border-radius:999px; color:#ffbf88; font-size:.68rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+.shutdown h1 { margin:20px 0 14px; font-size:clamp(2.35rem,7vw,4.2rem); letter-spacing:-.065em; line-height:1.02; }
+.shutdown-card > p { max-width:600px; margin:0 auto; color:#b3becc; font-size:clamp(.94rem,2vw,1.08rem); line-height:1.75; }
+.shutdown-note { max-width:590px; margin:26px auto 0; padding:16px 18px; border:1px solid rgba(166,186,216,.13); border-radius:13px; background:rgba(0,0,0,.18); color:#96a4b5; font-size:.8rem; line-height:1.7; text-align:left; }
+.shutdown-actions { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin-top:25px; }
+.shutdown-actions .btn { min-width:180px; }
+.shutdown-footer { width:min(100%,1120px); margin:0 auto; }
+@media(max-width:600px) { .shutdown { margin-top:56px; }.shutdown-actions { flex-direction:column; }.shutdown-actions .btn { width:100%; } }
+</style>
+<script src="hive-ui.js?v=20261003" defer></script>
+</head>
+<body>
+<div class="bg-aurora" aria-hidden="true"></div><div class="bg-grid" aria-hidden="true"></div><div class="bg-grain" aria-hidden="true"></div>
+<div class="nav-wrap"><nav class="nav" id="site-nav"><a class="brand" href="/"><img src="logohive.png" alt="Hive logo" width="28" height="28"><span>Hive</span></a><div class="nav-links"><a href="/">Home</a><a href="/use-cases">Use cases</a><a href="/docs">Docs</a><a href="/changelog">Changelog</a></div><div class="nav-actions"><a class="btn ghost sm" href="/changelog">Latest update</a><button class="nav-toggle" id="m-menu-btn" aria-label="Menu" aria-expanded="false">≡</button></div></nav><div class="nav-mobile" id="m-menu"><a href="/">Home</a><a href="/use-cases">Use cases</a><a href="/docs">Docs</a><a href="/changelog">Changelog</a></div></div>
+<main class="shutdown"><section class="shutdown-card" aria-labelledby="shutdown-title"><div class="shutdown-icon" aria-hidden="true">Ⅱ</div><span class="shutdown-tag">Release status · October 2026</span><h1 id="shutdown-title">The Hive Public Beta has been taken down.</h1><p>The v0.0.1 Public Beta is no longer available. We’ve removed its installer from this website while we prepare what comes next.</p><div class="shutdown-note"><strong style="color:#e5ebf2">Already installed Hive?</strong><br>This website change only removes the public download. It does not uninstall or alter copies already on your device. We can’t promise continued access to online services for older builds.</div><div class="shutdown-actions"><a class="btn primary lg" href="/changelog">Read the latest updates</a><a class="btn ghost lg" href="https://discord.gg/jN3MxRqvsV" target="_blank" rel="noopener noreferrer">Join the community</a></div></section></main>
+<footer class="footer shutdown-footer"><div class="foot-grid"><div><a class="foot-brand" href="/"><img src="logohive.png" alt="" width="24" height="24"> Hive</a><p class="foot-blurb">A desktop AI workspace by Apis.</p></div><div><h4>Product</h4><a href="/">Home</a><a href="/use-cases">Use cases</a></div><div><h4>Learn</h4><a href="/docs">Documentation</a><a href="/changelog">Changelog</a></div><div><h4>Support</h4><a href="mailto:apis.new.world@gmail.com">Contact Apis</a><a href="https://discord.gg/jN3MxRqvsV" target="_blank" rel="noopener noreferrer">Discord community</a></div></div><div class="foot-bottom"><span>© 2026 Apis. All rights reserved.</span><span>Public Beta downloads are unavailable</span></div></footer>
+</body>
+</html>
