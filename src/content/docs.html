@@ -1,0 +1,118 @@
+    <h2 id="overview">Overview</h2>
+    <p>Hive is a Windows desktop workspace. One window holds a chat column with cited answers, a code canvas, a roster of agent bots, HiveBox, and a system-wide buddy — an orange companion that trails your cursor and pops a notch island with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd>.</p>
+    <aside data-callout="green"><strong>Local-first.</strong> Chats, settings, and transcripts live on your machine.</aside>
+    <h2 id="get-hive">Download &amp; Install</h2>
+    <aside data-callout="honey"><strong>Public Beta taken down.</strong> Hive v0.0.1 is no longer available to download from this website. The installer has been removed. Visit the <a href="/changelog">changelog</a> for future release updates.</aside>
+    <p>If you already installed Hive, this website change does not uninstall or alter the copy on your device. Continued access to online services for older builds is not guaranteed.</p>
+    <h2 id="workspace-ui">Workspace UI</h2>
+    <p>Hive features a minimalist pro-tool interface designed around high density and deep focus. The interface is composed of four primary columns:</p>
+    <ul>
+      <li><strong>Icon Rail</strong> — Quick access to Workspace Chat, agent tools, projects, and settings.</li>
+      <li><strong>Collapsible Conversation Panel</strong> — Filter chats, jump between active threads grouped by date, or launch a new conversation instantly. Toggle with <kbd>Ctrl</kbd> + <kbd>B</kbd>.</li>
+      <li><strong>Pro Chat Stream &amp; Tactile Composer</strong> — Clean conversation thread with thinking indicators, inline code preview, file attachments, and tactile interactive send controls.</li>
+      <li><strong>Crew Panel</strong> — Slide-out workspace drawer for live code inspects, markdown files, browser steps, and tool outputs.</li>
+    </ul>
+    <h2 id="chat">Chat &amp; search</h2>
+    <p>Your messages render as right-aligned bubbles; assistant replies are full-width. Words like search, latest, news, who is, lookup trip the web pipeline. Answers arrive with <strong>Verified Sources</strong> cards: domain, title, snippet, links.</p>
+    <aside data-callout="honey">The mode pill in the title bar is Fast, Auto, Heavy, or Max — Hive picks the model for you.</aside>
+    <h2 id="buddy">Buddy</h2>
+    <ul>
+      <li><strong>Messages</strong> — every assistant reply carries the orange house avatar.</li>
+      <li><strong>Cursor</strong> — trails the mouse across screens with spring physics and a click-pop.</li>
+      <li><strong>System window</strong> — click-through, always on top, hides when Hive hides.</li>
+    </ul>
+    <p>Recolor it in Settings → Buddy Color: Orange, Ink, Ghost, Cobalt, Amber.</p>
+    <h2 id="notch">Notch &amp; hotkeys</h2>
+    <p>Press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd> anywhere — even with Hive minimized. A black pill pops at the top of your screen and opens into the Buddy panel. Dictate with the mic, type a question, or run slash commands. Esc dismisses. Tray → <strong>Ask Hive</strong> opens the same notch.</p>
+    <h2 id="pc">PC control</h2>
+    <p>Hive is designed with a strict human-in-the-loop permission flow. Operator waits for your explicit <strong>Allow / Deny</strong> approval before opening apps, running commands, moving the cursor, or typing. Destructive shell commands are blocked by security policy, internal reasoning remains private, and every action is recorded in the overlay audit log.</p>
+      <table>
+        <tbody><tr><th>Command</th><th>Does</th></tr>
+        <tr><td><code>/open &lt;app|url&gt;</code></td><td>Launches apps or URLs</td></tr>
+        <tr><td><code>/run &lt;powershell&gt;</code></td><td>Runs a shell command, returns output</td></tr>
+        <tr><td><code>/click &lt;x&gt; &lt;y&gt;</code></td><td>Moves the cursor and left-clicks</td></tr>
+        <tr><td><code>/type &lt;text&gt;</code></td><td>Types into the focused window</td></tr>
+      </tbody></table>
+    <h2 id="swarm">Swarm &amp; bots</h2>
+    <p>Scout, Hive, and Pulse start <strong>together</strong> on one message. Critic only runs after Hive answers. Sentry watches tool calls and rewrites fake citations or destructive commands. A swarm strip appears when two or more agents overlap.</p>
+    <h2 id="palette">Command palette</h2>
+    <p><kbd>Ctrl</kbd> + <kbd>K</kbd> opens the palette: new chat, group, Buddy, canvas, settings, workers, notch.</p>
+    <h2 id="modes">Modes</h2>
+      <table>
+        <tbody><tr><th>Mode</th><th>Use it when</th></tr>
+        <tr><td>Fast</td><td>Quick answers, lowest wait.</td></tr>
+        <tr><td>Auto</td><td>Default. Hive balances speed and quality.</td></tr>
+        <tr><td>Heavy</td><td>Harder questions, more analysis.</td></tr>
+        <tr><td>Max</td><td>Deepest pass. Slowest, most thorough.</td></tr>
+      </tbody></table>
+    <h2 id="cloud">HiveBox</h2>
+    <p>The right-side panel is a live view of HiveBox: a tiny disk, logs, and concurrent Scout / Hive / Pulse jobs. Toggle it in the title bar. Commands: ls, cat, echo, pwd, uname.</p>
+    <h2 id="settings">Settings</h2>
+      <table>
+        <tbody><tr><th>Tab</th><th>Controls</th></tr>
+        <tr><td>General</td><td>Enter-to-send, auto canvas, Buddy toggle + model + color, workspace export, history clear</td></tr>
+        <tr><td>Models</td><td>Default model, thinking mode, system instructions</td></tr>
+        <tr><td>Appearance</td><td>Accent color, reduced motion</td></tr>
+        <tr><td>Integrations</td><td>Chrome extension bridge</td></tr>
+        <tr><td>Shortcuts</td><td>Full hotkey reference</td></tr>
+      </tbody></table>
+    <h2 id="shortcuts">Shortcuts</h2>
+      <table>
+        <tbody><tr><th>Keys</th><th>Action</th></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>K</kbd></td><td>Command palette</td></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd></td><td>Buddy notch anywhere</td></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd></td><td>Show / hide Hive window</td></tr>
+        <tr><td><kbd>Enter</kbd> / <kbd>Shift</kbd> + <kbd>Enter</kbd></td><td>Send / newline</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Close dialog, modal, or notch</td></tr>
+      </tbody></table>
+    <h2 id="faq">FAQ</h2>
+    <h3>Windows only?</h3>
+    <p>Yes, today — the buddy click/type engine is Windows-native.</p>
+    <h3>Is it free?</h3>
+    <p>The Hive Public Beta has been taken down and the v0.0.1 installer is no longer available from this website. Future release details will be posted on the <a href="/changelog">changelog</a>.</p>
+    <h3>Where is my data?</h3>
+    <p>On your machine: chats and settings in local storage. The website keeps only auth + profile rows.</p>
+    <h3>The buddy vanished!</h3>
+    <p>It hides with the app by design — show Hive and it returns.</p>
+    <h2 id="security">Security &amp; Account Safety</h2>
+    <p>Hive uses Supabase for sign-in and account storage. Your browser keeps the active session locally so you stay signed in across Hive pages; you can sign out from your profile at any time.</p>
+    <h3>Keeping your account safe</h3>
+    <ul>
+      <li>Use a unique password and do not share your sign-in session.</li>
+      <li>Sign out on shared or public computers after using your account.</li>
+      <li>Contact <a href="mailto:apis.new.world@gmail.com">apis.new.world@gmail.com</a> if you see unexpected account activity.</li>
+    </ul>
+    <p>For password recovery, use <strong>Forgot password?</strong> on the <a href="/auth">sign-in page</a>.</p>
+    <h2 id="privacy">Privacy Policy</h2>
+    <p><i>Last updated: September 2026.</i> Hive ("we", "Apis") makes the Hive desktop app and the hivetools.pro website.</p>
+    <h3>What we collect</h3>
+    <ul>
+      <li><b>Account data:</b> your email, display name and onboarding answers (profession, preferences, referral source) when you sign up.</li>
+      <li><b>Purchase data:</b> order IDs and buyer email from PayPal when you buy Unlock or a token plan. We never see your card details — PayPal handles payment.</li>
+      <li><b>Usage data:</b> token and voice-session counters, so your daily quota is enforced on our side rather than only on your machine.</li>
+      <li><b>Local data stays local:</b> your chats, settings and transcripts live on your machine, not on our servers. They are <b>not</b> synced between your devices.</li>
+    </ul>
+    <h3>How we use it</h3>
+    <p>To run your account, enforce quotas, provide product information, and improve Hive. We do not sell your data and we do not show ads.</p>
+    <h3>Sharing</h3>
+    <p>We share the minimum necessary with our processors: Supabase (hosting/auth/database), PayPal (payments) and Google (if you sign in with Google). No other third parties.</p>
+    <h3>Your rights</h3>
+    <p>Ask for a copy, correction or deletion of your data any time at <a href="mailto:apis.new.world@gmail.com">apis.new.world@gmail.com</a>. Deleting your account removes your profile, quota and subscription rows; PayPal keeps its own transaction records.</p>
+    <h3>Retention</h3>
+    <p>We keep account and purchase records while your account exists and up to 3 years after, for fraud prevention and accounting. Anonymized usage stats may be kept longer.</p>
+    <h2 id="terms">Terms of Service</h2>
+    <p><i>Last updated: September 2026.</i> By downloading or using Hive you agree to these terms.</p>
+    <h3>License</h3>
+    <p>Unlock gives you a personal, non-transferable license for the Hive Windows app, including all v0.x updates. One access code covers the uses stated at purchase — don't share codes publicly.</p>
+    <h3>Token plans</h3>
+    <p>Tokens Plus and Tokens Max are monthly subscriptions billed via PayPal. Daily token and voice limits reset every 24 hours; unused quota doesn't roll over. Cancel anytime in PayPal → Settings → Payments — you keep your limits until the billing period ends.</p>
+    <h3>Fair use</h3>
+    <p>Don't abuse the service: no reselling access, no circumventing quotas or codes, no using Hive to harm systems you don't own or have permission to touch. PC-control actions always need your explicit Allow — you are responsible for what you approve.</p>
+    <h3>Availability</h3>
+    <p>Hive is a preview (Windows 10/11). Features may change, break or move between plans. We aim for reliability but give no uptime guarantees.</p>
+    <h3>Refunds</h3>
+    <p>Unlock is a digital license delivered instantly, so it's generally non-refundable — but if your code never worked, contact us within 14 days at <a href="mailto:apis.new.world@gmail.com">apis.new.world@gmail.com</a> and we'll make it right. Subscriptions can be cancelled anytime; the current month is not refunded.</p>
+    <h3>Liability</h3>
+    <p>Hive is provided "as is". To the maximum extent allowed by law, we are not liable for indirect damages or for actions the app takes with your approval.</p>
+    <h3>Contact</h3>
+    <p>Questions about these terms: <a href="mailto:apis.new.world@gmail.com">apis.new.world@gmail.com</a>.</p>

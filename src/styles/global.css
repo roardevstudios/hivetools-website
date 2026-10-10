@@ -87,3 +87,8 @@
 @media (prefers-reduced-motion: no-preference) {
   .js #hero-title .word, .js .hero-in { opacity: 0; }
 }
+
+.prose-hive aside[data-callout] { @apply my-5 block rounded-2xl border border-honey/30 bg-honey/[.06] p-4 text-sm leading-relaxed text-soft; }
+.prose-hive aside[data-callout='green'] { @apply border-mint/30 bg-mint/[.06]; }
+.prose-hive table { display: block; overflow-x: auto; }
+.prose-hive h2 { @apply border-t border-line pt-12 first:border-0 first:pt-0; }

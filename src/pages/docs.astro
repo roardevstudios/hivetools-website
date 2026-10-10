@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+import body from '../content/docs.html?raw';
+
+const groups: [string, [string, string][]][] = [
+  ['Start', [['overview', 'Overview'], ['get-hive', 'Download & Install']]],
+  ['Use', [['workspace-ui', 'Workspace UI'], ['chat', 'Chat & search'], ['buddy', 'Buddy'], ['notch', 'Notch & hotkeys'], ['pc', 'PC control'], ['swarm', 'Swarm & bots'], ['palette', 'Command palette'], ['modes', 'Modes'], ['cloud', 'HiveBox']]],
+  ['Configure', [['settings', 'Settings'], ['shortcuts', 'Shortcuts']]],
+  ['Help', [['faq', 'FAQ'], ['security', 'Security'], ['privacy', 'Privacy'], ['terms', 'Terms']]],
+];
+---
+<Base title="Hive Docs — overview" description="How to use Hive: workspace, chat and research, Buddy, PC control, the agent swarm, HiveBox, settings and shortcuts.">
+  <div class="wrap pt-28 sm:pt-36">
+    <header class="max-w-3xl" data-reveal>
+      <span class="eyebrow">Documentation</span>
+      <h1 class="mt-4 text-4xl font-bold sm:text-6xl">Hive documentation</h1>
+      <p class="lead mt-5">The desktop AI that does things: chat, research, code, and a buddy that clicks your PC for you.</p>
+    </header>
+
+    <!-- Mobile section picker -->
+    <div class="sticky top-[4.5rem] z-30 -mx-4 mt-8 border-y border-line bg-ink/85 px-4 py-2 backdrop-blur-xl lg:hidden">
+      <label class="sr-only" for="doc-jump">Jump to section</label>
+      <select id="doc-jump" class="min-h-11 w-full rounded-xl border border-line bg-panel px-3 text-sm text-text">
+        {groups.map(([g, items]) => <optgroup label={g}>{items.map(([id, l]) => <option value={id}>{l}</option>)}</optgroup>)}
+      </select>
+    </div>
+
+    <div class="mt-10 grid gap-12 lg:grid-cols-[220px_1fr]">
+      <aside class="hidden lg:block">
+        <nav class="sticky top-28 space-y-6 text-sm" aria-label="Docs">
+          {groups.map(([g, items]) => (
+            <div>
+              <p class="mb-2 text-xs font-semibold uppercase tracking-[.16em] text-dim">{g}</p>
+              <ul class="space-y-0.5 border-l border-line">
+                {items.map(([id, l]) => <li><a href={`#${id}`} data-toc={id} class="-ml-px block border-l border-transparent py-1 pl-4 text-dim transition hover:text-text">{l}</a></li>)}
+              </ul>
+            </div>
+          ))}
+        </nav>
+      </aside>
+      <article class="prose-hive min-w-0 max-w-3xl" set:html={body} />
+    </div>
+  </div>
+</Base>
+
+<style is:global>
+  [data-toc].active { border-color: var(--color-honey); color: var(--color-text); }
+</style>
+
+<script>
+  const links = new Map([...document.querySelectorAll<HTMLAnchorElement>('[data-toc]')].map((a) => [a.dataset.toc!, a]));
+  const jump = document.getElementById('doc-jump') as HTMLSelectElement;
+  jump.addEventListener('change', () => document.getElementById(jump.value)?.scrollIntoView({ behavior: 'smooth' }));
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) {
+      links.forEach((a) => a.classList.remove('active'));
+      links.get(e.target.id)?.classList.add('active');
+      if (links.has(e.target.id)) jump.value = e.target.id;
+    }
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  document.querySelectorAll('.prose-hive h2[id]').forEach((h) => io.observe(h));
+</script>

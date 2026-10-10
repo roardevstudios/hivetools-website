@@ -1,0 +1,116 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+
+const stats = [['157', 'Hive app checks', 'Automated checks passed across application suites'], ['116', 'Feature & scenario', 'Search, citations, app flows, boundaries and scenarios'], ['31', 'Node feature tests', 'Chat history, skills, voice playback and app logic'], ['10', 'Adversarial checks', 'Rapid input, lifecycle cleanup and layout boundaries']];
+const apps = ['Hive', 'Grok Bot', 'ChatGPT Dots', 'OpenMausBot'];
+const cats = [['all', 'All features'], ['work', 'Agent work'], ['computer', 'Computer use'], ['automation', 'Automation'], ['voice', 'Voice'], ['connections', 'Connections']];
+type Cell = [string, string];
+const rows: { cat: string; t: string; d: string; cells: Cell[] }[] = [
+  { cat: 'work', t: 'Chat & agent work', d: 'How each app takes on multi-step work', cells: [['Automated checks pass', 'Chat and scenario suites pass locally.'], ['Documented', 'Persistent bots with roles and context.'], ['Documented', 'Always-on agents with persistent context.'], ['Documented', 'Bots backed by configurable agent engines.']] },
+  { cat: 'computer', t: 'Computer & browser', d: 'Access to a browser or desktop environment', cells: [['Code present · UI removed', 'HiveComputer remains in source; Computer was removed from HiveBox.'], ['Documented', 'Cloud browser, files and terminal.'], ['Documented', 'Cloud computer; local access has controls.'], ['Documented', 'Local computer is opt-in per bot.']] },
+  { cat: 'automation', t: 'Background & scheduled work', d: 'Work that continues or runs on a schedule', cells: [['Runner present · UI hidden', 'Subagent interval runner is implemented; strip is disabled.'], ['Documented', 'Persistent bots and team bots.'], ['Documented', 'Background work and scheduled tasks.'], ['Documented', 'Repeating routines; local schedules need the app running.']] },
+  { cat: 'voice', t: 'Voice input & output', d: 'Listening, transcripts and spoken responses', cells: [['Tests pass · account gated', 'Transcript and playback logic tests pass; entitlement required and widgets hidden.'], ['Not assessed', 'Not evaluated in this feature comparison.'], ['Not assessed', 'Not evaluated in this feature comparison.'], ['Not assessed', 'Not evaluated in this feature comparison.']] },
+  { cat: 'connections', t: 'Apps & integrations', d: 'Connecting services, tools and shared context', cells: [['Code paths present', 'Supabase, MCP, skills and integrations; live credentials not tested.'], ['Documented', 'Team bots collaborate in the bot computer.'], ['Documented', 'Connected apps and workspace controls.'], ['Documented', 'App integrations and per-bot permissions.']] },
+  { cat: 'connections', t: 'Permissions & safety', d: 'Controls around access and actions', cells: [['Automated checks pass', 'Local entitlement and consent checks pass; live server behavior not established.'], ['Documented', 'Cloud computer and team controls described.'], ['Documented', 'Workspace-level computer and app controls.'], ['Documented', 'Per-bot permissions, approvals and secrets.']] },
+];
+const tone = (s: string) => /pass/i.test(s) ? 'text-mint border-mint/30 bg-mint/10' : /not assessed/i.test(s) ? 'text-dim border-line' : /Documented/.test(s) ? 'text-sky-300 border-sky-400/30 bg-sky-400/10' : 'text-honey-2 border-honey/30 bg-honey/10';
+const sources = [
+  ['Grok Bot', 'Product overview', 'https://docs.x.ai/grok-bot/overview'], ['Grok Bot', 'Team bots', 'https://docs.x.ai/grok-bot/team-bots'],
+  ['ChatGPT Dots', 'Getting started', 'https://help.openai.com/ml/en/articles/20001530-getting-started-with-your-dot'], ['ChatGPT Dots', 'Workspace controls', 'https://help.openai.com/en/articles/20001554-manage-dots-in-chatgpt-workspaces'],
+  ['OpenMausBot', 'Agent engines', 'https://docs.openmausbot.com/docs/providers'], ['OpenMausBot', 'Local computer', 'https://docs.openmausbot.com/docs/computers/local-computer'],
+  ['OpenMausBot', 'Routines', 'https://docs.openmausbot.com/docs/features/automation'], ['OpenMausBot', 'Permissions & secrets', 'https://docs.openmausbot.com/docs/security/permissions-and-secrets'],
+];
+const faq = [
+  ['What exactly did Hive’s test run cover?', 'Three local suites ran successfully: 116 Tier 1–4 feature, boundary, interaction and scenario checks; 31 Node feature tests; and 10 Tier 5 adversarial checks. Areas include search and citations, entitlement gates, feedback, quota/RPC wiring, chat history, group bot discussion, user skills, voice transcript filtering and playback completion/error paths. These tests exercise local code and mocks. They do not prove provider uptime, real microphone permissions or a successful authenticated Supabase session.'],
+  ['Why is Hive voice shown as partial?', 'Voice behavior has automated local checks, but access is gated by an explicit account grant. In the current Hive source, the voice widgets and voice mode selector are hidden by feature flags. A passing playback test does not mean every user can open voice in the live app.'],
+  ['What is still unverified?', 'Live Supabase sign-in, row-level security and authenticated RPC responses. Real provider and integration credentials and service uptime. Hands-on competitor workflows in Grok Bot, ChatGPT Dots and OpenMausBot. Those are intentionally labeled unverified rather than counted as passes.'],
+];
+---
+<Base title="App Functionality Benchmarks — Hive" description="What each app can do, and what Hive’s own automated tests actually verify.">
+  <PageHero eyebrow="App functionality · 2026 test run" title="How well do the apps work?" lead="A practical look at what each app can do, and what Hive’s own tests actually verify. No model rankings. Just app functionality.">
+    <p class="mt-4 text-sm text-dim">Updated October 2, 2026 · Automated local tests + public documentation</p>
+  </PageHero>
+
+  <section class="wrap">
+    <div class="grid grid-cols-2 gap-3 lg:grid-cols-4">
+      {stats.map(([n, t, d], i) => (
+        <div class="glass p-5" data-reveal style={`--i:${i}`}>
+          <span class="rounded-full border border-mint/30 bg-mint/10 px-2 py-0.5 text-[10px] font-bold tracking-wider text-mint">PASS</span>
+          <p class="mt-3 font-display text-4xl font-bold text-text">{n}</p>
+          <p class="mt-1 text-sm font-medium text-text">{t}</p>
+          <p class="mt-1 text-xs text-dim">{d}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap py-20" id="matrix">
+    <h2 class="h-section" data-reveal>Capabilities, side by side.</h2>
+    <p class="lead mt-4" data-reveal>Filter by category to see how each app handles the same capability.</p>
+    <div class="sticky top-[4.5rem] z-20 -mx-4 mt-8 flex gap-2 overflow-x-auto bg-ink/80 px-4 py-3 backdrop-blur-xl [scrollbar-width:none] sm:mx-0 sm:px-0" role="group" aria-label="Filter capabilities">
+      {cats.map(([id, l], i) => <button type="button" data-filter={id} aria-pressed={i === 0 ? 'true' : 'false'} class="shrink-0 rounded-full border border-line px-4 py-2 text-sm text-dim transition aria-pressed:border-honey/50 aria-pressed:bg-honey/10 aria-pressed:text-text">{l}</button>)}
+    </div>
+    <div class="mt-6 space-y-4">
+      {rows.map((r, i) => (
+        <article data-category={r.cat} class="bench-row glass p-5 transition-all duration-500 sm:p-6">
+          <div class="flex items-baseline justify-between gap-4">
+            <div><h3 class="text-lg font-semibold">{r.t}</h3><p class="text-sm text-dim">{r.d}</p></div>
+            <span class="shrink-0 text-xs uppercase tracking-widest text-dim">0{i + 1}</span>
+          </div>
+          <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {r.cells.map(([s, d], j) => (
+              <div class:list={['rounded-2xl border p-4', j === 0 ? 'border-honey/30 bg-honey/[.04]' : 'border-line bg-panel-2/60']}>
+                <p class="text-sm font-semibold text-text">{apps[j]}</p>
+                <span class:list={['mt-2 inline-block rounded-full border px-2 py-0.5 text-xs', tone(s)]}>{s}</span>
+                <p class="mt-2 text-xs leading-relaxed text-dim">{d}</p>
+              </div>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+    <p id="bench-count" class="mt-4 text-center text-sm text-dim" aria-live="polite">Showing all capabilities</p>
+  </section>
+
+  <section class="wrap">
+    <div class="glass p-6 sm:p-8" data-reveal>
+      <span class="eyebrow">How to read this</span>
+      <h2 class="mt-3 text-2xl font-semibold">Evidence, not hype.</h2>
+      <p class="mt-3 text-dim">157/157 is Hive’s local automated test result. It is not a feature-parity grade, model score, or proof that external services are online. Competitor entries are based on public product documentation, not hands-on installs or accounts.</p>
+    </div>
+    <div class="mt-4 divide-y divide-line rounded-3xl border border-line bg-panel/50">
+      {faq.map(([q, a]) => (
+        <details class="group px-6" data-reveal>
+          <summary class="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-4 font-medium text-text [&::-webkit-details-marker]:hidden">{q}<span class="grid size-8 shrink-0 place-items-center rounded-full border border-line text-honey-2 transition group-open:rotate-45">+</span></summary>
+          <p class="pb-5 text-sm leading-relaxed text-dim">{a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap py-20">
+    <h2 class="text-2xl font-semibold" data-reveal>Sources</h2>
+    <p class="mt-2 text-sm text-dim" data-reveal>Competitor features are based on public docs, snapshot checked October 2, 2026.</p>
+    <ul class="mt-6 grid gap-2 sm:grid-cols-2">
+      {sources.map(([a, t, href]) => <li><a href={href} target="_blank" rel="noopener noreferrer" class="flex min-h-12 items-center justify-between rounded-2xl border border-line px-4 py-3 text-sm transition hover:border-honey/40"><span><span class="text-text">{a}</span> <span class="text-dim">· {t}</span></span><span class="text-honey-2">↗</span></a></li>)}
+    </ul>
+  </section>
+</Base>
+
+<style is:global>
+  .bench-row.is-hidden { display: none; }
+</style>
+
+<script>
+  const btns = [...document.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+  const rows = [...document.querySelectorAll<HTMLElement>('.bench-row')];
+  const count = document.getElementById('bench-count')!;
+  btns.forEach((b) => b.addEventListener('click', () => {
+    const f = b.dataset.filter!;
+    btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    let n = 0;
+    rows.forEach((r) => { const show = f === 'all' || r.dataset.category === f; r.classList.toggle('is-hidden', !show); if (show) { n++; r.animate?.([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 350, easing: 'cubic-bezier(.2,.8,.2,1)' }); } });
+    count.textContent = f === 'all' ? 'Showing all capabilities' : `Showing ${n} ${n === 1 ? 'capability' : 'capabilities'}`;
+  }));
+</script>

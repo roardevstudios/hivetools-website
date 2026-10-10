@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+
+const cases = [
+  ['Research', '🔎', 'Get oriented on a topic', 'Ask Hive to compare options, gather current information, and return a concise answer with sources you can inspect. Follow up to narrow the question or check a claim.', 'Compare these options and show me the sources.'],
+  ['Planning', '🧭', 'Turn an idea into a plan', 'Start with a rough goal. Hive Sparks can help shape the prompt, while Scout and Critic can help build and review a practical sequence of next steps.', 'Make a two-week launch plan for a small beta.'],
+  ['Collaboration', '💬', 'Bring the crew into one chat', 'Use group chats and agent hand-offs to get different kinds of help in the same conversation: research, a second opinion, or a review before you move on.', '@scout find examples, then ask @critic to review the plan.'],
+  ['PC control', '🖱️', 'Ask for a desktop action', 'Buddy can open apps, click, and type to help complete a task. Hive shows the proposed action and waits for your approval before it runs.', 'Open Notepad and draft a checklist for me.'],
+  ['Deep work', '🗂️', 'Keep project work together', 'Attach a project folder through HiveBox, keep chats around the work, and use the Mission Board to save reusable prompts and track follow-ups on your device.', 'Review this project brief and list the open decisions.'],
+  ['Quick help', '⚡', 'Get help without breaking focus', 'Use the Buddy notch and voice input for a quick question while another app is open. Return to the main workspace whenever you need more room.', 'Summarize this and give me the next step.'],
+];
+const tips = [
+  ['Say what success looks like', 'Share the outcome you want, not only the action you imagine taking.'],
+  ['Add useful context', 'Include constraints, audience, timeframe, and any material the task depends on.'],
+  ['Review before acting', 'Check the sources and plan. Approve desktop actions only when they look right.'],
+];
+---
+<Base title="Use Cases — Put Hive to Work" description="Practical ways to use Hive for research, planning, collaboration, PC control and focused project work.">
+  <PageHero eyebrow="A practical guide" title='Put your AI crew <span class="text-gradient">to work.</span>' lead="Hive brings research, planning, collaboration and permission-based PC control into one Windows workspace. Start with a goal, then work with the crew to shape the result.">
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+      <a class="btn btn-primary" href="/#demo-section">Try the interactive demo</a>
+      <a class="btn btn-ghost" href="/docs">Explore the guide</a>
+    </div>
+  </PageHero>
+
+  <section class="wrap">
+    <div class="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0 lg:grid-cols-3">
+      {cases.map(([tag, icon, t, d, q], i) => (
+        <article class="glass group flex w-[85%] shrink-0 snap-center flex-col p-6 transition duration-500 hover:-translate-y-1 hover:border-honey/40 md:w-auto" data-reveal style={`--i:${i % 3}`}>
+          <div class="flex items-center justify-between">
+            <span class="grid size-11 place-items-center rounded-xl border border-line bg-panel-2 text-xl" aria-hidden="true">{icon}</span>
+            <span class="text-xs uppercase tracking-widest text-dim">0{i + 1} / {tag}</span>
+          </div>
+          <h2 class="mt-5 text-xl font-semibold">{t}</h2>
+          <p class="mt-2 flex-1 text-sm leading-relaxed text-dim">{d}</p>
+          <p class="mt-5 rounded-2xl border border-line bg-panel-2 px-4 py-3 text-sm text-text">“{q}”</p>
+        </article>
+      ))}
+    </div>
+    <p class="mt-2 text-center text-xs text-dim md:hidden">Swipe to see more →</p>
+  </section>
+
+  <section class="wrap py-20">
+    <h2 class="h-section mb-10" data-reveal>Get better results.</h2>
+    <ol class="grid gap-4 md:grid-cols-3">
+      {tips.map(([t, d], i) => (
+        <li class="border-t-2 border-honey/50 pt-5" data-reveal style={`--i:${i}`}>
+          <span class="font-display text-honey-2">0{i + 1}</span>
+          <h3 class="mt-2 text-lg font-semibold">{t}</h3>
+          <p class="mt-2 text-sm text-dim">{d}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="mt-10 rounded-3xl border border-mint/30 bg-mint/[.06] p-6" data-reveal>
+      <h3 class="font-semibold">You stay in control of your PC</h3>
+      <p class="mt-2 text-sm text-soft/90">Website examples are illustrative. Real desktop actions run in the Hive app and require your approval. Your chats and Mission Board stay on your device.</p>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="glass p-8 text-center sm:p-12" data-reveal>
+      <h2 class="h-section">See how the workflow feels.</h2>
+      <p class="lead mx-auto mt-4 max-w-xl">Try a scripted chat simulation on the homepage. The Public Beta has been taken down, and the installer is no longer available from this website.</p>
+      <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+        <a class="btn btn-primary" href="/#demo-section">Try the demo</a>
+        <a class="btn btn-ghost" href="/changelog">Read release updates</a>
+      </div>
+    </div>
+  </section>
+</Base>

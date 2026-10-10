@@ -1,0 +1,99 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { DISCORD } from '../lib/site';
+
+const plans = [
+  { name: 'Public Beta · v0.0.1', tag: 'Retired · unavailable', price: '€4.59', note: 'future retail price · no longer available', retired: true,
+    d: 'The Public Beta has been taken down. The installer is no longer available from this website.',
+    f: ['50,000 AI tokens / day (resets daily)', '5 voice sessions / day', 'Full PC automation with human Allow/Deny', 'Buddy companion & notch (Ctrl + Shift + J)', 'Live cited web research & agent swarm', 'All v0.x beta updates included'],
+    cta: ['Read release updates', '/changelog'] },
+  { name: 'Tokens Plus', tag: 'Future option', price: '€8.59', per: '/ month', note: 'First month €7.59, then €8.59/mo · cancel anytime', featured: true,
+    d: 'For frequent creators who need extra daily headroom. Opens after the public beta.',
+    f: ['500,000 AI tokens / day', '100 voice sessions / day', 'Priority agent swarm routing', 'HiveBox cloud disk & background tasks', 'Available after Public Beta'],
+    cta: ['Get notified on Discord', DISCORD] },
+  { name: 'Tokens Max', tag: 'Future option', price: '€11.59', per: '/ month', note: 'First month €10.59, then €11.59/mo · cancel anytime',
+    d: 'Heavy-duty quota with unlimited voice and highest priority models. Opens after the public beta.',
+    f: ['2,000,000 AI tokens / day', 'Unlimited voice sessions', 'Fastest models + priority swarm', 'HiveBox cloud tasks', 'Available after Public Beta'],
+    cta: ['Get notified on Discord', DISCORD] },
+];
+const compare = [
+  ['App access (Windows 10/11)', 'Lifetime', 'Requires unlock', 'Requires unlock'],
+  ['Tokens per day', '50K', '500K', '2M'],
+  ['Voice sessions per day', '5', '100', 'Unlimited'],
+  ['Research, swarm, buddy, notch', 'Included', 'Priority', 'Priority+'],
+  ['Billing', 'One-time', 'Monthly, cancel anytime', 'Monthly, cancel anytime'],
+];
+const included = [
+  ['Cited Research', 'Ask anything and get answers with live, verified sources: domain, title, snippet and links you can click through yourself.'],
+  ['Real PC Control', 'Hive can open apps, run safe shell commands, click and type, always through the Allow/Deny safety prompt.'],
+  ['Buddy Notch', 'Ask Buddy anywhere with Ctrl+Shift+J. The notch pops on your desktop even when Hive is minimized.'],
+  ['Voice In & Out', 'Dictate commands and hear responses spoken from the Hive desktop app.'],
+  ['Agent Swarm', 'Scout, Hive and Pulse work together on one message. Sentry guards tool calls for safety and accuracy.'],
+  ['HiveBox Cloud', 'Your own disk for Hive. Store files, run scripts, track concurrent jobs. Toggle the panel anytime.'],
+];
+const faq = [
+  ['How do I get access to Hive right now?', 'The Public Beta has been taken down, so new downloads are unavailable. Account sign-in remains available for account management.'],
+  ['Can I download the Public Beta?', 'No. The Hive Public Beta has been taken down and the v0.0.1 installer is no longer available from this website.'],
+  ['What will paid plans cost when they launch?', 'After the beta concludes, users who need heavy quotas can opt into monthly token boosts (Tokens Plus at €8.59/mo or Tokens Max at €11.59/mo). Early access testers will receive advance notice before any paid plans go live.'],
+  ['Will Hive be available again?', 'We have not announced a new installer release. Future release information will be posted on the changelog.'],
+];
+---
+<Base title="Hive — pricing" description="Hive plans: Public Beta status and future Tokens Plus and Tokens Max options.">
+  <PageHero eyebrow="Pricing" title='Public Beta <span class="text-gradient">taken down.</span>' lead="Hive v0.0.1 is no longer available to download. Its installer has been removed from this website. The prices below are future-plan information only; checkout is unavailable.">
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+      <a class="btn btn-primary" href="/changelog">Read release updates</a>
+      <a class="btn btn-ghost" href={DISCORD} target="_blank" rel="noopener noreferrer">Join the community</a>
+    </div>
+  </PageHero>
+
+  <section class="wrap">
+    <div class="grid gap-4 lg:grid-cols-3">
+      {plans.map((p, i) => (
+        <article data-reveal style={`--i:${i}`} class:list={['glass relative flex flex-col p-7', p.featured && 'border-honey/50 lg:-translate-y-3', p.retired && 'opacity-80']}>
+          {p.featured && <div aria-hidden="true" class="absolute inset-x-8 -top-px h-px bg-gradient-to-r from-transparent via-honey to-transparent"></div>}
+          <span class:list={['w-fit rounded-full px-2.5 py-0.5 text-xs', p.retired ? 'border border-line text-dim' : 'border border-honey/30 bg-honey/10 text-honey-2']}>{p.tag}</span>
+          <h2 class="mt-4 text-2xl font-semibold">{p.name}</h2>
+          <p class="mt-2 text-sm text-dim">{p.d}</p>
+          <p class="mt-6"><span class:list={['font-display text-4xl font-bold text-text', p.retired && 'line-through decoration-honey/60']}>{p.price}</span> <span class="text-dim">{p.per}</span></p>
+          <p class="mt-1 text-xs text-dim">{p.note}</p>
+          <ul class="mt-6 flex-1 space-y-2.5 text-sm">
+            {p.f.map((f) => <li class="flex gap-2.5"><span class="text-honey">✓</span><span>{f}</span></li>)}
+          </ul>
+          <a href={p.cta[1]} {...(p.cta[1].startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})} class:list={['btn mt-8 w-full', p.featured ? 'btn-primary' : 'btn-ghost']}>{p.cta[0]}</a>
+          {!p.retired && <p class="mt-3 text-center text-xs text-dim">Paid checkout opens after the beta · EUR incl. VAT</p>}
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap py-20">
+    <h2 class="h-section mb-8" data-reveal>Compare plans</h2>
+    <div class="overflow-x-auto rounded-3xl border border-line" data-reveal>
+      <table class="w-full min-w-[640px] text-left text-sm">
+        <thead class="bg-panel-2 text-text"><tr><th class="p-4 font-medium">Compare</th><th class="p-4 font-medium">Unlock · Public Beta</th><th class="p-4 font-medium">Tokens Plus <span class="text-dim">€8.59/mo</span></th><th class="p-4 font-medium">Tokens Max <span class="text-dim">€11.59/mo</span></th></tr></thead>
+        <tbody>{compare.map((r) => <tr class="border-t border-line">{r.map((c, i) => <td class:list={['p-4', i === 0 ? 'text-text' : 'text-dim']}>{c}</td>)}</tr>)}</tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2 class="h-section" data-reveal>What's included at launch</h2>
+    <p class="lead mt-4" data-reveal>Every plan includes these core features from day one.</p>
+    <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {included.map(([t, d], i) => <div class="glass p-6" data-reveal style={`--i:${i % 3}`}><h3 class="text-lg font-semibold">{t}</h3><p class="mt-2 text-sm text-dim">{d}</p></div>)}
+    </div>
+  </section>
+
+  <section class="wrap py-20">
+    <h2 class="h-section mb-8" data-reveal>Questions</h2>
+    <div class="divide-y divide-line rounded-3xl border border-line bg-panel/50">
+      {faq.map(([q, a]) => (
+        <details class="group px-6" data-reveal>
+          <summary class="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-4 font-medium text-text [&::-webkit-details-marker]:hidden">{q}<span class="grid size-8 shrink-0 place-items-center rounded-full border border-line text-honey-2 transition group-open:rotate-45">+</span></summary>
+          <p class="pb-5 text-dim">{a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+</Base>

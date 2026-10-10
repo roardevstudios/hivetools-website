@@ -1,0 +1,44 @@
+<a href="#benchmark">Skip to benchmark</a>
+  <header>
+    App functionality · 2026 test run
+    <h1>How well do the apps work?</h1>
+    <p>A practical look at what each app can do—and what Hive’s own tests actually verify.</p>
+    Updated October 2, 2026Automated local tests + public documentation
+    <a href="#matrix-title">Explore capabilities </a>No model rankings. Just app functionality.
+  </header>
+  <section>
+    <article>Hive app checksPASS157Automated checks passed across application suites</article>
+    <article>Feature &amp; scenarioPASS116Search, citations, app flows, boundaries and scenarios</article>
+    <article>Node feature testsPASS31Chat history, skills, voice playback and app logic</article>
+    <article>Adversarial checksPASS10Rapid input, lifecycle cleanup and layout boundaries</article>
+  </section>
+  <main id="benchmark">
+    <section>
+      The comparison<h2 id="matrix-title">Capabilities, side by side.</h2><p>Filter by category to see how each app handles the same capability.</p>
+        <article data-category="work"><h3>Chat &amp; agent work</h3><p>How each app takes on multi-step work</p>01 / WORKHiveAutomated checks passChat and scenario suites pass locally.Grok BotDocumentedPersistent bots with roles and context.ChatGPT DotsDocumentedAlways-on agents with persistent context.OpenMausBotDocumentedBots backed by configurable agent engines.</article>
+        <article data-category="computer"><h3>Computer &amp; browser</h3><p>Access to a browser or desktop environment</p>02 / COMPUTERHiveCode present · UI removedHiveComputer remains in source; Computer was removed from HiveBox.Grok BotDocumentedCloud browser, files and terminal.ChatGPT DotsDocumentedCloud computer; local access has controls.OpenMausBotDocumentedLocal computer is opt-in per bot.</article>
+        <article data-category="automation"><h3>Background &amp; scheduled work</h3><p>Work that continues or runs on a schedule</p>03 / AUTOMATIONHiveRunner present · UI hiddenSubagent interval runner is implemented; strip is disabled.Grok BotDocumentedPersistent bots and team bots.ChatGPT DotsDocumentedBackground work and scheduled tasks.OpenMausBotDocumentedRepeating routines; local schedules need the app running.</article>
+        <article data-category="voice"><h3>Voice input &amp; output</h3><p>Listening, transcripts and spoken responses</p>04 / VOICEHiveTests pass · account gatedTranscript and playback logic tests pass; entitlement required and widgets hidden.Grok BotNot assessedNot evaluated in this feature comparison.ChatGPT DotsNot assessedNot evaluated in this feature comparison.OpenMausBotNot assessedNot evaluated in this feature comparison.</article>
+        <article data-category="connections"><h3>Apps &amp; integrations</h3><p>Connecting services, tools and shared context</p>05 / CONNECTIONSHiveCode paths presentSupabase, MCP, skills and integrations; live credentials not tested.Grok BotDocumentedTeam bots collaborate in the bot computer.ChatGPT DotsDocumentedConnected apps and workspace controls.OpenMausBotDocumentedApp integrations and per-bot permissions.</article>
+        <article data-category="connections"><h3>Permissions &amp; safety</h3><p>Controls around access and actions</p>06 / CONNECTIONSHiveAutomated checks passLocal entitlement and consent checks pass; live server behavior not established.Grok BotDocumentedCloud computer and team controls described.ChatGPT DotsDocumentedWorkspace-level computer and app controls.OpenMausBotDocumentedPer-bot permissions, approvals and secrets.</article>
+      <p id="filter-status">Showing all capabilities</p>
+    </section>
+    <section>
+      How to read this<h2 id="read-title">Evidence, not hype.</h2>
+      <strong>157/157 is Hive’s local automated test result.</strong> It is not a feature-parity grade, model score, or proof that external services are online. Competitor entries are based on public product documentation, not hands-on installs or accounts.
+      <details><summary>What exactly did Hive’s test run cover?</summary><p>Three local suites ran successfully: 116 Tier 1–4 feature, boundary, interaction, and scenario checks; 31 Node feature tests; and 10 Tier 5 adversarial checks. Areas include search and citations, entitlement gates, feedback, quota/RPC wiring, chat history, group bot discussion, user skills, voice transcript filtering and playback completion/error paths.</p><p>These tests exercise local code and mocks. They do not prove provider uptime, real microphone permissions, or a successful authenticated Supabase session.</p></details>
+      <details><summary>Why is Hive voice shown as partial?</summary><p>Voice behavior has automated local checks, but access is gated by an explicit account grant. In the current Hive source, the voice widgets and voice mode selector are hidden by feature flags. A passing playback test does not mean every user can open voice in the live app.</p></details>
+      <details><summary>What is still unverified?</summary><ul><li>Live Supabase sign-in, row-level security, and authenticated RPC responses.</li><li>Real provider and integration credentials and service uptime.</li><li>Hands-on competitor workflows in Grok Bot, ChatGPT Dots and OpenMausBot.</li></ul><p>Those are intentionally labeled unverified rather than counted as passes.</p></details>
+    </section>
+    <section>
+      Sources<h2 id="sources-title">Product documentation.</h2><p>Competitor features are based on public docs, snapshot checked October 2, 2026.</p>
+        <a href="https://docs.x.ai/grok-bot/overview" target="_blank" rel="noopener noreferrer"><strong>Grok Bot</strong><br>Product overview</a>
+        <a href="https://docs.x.ai/grok-bot/team-bots" target="_blank" rel="noopener noreferrer"><strong>Grok Bot</strong><br>Team bots</a>
+        <a href="https://help.openai.com/ml/en/articles/20001530-getting-started-with-your-dot" target="_blank" rel="noopener noreferrer"><strong>ChatGPT Dots</strong><br>Getting started</a>
+        <a href="https://help.openai.com/en/articles/20001554-manage-dots-in-chatgpt-workspaces" target="_blank" rel="noopener noreferrer"><strong>ChatGPT Dots</strong><br>Workspace controls</a>
+        <a href="https://docs.openmausbot.com/docs/providers" target="_blank" rel="noopener noreferrer"><strong>OpenMausBot</strong><br>Agent engines</a>
+        <a href="https://docs.openmausbot.com/docs/computers/local-computer" target="_blank" rel="noopener noreferrer"><strong>OpenMausBot</strong><br>Local computer</a>
+        <a href="https://docs.openmausbot.com/docs/features/automation" target="_blank" rel="noopener noreferrer"><strong>OpenMausBot</strong><br>Routines</a>
+        <a href="https://docs.openmausbot.com/docs/security/permissions-and-secrets" target="_blank" rel="noopener noreferrer"><strong>OpenMausBot</strong><br>Permissions &amp; secrets</a>
+    </section>
+  </main>
