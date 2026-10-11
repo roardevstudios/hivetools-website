@@ -6,7 +6,7 @@ import BetaNotice from '../components/BetaNotice.astro';
 import Waitlist from '../components/Waitlist.astro';
 import { DISCORD, SUPPORT_EMAIL, X_URL } from '../lib/site';
 
-const chapters = [[0, 'Intro'], [12, 'PC control'], [18, 'Research'], [36, 'Agent crew'], [43, 'Group chat'], [52, 'HiveBox'], [58, 'Usage'], [63, 'More']] as const;
+const chapters = [[0, 'Intro'], [12, 'Agent crew'], [16, 'Specialists'], [28, 'Approval'], [36, 'Research'], [40, 'PC control'], [48, 'Voice'], [52, 'Bento'], [56, 'Punchline']] as const;
 
 const marquee = ['Cited research', 'Real PC control', 'Next-Gen Pro UI', 'Buddy at your cursor', 'Buddy notch', 'Voice in, voice out', 'Command palette', 'Fast · Auto · Heavy · Max', 'Agent swarm', 'HiveBox', 'Audit log'];
 
@@ -93,9 +93,9 @@ const faq = [
   <section id="tour" class="wrap py-24">
     <SectionHead eyebrow="Meet your desktop AI" title="See Hive at work." lead="A quick tour of research, PC control, your AI crew and more." center />
     <div class="glass mx-auto max-w-5xl overflow-hidden p-2 sm:p-3" data-reveal>
-      <video id="tour-video" class="aspect-video w-full rounded-2xl bg-black" controls playsinline preload="metadata" poster="/videos/hive-launch-v4-poster.jpg"
-        aria-label="Hive launch film: PC control, cited research, the agent crew, group chats, HiveBox and usage limits">
-        <source src="/videos/hive-launch-v4.mp4" type="video/mp4" />
+      <video id="tour-video" class="aspect-video w-full rounded-2xl bg-black" controls playsinline preload="metadata" poster="/videos/hive-launch-v5-poster.jpg"
+        aria-label="Hive launch film: the agent crew, approvals, cited research, PC control and voice">
+        <source src="/videos/hive-launch-v5.mp4" type="video/mp4" />
       </video>
       <div class="flex gap-2 overflow-x-auto p-2 pt-3 [scrollbar-width:none]" role="group" aria-label="Chapters">
         {chapters.map(([t, label]) => (
