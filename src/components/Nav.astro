@@ -7,12 +7,12 @@ const path = Astro.url.pathname.replace(/\.html$/, '');
     <a href="/" class="flex items-center gap-2.5 font-display text-lg font-bold text-text">
       <img src="/hive_symbol.png" alt="" width="30" height="30" class="h-[30px] w-auto object-contain" /> Hive
     </a>
-    <div class="hidden items-center gap-1 lg:flex">
+    <div class="col-start-2 hidden items-center justify-center gap-1 lg:flex">
       {NAV.map((l) => (
         <a href={l.href} class:list={['rounded-full px-3 py-1.5 text-sm transition hover:bg-white/5 hover:text-text', path === l.href ? 'text-text' : 'text-dim']}>{l.label}</a>
       ))}
     </div>
-    <div class="nav-actions flex items-center justify-self-end gap-2">
+    <div class="nav-actions col-start-3 flex items-center justify-self-end gap-2">
       <a href="/auth" class="hidden text-sm text-dim hover:text-text sm:inline">Sign in</a>
       <a href={DISCORD} target="_blank" rel="noopener noreferrer" class="btn btn-primary hidden !min-h-9 !px-4 sm:inline-flex">Join community</a>
       <button id="menu-btn" type="button" class="relative grid size-11 place-items-center rounded-xl lg:hidden" aria-label="Open menu" aria-controls="menu" aria-expanded="false">
