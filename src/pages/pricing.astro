@@ -9,11 +9,11 @@ const plans = [
     d: 'Hive’s first public release is in preparation. Follow the changelog for launch details.',
     f: ['Windows desktop AI workspace', 'Research, agents, and PC control', 'PC actions require your approval', 'Full release details at launch'],
     cta: ['Follow release updates', '/changelog'] },
-  { name: 'Tokens Plus', tag: 'Future option', price: '€8.59', per: '/ month', note: 'First month €7.59, then €8.59/mo · cancel anytime', featured: true,
+  { name: 'Tokens Plus', tag: 'Preview pricing', price: '€8.59', per: '/ month', note: 'Preview: first month €7.59, then €8.59/mo · final terms may change', featured: true,
     d: 'For frequent creators who need extra daily headroom. Opens after the first public release.',
     f: ['500,000 AI tokens / day', '100 voice sessions / day', 'Priority agent swarm routing', 'HiveBox cloud disk & background tasks', 'Available after launch'],
     plan: 'tokens_plus' as const },
-  { name: 'Tokens Max', tag: 'Future option', price: '€11.59', per: '/ month', note: 'First month €10.59, then €11.59/mo · cancel anytime',
+  { name: 'Tokens Max', tag: 'Preview pricing', price: '€11.59', per: '/ month', note: 'Preview: first month €10.59, then €11.59/mo · final terms may change',
     d: 'Heavy-duty quota with unlimited voice and highest priority models. Opens after the first public release.',
     f: ['2,000,000 AI tokens / day', 'Unlimited voice sessions', 'Fastest models + priority swarm', 'HiveBox cloud tasks', 'Available after launch'],
     plan: 'token_max' as const },
@@ -36,12 +36,12 @@ const included = [
 const faq = [
   ['How do I get access to Hive?', 'Hive v0.0.1 is in preparation. Follow the changelog or join the community for launch news.'],
   ['Can I download v0.0.1 yet?', 'Not yet. The first public release is coming soon, and the installer will be posted here when it is ready.'],
-  ['What will paid plans cost when they launch?', 'After the beta concludes, users who need heavy quotas can opt into monthly token boosts (Tokens Plus at €8.59/mo or Tokens Max at €11.59/mo). Early access testers will receive advance notice before any paid plans go live.'],
+  ['What will paid plans cost when they launch?', 'The current preview amounts are Tokens Plus at €8.59/mo and Tokens Max at €11.59/mo. Final prices, quotas, and terms may change before launch; early access testers will be notified before paid plans go live.'],
   ['When will v0.0.1 be available?', 'The release date has not been announced yet. We will post it on the changelog.'],
 ];
 ---
-<Base title="Hive — plans and pricing" description="Hive v0.0.1 is coming soon. Release details and pricing will be announced here.">
-  <PageHero eyebrow="Plans and pricing" title='Hive v0.0.1 is <span class="text-gradient">coming soon.</span>' lead="We are preparing Hive’s first public release. The release date, installer, and final plan details will be announced here; checkout is not available yet.">
+<Base title="Hive — plans and pricing" description="Preview pricing for Hive plans. Final prices and release details will be confirmed before launch; checkout is not open.">
+  <PageHero eyebrow="Plans and pricing" title='Hive v0.0.1 is <span class="text-gradient">coming soon.</span>' lead="Hive v0.0.1 is in preparation. Prices and quotas below are a preview and may change before launch. We’ll announce the release date, installer, and final plan details here. Checkout is not available yet.">
     <div class="mt-8 flex flex-col gap-3 sm:flex-row">
       <a class="btn btn-primary" href="/changelog">Follow release updates</a>
       <a class="btn btn-ghost" href={DISCORD} target="_blank" rel="noopener noreferrer">Join the community</a>
@@ -63,7 +63,7 @@ const faq = [
           </ul>
           {p.cta && <a href={p.cta[1]} class="btn btn-ghost mt-8 w-full">{p.cta[0]}</a>}
           {p.plan && <div class="mt-8"><Waitlist plan={p.plan} source={p.plan} cta="Notify me" compact /></div>}
-          {!p.retired && <p class="mt-3 text-center text-xs text-dim">Checkout opens after launch · EUR incl. VAT</p>}
+          {!p.retired && <p class="mt-3 text-center text-xs text-dim">{p.plan ? 'Preview only · checkout is not available yet · EUR incl. VAT' : 'Release details will be announced at launch'}</p>}
         </article>
       ))}
     </div>
@@ -73,7 +73,7 @@ const faq = [
     <h2 class="h-section mb-8" data-reveal>Compare plans</h2>
     <div class="overflow-x-auto rounded-3xl border border-line" data-reveal>
       <table class="w-full min-w-[640px] text-left text-sm">
-        <thead class="bg-panel-2 text-text"><tr><th class="p-4 font-medium">Compare</th><th class="p-4 font-medium">Hive · v0.0.1</th><th class="p-4 font-medium">Tokens Plus <span class="text-dim">€8.59/mo</span></th><th class="p-4 font-medium">Tokens Max <span class="text-dim">€11.59/mo</span></th></tr></thead>
+        <thead class="bg-panel-2 text-text"><tr><th class="p-4 font-medium">Compare</th><th class="p-4 font-medium">Hive · v0.0.1</th><th class="p-4 font-medium">Tokens Plus <span class="text-dim">€8.59/mo · preview</span></th><th class="p-4 font-medium">Tokens Max <span class="text-dim">€11.59/mo · preview</span></th></tr></thead>
         <tbody>{compare.map((r) => <tr class="border-t border-line">{r.map((c, i) => <td class:list={['p-4', i === 0 ? 'text-text' : 'text-dim']}>{c}</td>)}</tr>)}</tbody>
       </table>
     </div>
