@@ -7,26 +7,29 @@ import Waitlist from '../components/Waitlist.astro';
 const plans = [
   { name: 'Hive Free', tag: 'Free forever', price: '€0', per: '', note: 'No subscription · no checkout required',
     d: 'Try Hive with a daily allowance for everyday AI work.',
-    f: ['Hive desktop workspace', '25,000 AI tokens / day', '5 voice sessions / day', 'Research and agent tools', 'PC actions require your approval'] },
+    f: ['Hive desktop workspace', '25,000 AI tokens / day', '5 voice sessions / day', 'Standard models', 'Core chat workspace'] },
   { name: 'Hive Starter', tag: 'Monthly plan', price: '€4.99', per: '/ month', note: 'Planned monthly subscription · checkout not open yet',
     d: 'The essentials for everyday AI work.',
-    f: ['Hive desktop workspace', '50,000 AI tokens / day', '25 voice sessions / day', 'Research and agent tools', 'PC actions require your approval'],
+    f: ['Everything in Free', '50,000 AI tokens / day', '25 voice sessions / day', 'Cited web research', 'PC actions with your approval', 'Standard agent tools'],
     plan: 'hive_starter' as const },
   { name: 'Hive Plus', tag: 'Most popular', price: '€12.99', per: '/ month', note: 'Planned monthly subscription · checkout not open yet', featured: true,
     d: 'More room for research, voice, and daily projects.',
-    f: ['Everything in Starter', '500,000 AI tokens / day', '100 voice sessions / day', 'Priority agent swarm routing', 'HiveBox cloud disk & background tasks'],
+    f: ['Everything in Starter', '500,000 AI tokens / day', '100 voice sessions / day', 'Priority agent swarm', 'Buddy and desktop notch', 'HiveBox cloud disk'],
     plan: 'hive_plus' as const },
   { name: 'Hive Max', tag: 'Monthly plan', price: '€22.99', per: '/ month', note: 'Planned monthly subscription · checkout not open yet',
     d: 'Maximum capacity for demanding workflows.',
-    f: ['Everything in Plus', '2,000,000 AI tokens / day', 'Unlimited voice sessions', 'Fastest models + priority swarm', 'HiveBox cloud tasks'],
+    f: ['Everything in Plus', '2,000,000 AI tokens / day', 'Unlimited voice sessions', 'Fastest models and top priority', 'HiveBox background tasks'],
     plan: 'hive_max' as const },
 ];
 const compare = [
   ['App access (Windows 10/11)', 'Included', 'Included', 'Included', 'Included'],
   ['Tokens per day', '25K', '50K', '500K', '2M'],
   ['Voice sessions per day', '5', '25', '100', 'Unlimited'],
-  ['Research, swarm, buddy, notch', 'Included', 'Included', 'Priority', 'Priority+'],
-  ['HiveBox cloud', '—', '—', 'Included', 'Included'],
+  ['Cited web research', '—', 'Included', 'Included', 'Included'],
+  ['PC actions (approval required)', '—', 'Included', 'Included', 'Included'],
+  ['Agent swarm routing', '—', 'Standard', 'Priority', 'Top priority'],
+  ['Buddy and desktop notch', '—', '—', 'Included', 'Included'],
+  ['HiveBox cloud', '—', '—', 'Cloud disk', 'Disk + background tasks'],
   ['Billing', 'Free', 'Monthly subscription', 'Monthly subscription', 'Monthly subscription'],
 ];
 const included = [
@@ -86,7 +89,7 @@ const faq = [
 
   <section class="wrap">
     <h2 class="h-section" data-reveal>What's included at launch</h2>
-    <p class="lead mt-4" data-reveal>Every plan includes these core features from day one.</p>
+    <p class="lead mt-4" data-reveal>Feature availability depends on your plan. Compare tiers above to see what is included.</p>
     <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {included.map(([t, d], i) => <div class="glass p-6" data-reveal style={`--i:${i % 3}`}><h3 class="text-lg font-semibold">{t}</h3><p class="mt-2 text-sm text-dim">{d}</p></div>)}
     </div>
