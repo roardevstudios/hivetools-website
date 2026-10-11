@@ -5,6 +5,9 @@ import { DISCORD } from '../lib/site';
 import Waitlist from '../components/Waitlist.astro';
 
 const plans = [
+  { name: 'Hive Free', tag: 'Free forever', price: '€0', per: '', note: 'No subscription · no checkout required',
+    d: 'Try Hive with a daily allowance for everyday AI work.',
+    f: ['Hive desktop workspace', '25,000 AI tokens / day', '5 voice sessions / day', 'Research and agent tools', 'PC actions require your approval'] },
   { name: 'Hive Starter', tag: 'Monthly plan', price: '€4.99', per: '/ month', note: 'Planned monthly subscription · checkout not open yet',
     d: 'The essentials for everyday AI work.',
     f: ['Hive desktop workspace', '50,000 AI tokens / day', '5 voice sessions / day', 'Research and agent tools', 'PC actions require your approval'],
@@ -19,12 +22,12 @@ const plans = [
     plan: 'hive_max' as const },
 ];
 const compare = [
-  ['App access (Windows 10/11)', 'Included', 'Included', 'Included'],
-  ['Tokens per day', '50K', '500K', '2M'],
-  ['Voice sessions per day', '5', '100', 'Unlimited'],
-  ['Research, swarm, buddy, notch', 'Included', 'Priority', 'Priority+'],
-  ['HiveBox cloud', '—', 'Included', 'Included'],
-  ['Billing', 'Monthly subscription', 'Monthly subscription', 'Monthly subscription'],
+  ['App access (Windows 10/11)', 'Included', 'Included', 'Included', 'Included'],
+  ['Tokens per day', '25K', '50K', '500K', '2M'],
+  ['Voice sessions per day', '5', '5', '100', 'Unlimited'],
+  ['Research, swarm, buddy, notch', 'Included', 'Included', 'Priority', 'Priority+'],
+  ['HiveBox cloud', '—', '—', 'Included', 'Included'],
+  ['Billing', 'Free', 'Monthly subscription', 'Monthly subscription', 'Monthly subscription'],
 ];
 const included = [
   ['Cited Research', 'Ask anything and get answers with live, verified sources: domain, title, snippet and links you can click through yourself.'],
@@ -37,11 +40,12 @@ const included = [
 const faq = [
   ['How do I get access to Hive?', 'Hive v0.0.1 is in preparation. Follow the changelog or join the community for launch news.'],
   ['Can I download v0.0.1 yet?', 'Not yet. The first public release is coming soon, and the installer will be posted here when it is ready.'],
-  ['Are these one-time unlocks?', 'No. Hive has three monthly subscription plans: Starter at €4.99, Plus at €12.99, and Max at €22.99. There are no one-time unlock plans.'],
+  ['Is there a free plan?', 'Yes. Hive Free includes 25,000 AI tokens and 5 voice sessions per day. Paid options are monthly subscriptions: Starter at €4.99, Plus at €12.99, and Max at €22.99. There are no one-time unlock plans.'],
+  ['Are these one-time unlocks?', 'No. Paid Hive plans are monthly subscriptions: Starter at €4.99, Plus at €12.99, and Max at €22.99. There are no one-time unlock plans.'],
   ['When will v0.0.1 be available?', 'The release date has not been announced yet. We will post it on the changelog.'],
 ];
 ---
-<Base title="Hive — plans and pricing" description="Choose a Hive monthly subscription: Starter €4.99, Plus €12.99, or Max €22.99 per month.">
+<Base title="Hive — plans and pricing" description="Start with Hive Free: 25,000 daily AI tokens. Upgrade to monthly plans from €4.99 to €22.99.">
   <PageHero eyebrow="Plans and pricing" title='One Hive subscription. <span class="text-gradient">Three ways to work.</span>' lead="Choose a monthly plan for your Hive workspace. Every tier includes the desktop app, with higher daily AI and voice limits as you move up.">
     <div class="mt-8 flex flex-col gap-3 sm:flex-row">
       <a class="btn btn-primary" href="#plans">Choose your plan</a>
@@ -50,7 +54,7 @@ const faq = [
   </PageHero>
 
   <section id="plans" class="wrap">
-    <div class="grid gap-4 lg:grid-cols-3">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {plans.map((p, i) => (
         <article data-reveal style={`--i:${i}`} class:list={['glass relative flex flex-col p-7', p.featured && 'border-honey/50 lg:-translate-y-3', p.retired && 'opacity-80']}>
           {p.featured && <div aria-hidden="true" class="absolute inset-x-8 -top-px h-px bg-gradient-to-r from-transparent via-honey to-transparent"></div>}
@@ -73,8 +77,8 @@ const faq = [
   <section class="wrap py-20">
     <h2 class="h-section mb-8" data-reveal>Compare plans</h2>
     <div class="overflow-x-auto rounded-3xl border border-line" data-reveal>
-      <table class="w-full min-w-[640px] text-left text-sm">
-        <thead class="bg-panel-2 text-text"><tr><th class="p-4 font-medium">Compare</th><th class="p-4 font-medium">Hive Starter <span class="text-dim">€4.99/mo</span></th><th class="p-4 font-medium">Hive Plus <span class="text-dim">€12.99/mo</span></th><th class="p-4 font-medium">Hive Max <span class="text-dim">€22.99/mo</span></th></tr></thead>
+      <table class="w-full min-w-[760px] text-left text-sm">
+        <thead class="bg-panel-2 text-text"><tr><th class="p-4 font-medium">Compare</th><th class="p-4 font-medium">Hive Free <span class="text-dim">€0</span></th><th class="p-4 font-medium">Hive Starter <span class="text-dim">€4.99/mo</span></th><th class="p-4 font-medium">Hive Plus <span class="text-dim">€12.99/mo</span></th><th class="p-4 font-medium">Hive Max <span class="text-dim">€22.99/mo</span></th></tr></thead>
         <tbody>{compare.map((r) => <tr class="border-t border-line">{r.map((c, i) => <td class:list={['p-4', i === 0 ? 'text-text' : 'text-dim']}>{c}</td>)}</tr>)}</tbody>
       </table>
     </div>
