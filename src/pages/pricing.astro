@@ -10,7 +10,7 @@ const plans = [
     f: ['Hive desktop workspace', '25,000 AI tokens / day', '5 voice sessions / day', 'Research and agent tools', 'PC actions require your approval'] },
   { name: 'Hive Starter', tag: 'Monthly plan', price: '€4.99', per: '/ month', note: 'Planned monthly subscription · checkout not open yet',
     d: 'The essentials for everyday AI work.',
-    f: ['Hive desktop workspace', '50,000 AI tokens / day', '5 voice sessions / day', 'Research and agent tools', 'PC actions require your approval'],
+    f: ['Hive desktop workspace', '50,000 AI tokens / day', '25 voice sessions / day', 'Research and agent tools', 'PC actions require your approval'],
     plan: 'hive_starter' as const },
   { name: 'Hive Plus', tag: 'Most popular', price: '€12.99', per: '/ month', note: 'Planned monthly subscription · checkout not open yet', featured: true,
     d: 'More room for research, voice, and daily projects.',
@@ -24,7 +24,7 @@ const plans = [
 const compare = [
   ['App access (Windows 10/11)', 'Included', 'Included', 'Included', 'Included'],
   ['Tokens per day', '25K', '50K', '500K', '2M'],
-  ['Voice sessions per day', '5', '5', '100', 'Unlimited'],
+  ['Voice sessions per day', '5', '25', '100', 'Unlimited'],
   ['Research, swarm, buddy, notch', 'Included', 'Included', 'Priority', 'Priority+'],
   ['HiveBox cloud', '—', '—', 'Included', 'Included'],
   ['Billing', 'Free', 'Monthly subscription', 'Monthly subscription', 'Monthly subscription'],
