@@ -1,6 +1,6 @@
 ---
 import { DISCORD, X_URL, SITE_URL, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY } from '../lib/site';
-interface Props { plan?: 'tokens_plus' | 'token_max'; compact?: boolean; cta?: string; source?: string }
+interface Props { plan?: 'hive_starter' | 'hive_plus' | 'hive_max' | 'tokens_plus' | 'token_max'; compact?: boolean; cta?: string; source?: string }
 const { plan, compact = false, cta = 'Join the waitlist', source = 'site' } = Astro.props;
 const shareText = 'Hive is a Windows AI workspace: cited research, an AI crew, and PC control that always asks first. Joining the waitlist 🐝';
 const shareUrl = `${SITE_URL}/?ref=share`;
