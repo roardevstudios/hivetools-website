@@ -1,0 +1,26 @@
+---
+import type { DocSection } from '../content/docs';
+
+interface Props {
+  section: DocSection;
+  previous?: DocSection;
+  next?: DocSection;
+}
+
+const { section, previous, next } = Astro.props;
+---
+<section class="docs-section" data-doc-section data-doc-id={section.id} aria-labelledby={section.id}>
+  <header class="docs-section-head">
+    {section.plan && <span class="docs-plan-badge">{section.plan}</span>}
+    <h2 id={section.id} tabindex="-1">
+      <a class="docs-heading-link" href={`#${section.id}`} aria-label={`Link to ${section.title}`}>#</a>
+      {section.title}
+    </h2>
+    <p class="docs-summary">{section.summary}</p>
+  </header>
+  <div class="docs-prose" set:html={section.content} />
+  {(previous || next) && <nav class="docs-prev-next" aria-label="Section navigation">
+    {previous ? <a href={`#${previous.id}`} aria-label={`Previous section: ${previous.title}`}><span aria-hidden="true">←</span><span><small>Previous</small><strong>{previous.title}</strong></span></a> : <span></span>}
+    {next ? <a class="docs-next" href={`#${next.id}`} aria-label={`Next section: ${next.title}`}><span><small>Next</small><strong>{next.title}</strong></span><span aria-hidden="true">→</span></a> : <span></span>}
+  </nav>}
+</section>
