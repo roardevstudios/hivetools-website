@@ -8,7 +8,7 @@ export const planCatalog = {
     { id: 'max', name: 'Hive Max', price: 22.99, period: '/ month', description: 'Maximum planned capacity for demanding workflows.' },
   ] satisfies { id: PlanId; name: string; price: number; period: string; description: string }[],
   features: [
-    { id: 'tokens', label: 'Hive Free chat tokens / day', values: ['25,000', '50,000', '500,000', '2,000,000'], home: 'Daily chat token allowance' },
+    { id: 'tokens', label: 'Chat tokens / day', values: ['25,000', '50,000', '500,000', '2,000,000'], home: 'Chat tokens per day' },
     { id: 'voice', label: 'Voice sessions / day', values: ['5', '25', '100', 'Unlimited'], home: 'Daily voice session allowance' },
     { id: 'models', label: 'Model access', values: ['Standard', 'Standard', 'Standard', 'Fastest models · top priority'], home: 'Model access and request priority' },
     { id: 'chat', label: 'Core chat workspace', values: ['Included', 'Included', 'Included', 'Included'], home: 'Core chat workspace' },

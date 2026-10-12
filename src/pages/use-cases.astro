@@ -3,12 +3,12 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 
 const cases = [
-  ['Research', '🔎', 'Get oriented on a topic', 'Ask Hive to compare options, gather current information, and return a concise answer with sources you can inspect. Follow up to narrow the question or check a claim.', 'Compare these options and show me the sources.'],
-  ['Planning', '🧭', 'Turn an idea into a plan', 'Start with a rough goal. Hive Sparks can help shape the prompt, while Scout and Critic can help build and review a practical sequence of next steps.', 'Make a two-week launch plan for a small beta.'],
-  ['Collaboration', '💬', 'Bring the crew into one chat', 'Use group chats and agent hand-offs to get different kinds of help in the same conversation: research, a second opinion, or a review before you move on.', '@scout find examples, then ask @critic to review the plan.'],
-  ['PC control', '🖱️', 'Ask for a desktop action', 'Buddy can open apps, click, and type to help complete a task. Hive shows the proposed action and waits for your approval before it runs.', 'Open Notepad and draft a checklist for me.'],
-  ['Deep work', '🗂️', 'Keep project work together', 'Attach a project folder through HiveBox, keep chats around the work, and use the Mission Board to save reusable prompts and track follow-ups on your device.', 'Review this project brief and list the open decisions.'],
-  ['Quick help', '⚡', 'Get help without breaking focus', 'Use the Buddy notch and voice input for a quick question while another app is open. Return to the main workspace whenever you need more room.', 'Summarize this and give me the next step.'],
+  ['Research', '🔎', 'Get oriented on a topic', 'Planned from Starter: ask Hive to compare options, gather current information, and return an answer with sources you can inspect. This does not run on this website.', 'Compare these options and show me the sources.'],
+  ['Planning', '🧭', 'Turn an idea into a plan', 'This planned agent workflow can shape an idea into practical next steps. Scout, Hive, and Pulse work together. Critic reviews the answer. Sentry watches tool calls.', 'Make a two-week launch plan for a small beta.'],
+  ['Collaboration', '💬', 'Bring the crew into one chat', 'Planned agent hand-offs bring research, a second opinion, and a review into one conversation. Scout, Hive, and Pulse work together. Critic reviews the answer. Sentry watches tool calls.', 'Ask Scout to find examples, then have Critic review the plan.'],
+  ['PC control', '🖱️', 'Ask for a desktop action', 'Planned from Starter. The app shows the action and waits for Allow. This page cannot do it.', 'Open Notepad and draft a checklist for me.'],
+  ['Deep work', '🗂️', 'Keep project work together', 'HiveBox is planned for Plus. The Mission Board, when it ships, stays on the device.', 'Review this project brief and list the open decisions.'],
+  ['Quick help', '⚡', 'Get help without breaking focus', 'Buddy and the notch are planned for Plus. Voice on Free is a small daily allowance of 5 sessions, not this whole workflow.', 'Summarize this and give me the next step.'],
 ];
 const tips = [
   ['Say what success looks like', 'Share the outcome you want, not only the action you imagine taking.'],
@@ -17,14 +17,15 @@ const tips = [
 ];
 ---
 <Base title="Use Cases — Put Hive to Work" description="Practical ways to use Hive for research, planning, collaboration, PC control and focused project work.">
-  <PageHero eyebrow="A practical guide" title='Put your AI crew <span class="text-gradient">to work.</span>' lead="Hive brings research, planning, collaboration and permission-based PC control into one Windows workspace. Start with a goal, then work with the crew to shape the result.">
+  <PageHero eyebrow="A practical guide" title='Put your AI crew <span class="text-gradient">to work.</span>' lead="A preview of planned Hive app workflows, with plan availability called out below.">
     <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-      <a class="btn btn-primary" href="/#demo-section">Try the interactive demo</a>
+      <a class="btn btn-primary" href="/#demo-section">Try the scripted homepage demo</a>
       <a class="btn btn-ghost" href="/docs">Explore the guide</a>
     </div>
   </PageHero>
 
   <section class="wrap">
+    <p class="mb-6 rounded-xl border border-honey/30 bg-honey/10 px-4 py-3 text-sm text-honey-2">These are planned workflows, not a downloadable build. Research and PC actions are Starter. Buddy, the notch, and HiveBox are Plus. Nothing here runs on this website.</p>
     <div class="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0 lg:grid-cols-3">
       {cases.map(([tag, icon, t, d, q], i) => (
         <article class="glass group flex w-[85%] shrink-0 snap-center flex-col p-6 transition duration-500 hover:-translate-y-1 hover:border-honey/40 md:w-auto" data-reveal style={`--i:${i % 3}`}>
@@ -61,7 +62,7 @@ const tips = [
   <section class="wrap">
     <div class="glass p-8 text-center sm:p-12" data-reveal>
       <h2 class="h-section">See how the workflow feels.</h2>
-      <p class="lead mx-auto mt-4 max-w-xl">Try a scripted chat simulation on the homepage. The public beta installer was removed. We’ll explain what changed when v0.0.1 is posted.</p>
+      <p class="lead mx-auto mt-4 max-w-xl">Open the scripted chat simulation on the homepage. The public beta installer was removed. We’ll explain what changed when v0.0.1 is posted.</p>
       <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
         <a class="btn btn-primary" href="/#demo-section">Try the demo</a>
         <a class="btn btn-ghost" href="/changelog">Read release updates</a>

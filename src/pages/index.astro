@@ -11,11 +11,11 @@ const levelNames: Record<PlanId, string> = { free: 'Free', starter: 'Starter', p
 const featureCards = planCatalog.features.map((feature) => ({
   title: feature.home,
   plan: levelNames[feature.from ?? 'free'],
-  description: feature.id === 'tokens' ? `Hive Free chat allowance: ${feature.values[0]} tokens per day.`
+  description: feature.id === 'tokens' ? '25,000 chat tokens per day on Hive Free.'
     : feature.id === 'voice' ? `${feature.values[0]} voice sessions per day on Hive Free.`
     : feature.id === 'research' ? 'Cited web research is planned from Starter.'
     : feature.id === 'pc' ? 'PC actions require an Allow or Deny decision; destructive commands are blocked.'
-    : feature.id === 'swarm' ? 'Scout, Hive and Pulse work together; Critic reviews after an answer. Sentry monitors tool calls.'
+    : feature.id === 'swarm' ? 'Scout, Hive, and Pulse work together. Critic reviews the answer. Sentry watches tool calls.'
     : feature.id === 'buddy' ? 'Buddy and the desktop notch are planned from Plus.'
     : feature.id === 'cloud' ? 'HiveBox cloud disk is planned from Plus.'
     : feature.id === 'background' ? 'HiveBox background tasks are planned for Max.'
@@ -25,7 +25,7 @@ const featureCards = planCatalog.features.map((feature) => ({
 }));
 const faq = [
   ['Is Hive available to download?', 'The public beta installer was removed. We’ll explain what changed when v0.0.1 is posted.'],
-  ['What does Hive Free include?', 'The planned Free tier includes 25,000 Hive Free chat tokens per day, 5 voice sessions per day, standard models, and core chat.'],
+  ['What does Hive Free include?', 'The planned Free tier includes 25,000 chat tokens per day, 5 voice sessions per day, standard models, and core chat.'],
   ['Are paid plans one-time purchases?', 'No. Starter, Plus, and Max are planned monthly subscriptions. Checkout is not open yet.'],
   ['Where do chats and prompts go?', 'Chats and the Mission Board stay on your device. This website does not run prompts. Model requests are sent to the provider selected in the app.'],
 ];
@@ -37,7 +37,7 @@ const faq = [
       <div class="text-center lg:text-left">
         <span class="hero-in inline-flex items-center gap-2 rounded-full border border-line bg-panel/70 px-3 py-1.5 text-xs text-soft backdrop-blur"><span class="live-dot"></span> Hive v0.0.1 · release details to come</span>
         <h1 class="mt-6 text-[2.75rem] font-bold leading-[1] sm:text-6xl lg:text-7xl" id="hero-title"><span class="word">Your</span> <span class="word">ideas,</span> <span class="word">meet</span><br class="hidden sm:block" /><span class="word text-gradient">your</span> <span class="word text-gradient">AI</span> <span class="word text-gradient">crew.</span></h1>
-        <p class="hero-in lead mx-auto mt-6 max-w-xl lg:mx-0">Research with sources. Hand off work to your crew. Let Buddy use your PC when you approve. Hive brings the workflow into one focused Windows desktop app.</p>
+        <p class="hero-in lead mx-auto mt-6 max-w-xl lg:mx-0">Cited research, an agent crew, and PC actions that ask first. Those are planned Starter and Plus features. Hive v0.0.1 is not ready to download.</p>
         <div class="hero-in mt-8 flex flex-col items-center lg:items-start"><a class="btn btn-primary" href="#notify">Email me when v0.0.1 is ready</a><div class="mt-4 flex gap-4 text-sm"><a href="#tour" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">Watch the tour ↓</a><a href={DISCORD} target="_blank" rel="noopener noreferrer" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">Discord ↗</a><a href={X_URL} target="_blank" rel="noopener noreferrer" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">X ↗</a></div></div>
       </div>
       <div class="hero-in relative mx-auto w-64 sm:w-80 lg:w-full lg:max-w-sm" aria-hidden="true"><div class="absolute inset-8 rounded-full bg-honey/30 blur-3xl"></div><img src="/hive-buddy-float.webp" alt="" width="330" height="330" class="animate-float relative w-full drop-shadow-[0_30px_60px_rgba(240,138,36,.35)]" fetchpriority="high" /></div>

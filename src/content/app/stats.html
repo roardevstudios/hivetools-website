@@ -1,14 +1,14 @@
 <main>
-    <section class="hero"><p class="eyebrow">Hive · account</p><h1>Plan limits and account.</h1><p>Published Hive plan limits and private details for your signed-in account.</p></section>
+    <section class="hero"><p class="eyebrow">Hive · account</p><h1>Plan limits and account</h1><p>Published Hive plan limits and private details for your signed-in account.</p></section>
     <section aria-labelledby="publicHeading">
-      <div class="section-head"><div><p class="eyebrow">01 · public</p><h2 id="publicHeading">The app</h2></div><span class="tag live">Public stats</span></div>
+      <div class="section-head"><div><p class="eyebrow">01 · public</p><h2 id="publicHeading">Hive Free limits</h2></div></div>
       <div class="grid">
-        <article class="tile spotlight"><span class="label">Release status</span><strong>Details pending</strong><small>Hive v0.0.1</small></article>
-        <article class="tile spotlight"><span class="label">Included AI allowance</span><strong data-count="25000">25,000</strong><small>tokens per day · Hive Free</small></article>
-        <article class="tile spotlight"><span class="label">Included voice allowance</span><strong data-count="5">5</strong><small>sessions per day</small></article>
-        <article class="tile spotlight"><span class="label">Workspace features</span><strong>Chat + agents</strong><small>voice, search, and shared Spaces</small></article>
+        <article class="tile spotlight"><span class="label">Release status</span><strong>Not posted</strong><small>Hive v0.0.1 · public beta installer removed</small></article>
+        <article class="tile spotlight"><span class="label">Chat tokens / day</span><strong data-count="25000">25,000</strong><small>Hive Free</small></article>
+        <article class="tile spotlight"><span class="label">Voice sessions / day</span><strong data-count="5">5</strong><small>Hive Free</small></article>
+        <article class="tile spotlight"><span class="label">Core chat</span><strong>Included</strong><small>Hive Free</small></article>
       </div>
-      <p class="note">These are published product limits and features, not visitor or download counters.</p>
+      <p class="note">Search, PC actions, agents, Buddy, and HiveBox depend on the plan. See <a href="/pricing">Pricing</a>. These are not visitor or download numbers.</p>
     </section>
     <section class="section account" aria-labelledby="accountHeading">
       <div class="section-head"><div><p class="eyebrow">02 · private</p><h2 id="accountHeading">Your account</h2></div><span class="tag">Only visible when signed in</span></div>
@@ -23,6 +23,7 @@
         <p class="status" id="accountStatus" role="status" aria-live="polite"></p>
       </div>
       <p class="status" id="loadStatus" role="status" aria-live="polite">Sign in to view account details.</p>
+      <a class="button secondary" id="statsSignIn" href="/auth?next=/stats">Sign in</a>
     </section>
   </main>
   
@@ -34,7 +35,7 @@
       var out=document.getElementById('signedOut'),inside=document.getElementById('signedIn'),sb=null,authListenerAdded=false;
       var loadStatus=document.getElementById('loadStatus'),stats=document.getElementById('accountStats');
       function makeTile(label,value,detail){var a=document.createElement('article');a.className='tile spotlight';var l=document.createElement('span');l.className='label';l.textContent=label;var v=document.createElement('strong');v.textContent=value;var d=document.createElement('small');d.textContent=detail;a.append(l,v,d);return a}
-      function showSignedOut(message){out.hidden=false;inside.hidden=true;loadStatus.textContent=message||''}
+      function showSignedOut(message){out.hidden=false;inside.hidden=true;loadStatus.textContent=message||'';document.getElementById('statsSignIn').hidden=false}
       async function load(){
         if(!window.supabase){showSignedOut('Account sign-in could not load. Refresh and try again.');return}
         if(!sb)sb=window.supabase.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:'pkce'}});
@@ -49,7 +50,7 @@
         if(result.error){showSignedOut('Could not check your sign-in. Refresh and try again.');return}
         var user=result.data&&result.data.session&&result.data.session.user;
         if(!user){showSignedOut('Sign in to view account details.');return}
-        out.hidden=true;inside.hidden=false;loadStatus.textContent='';
+        out.hidden=true;inside.hidden=false;loadStatus.textContent='';document.getElementById('statsSignIn').hidden=true;
         document.getElementById('accountEmail').textContent=user.email||'Hive account';
         document.getElementById('accountStatus').textContent='Loading your account details…';
         stats.replaceChildren(makeTile('Account created',user.created_at?new Date(user.created_at).toLocaleDateString():'—','Hive member since'));
