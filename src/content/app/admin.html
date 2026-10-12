@@ -16,12 +16,8 @@
   <!-- ── Sign-in gate ── -->
   <div id="gate" class="spotlight-card" style="background:var(--surface-2);border-color:var(--orange-35);">
     <h1 style="font-size:1.35rem;color:var(--orange);margin-bottom:6px;">Admin sign in</h1>
-    <p class="card-note" style="font-size:13.5px;color:var(--dim);margin-bottom:16px;">Sign in with the owner account. No account yet? <a href="/auth?mode=signup&next=/admin" style="color:var(--orange);">Create one</a>.</p>
-    <label>Email</label>
-    <input id="adm-email" type="email" autocomplete="username" placeholder="you@example.com" aria-label="Admin email" />
-    <label>Password</label>
-    <input id="adm-pass" type="password" autocomplete="current-password" aria-label="Admin password" />
-    <p style="margin-top:18px;"><button class="primary" type="button" id="adm-in">Sign in</button></p>
+    <p class="card-note" style="font-size:13.5px;color:var(--dim);margin-bottom:16px;">Sign in with the owner account to open this dashboard.</p>
+    <p style="margin-top:18px;"><a class="primary" href="/auth?next=/admin">Continue to sign in</a></p>
     <p id="login-msg"></p>
   </div>
 
@@ -74,33 +70,31 @@
 
       <!-- Marquee ticker -->
       <div class="features-section">
-        <h2>Activity</h2>
-        <p>The features currently in use across Hive.</p>
-        <div class="marquee" aria-label="System status ticker">
+        <h2>Planned capabilities</h2>
+        <p>These are planned desktop features, not live activity. The v0.0.1 installer is not posted.</p>
+        <div class="marquee" aria-label="Planned Hive capabilities">
           <div class="marquee-track">
             <div class="marquee-group">
-              <span class="chip"><i></i>Cited research</span>
-              <span class="chip"><i></i>Real PC control</span>
-              <span class="chip"><i></i>Buddy at your cursor</span>
-              <span class="chip"><i></i>Buddy notch</span>
-              <span class="chip"><i></i>Voice in, voice out</span>
-              <span class="chip"><i></i>Command palette</span>
-              <span class="chip"><i></i>Fast · Auto · Heavy · Max</span>
-              <span class="chip"><i></i>Agent swarm</span>
-              <span class="chip"><i></i>HiveBox</span>
-              <span class="chip"><i></i>Audit log</span>
+              <span class="chip"><i></i>Core chat · Free</span>
+              <span class="chip"><i></i>Cited research · Starter</span>
+              <span class="chip"><i></i>PC actions · Starter</span>
+              <span class="chip"><i></i>Buddy and notch · Plus</span>
+              <span class="chip"><i></i>Voice sessions</span>
+              <span class="chip"><i></i>Command palette · Planned</span>
+              <span class="chip"><i></i>Agent swarm · Starter</span>
+              <span class="chip"><i></i>HiveBox · Plus</span>
+              <span class="chip"><i></i>HiveBox background tasks · Max</span>
             </div>
             <div class="marquee-group" aria-hidden="true">
-              <span class="chip"><i></i>Cited research</span>
-              <span class="chip"><i></i>Real PC control</span>
-              <span class="chip"><i></i>Buddy at your cursor</span>
-              <span class="chip"><i></i>Buddy notch</span>
-              <span class="chip"><i></i>Voice in, voice out</span>
-              <span class="chip"><i></i>Command palette</span>
-              <span class="chip"><i></i>Fast · Auto · Heavy · Max</span>
-              <span class="chip"><i></i>Agent swarm</span>
-              <span class="chip"><i></i>HiveBox</span>
-              <span class="chip"><i></i>Audit log</span>
+              <span class="chip"><i></i>Core chat · Free</span>
+              <span class="chip"><i></i>Cited research · Starter</span>
+              <span class="chip"><i></i>PC actions · Starter</span>
+              <span class="chip"><i></i>Buddy and notch · Plus</span>
+              <span class="chip"><i></i>Voice sessions</span>
+              <span class="chip"><i></i>Command palette · Planned</span>
+              <span class="chip"><i></i>Agent swarm · Starter</span>
+              <span class="chip"><i></i>HiveBox · Plus</span>
+              <span class="chip"><i></i>HiveBox background tasks · Max</span>
             </div>
           </div>
         </div>
@@ -111,17 +105,17 @@
         <div class="bento-card wide">
           <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 4 7.1 17 2.6-7.3L21 11.1z"/></svg></div>
           <h3>Account Management</h3>
-          <p>View all Hive accounts, see approval status, and manage reviews. Users can request access directly, or admins can create new accounts.</p>
+          <p>View Hive accounts, review approval status, and handle access requests.</p>
         </div>
         <div class="bento-card">
           <div class="bento-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 11 13 2 13 22 2 11"/><circle cx="13" cy="11" r="3"/></svg></div>
-          <h3>Real-time activity</h3>
-          <p>See active requests, approvals, and denials as they happen across all Hive instances.</p>
+          <h3>Request review</h3>
+          <p>Review pending account requests and apply account status changes.</p>
         </div>
         <div class="bento-card">
           <div class="bento-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><polyline points="8 12 12 16 16 12"/></svg></div>
           <h3>Access control</h3>
-          <p>Approve or deny new user requests. Access codes are generated and automatically delivered to the requesting user.</p>
+          <p>Approve or deny account requests from the account list.</p>
         </div>
         <div class="bento-card purple">
           <div class="bento-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 16 14"/></svg></div>
@@ -149,59 +143,16 @@
         <p id="req-note" class="msg-line">Creates a pending request for a new user.</p>
       </section>
 
-      <!-- ── Access codes ── -->
+      <!-- ── Access codes (inactive until checkout and installer are available) ── -->
       <section class="sec">
         <h2>Access codes</h2>
-        <p class="hint" style="margin-bottom:14px;">Generate download codes for buyers. Each PayPal purchase auto-claims one via <code>claim_access_code</code>. Set how many times each code can be used.</p>
-        <div class="panel">
-          <label style="margin-top:0;">Label (optional)</label>
-          <input id="code-label" placeholder="e.g. batch-1" aria-label="Code label" />
-          <div class="grid-4" style="margin-top:10px;">
-            <div><label>How many codes</label><input id="code-count" type="number" min="1" max="50" value="5" aria-label="How many codes" /></div>
-            <div><label>Uses per code</label><input id="code-uses" type="number" min="1" max="100" value="1" aria-label="Uses per code" /></div>
-          </div>
-          <div class="row-actions">
-            <button class="primary" id="code-gen" type="button" style="min-width:170px;">Generate codes</button>
-            <button class="btn ghost" id="code-refresh" type="button">Refresh</button>
-            <button type="button" id="code-delete-used" style="font-size:12.5px;">Delete spent codes</button>
-          </div>
-        </div>
-        <p id="code-msg" class="msg-line"></p>
-        <div class="row-list" id="code-list">
-          <p style="color:var(--dim);text-align:center;padding:20px;">No codes loaded yet.</p>
-        </div>
+        <p class="hint" role="status">Inactive — checkout is closed and the installer is unavailable, so access-code generation and PayPal claims are disabled.</p>
       </section>
 
       <!-- ── Sales ── -->
       <section class="sec">
         <h2>Sales</h2>
-        <p class="hint" style="margin-bottom:14px;">Start a custom sale — the active sale's prices show live on <code>/pricing</code> with a countdown. Public checkout is unavailable before launch, so saved sales are not applied until checkout is enabled.</p>
-        <div class="panel">
-          <label style="margin-top:0;">Sale name</label>
-          <input id="sale-label" placeholder="e.g. Weekend free Unlock" aria-label="Sale name" />
-          <div class="grid-4" style="margin-top:10px;">
-            <div><label>Unlock €</label><input id="sale-unlock" type="number" min="0" step="0.01" value="0.00" aria-label="Unlock price in EUR" /></div>
-            <div><label>Plus first mo €</label><input id="sale-plus" type="number" min="0" step="0.01" value="7.59" aria-label="Tokens Plus first month price in EUR" /></div>
-            <div><label>Max first mo €</label><input id="sale-max" type="number" min="0" step="0.01" value="10.59" aria-label="Tokens Max first month price in EUR" /></div>
-            <div><label>Ends at (optional)</label><input id="sale-ends" type="datetime-local" aria-label="Sale end date and time" /></div>
-          </div>
-          <div class="row-actions">
-            <button class="primary" id="sale-start" type="button" style="min-width:150px;">▶ Start sale</button>
-            <button class="btn ghost" id="sale-end" type="button">■ End sale</button>
-            <span class="hint">Quick:</span>
-            <button type="button" data-preset-end="24" style="font-size:12px;">+24h</button>
-            <button type="button" data-preset-end="72" style="font-size:12px;">+3 days</button>
-            <button type="button" data-preset-end="168" style="font-size:12px;">+7 days</button>
-          </div>
-        </div>
-        <p id="sale-msg" class="msg-line"></p>
-        <div id="sale-active" style="margin-top:14px;"></div>
-        <details class="block" id="old-sales">
-          <summary>Old sales <span id="old-sales-count" style="color:var(--dim);font-weight:400;"></span></summary>
-          <div class="row-list" id="sale-list" style="margin:10px 0 14px;">
-            <p style="color:var(--dim);text-align:center;padding:20px;">No sales loaded yet.</p>
-          </div>
-        </details>
+        <p class="hint" role="status">Inactive — checkout is closed. Published monthly plan prices are fixed, and sale controls are disabled.</p>
       </section>
 
       <!-- ── Claims inbox ── -->
@@ -328,7 +279,7 @@
     var content = document.getElementById('admin-content');
     if (gate) gate.style.display = 'none';
     if (content) content.style.display = 'block';
-     await Promise.all([loadStats(), loadUsage(), loadCodes(), loadSales(), loadClaims(), loadUpgradeRequests()]);
+     await Promise.all([loadStats(), loadUsage(), loadClaims(), loadUpgradeRequests()]);
     await loadUsers();
   }
 
@@ -347,18 +298,6 @@
   });
 
   /* ═══════════════════════════ Login ═══════════════════════════ */
-  document.getElementById('adm-in').addEventListener('click', async function () {
-    if (!SB) { msg('login-msg', 'Supabase keys missing (see README.md).'); return; }
-    var em = document.getElementById('adm-email').value.trim();
-    var pw = document.getElementById('adm-pass').value;
-    if (!em || !pw) { msg('login-msg', 'Enter email and password.'); return; }
-    msg('login-msg', 'Signing in…');
-    try {
-      var r = await SB.auth.signInWithPassword({ email: em, password: pw });
-      if (r.error) { msg('login-msg', r.error.message || 'Sign-in failed.'); return; }
-      if (await enterAdmin(r.data.user)) msg('login-msg', 'OK');
-    } catch (e) { msg('login-msg', e.message || 'Sign-in failed.'); }
-  });
 
   /* ═══════════════════════════ Stats ═══════════════════════════ */
   function esc(s) {
@@ -643,208 +582,7 @@
     window.addEventListener('resize', showBtn);
   })();
 
-  /* ═══════════════════════════ Access codes: generate + list ═══════════════════════ */
-  function randomCode() {
-    var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-    var s = '';
-    for (var i = 0; i < 6; i++) s += chars.charAt(Math.floor(Math.random() * chars.length));
-    return s;
-  }
-
-  async function loadCodes() {
-    if (!SB || !HIVE_USER) return;
-    var container = document.getElementById('code-list');
-    try {
-      var r = await SB.from('access_codes').select('id,code,label,buyer_email,order_id,is_active,use_count,max_uses,claimed_at,created_at').order('created_at', { ascending: false }).limit(50);
-      if (r.error) { msg('code-msg', 'Error: ' + r.error.message); return; }
-      if (!r.data || !r.data.length) {
-        container.innerHTML = '<p style="color:var(--dim);text-align:center;padding:20px;">No codes yet — generate some above.</p>';
-        return;
-      }
-      container.innerHTML = r.data.map(function (c) {
-        var spent = (c.use_count || 0) >= (c.max_uses || 1);
-        var state, cls;
-        if (!c.is_active) { state = 'revoked'; cls = 'denied'; }
-        else if (spent) { state = '✓ used up (' + (c.use_count || 0) + '/' + (c.max_uses || 1) + ')'; cls = 'denied'; }
-        else if (c.claimed_at) { state = 'claimed · ' + (c.use_count || 0) + '/' + (c.max_uses || 1) + ' used'; cls = 'approved'; }
-        else { state = 'unclaimed'; cls = 'pending'; }
-        return '<div class="row"><div class="who"><b style="font-family:monospace;letter-spacing:.08em;">' + esc(c.code) + '</b>'
-          + '<span>' + esc(c.label || 'no label') + (c.buyer_email ? ' · ✉ ' + esc(c.buyer_email) : '') + ' · uses ' + (c.use_count || 0) + '/' + (c.max_uses || 1) + '</span></div>'
-          + '<div class="acts"><span class="badge ' + cls + '">' + esc(state) + '</span>'
-          + '<button type="button" data-copy="' + esc(c.code) + '">Copy</button>'
-          + '<button type="button" class="no" data-del-code="' + esc(c.id) + '" title="Delete this code">✕</button></div></div>';
-      }).join('');
-       container.querySelectorAll('[data-copy]').forEach(function (btn) {
-         btn.addEventListener('click', async function () {
-           try {
-             await navigator.clipboard.writeText(btn.getAttribute('data-copy'));
-             btn.textContent = 'Copied!';
-             setTimeout(function () { btn.textContent = 'Copy'; }, 1400);
-           } catch (e) {
-             msg('code-msg', 'Copy failed — select the code manually.');
-           }
-         });
-       });
-      container.querySelectorAll('[data-del-code]').forEach(function (btn) {
-        btn.addEventListener('click', function () { deleteCode(btn.getAttribute('data-del-code')); });
-      });
-      msg('code-msg', 'Loaded ' + r.data.length + ' codes.');
-    } catch (e) { msg('code-msg', e.message || 'Error.'); }
-  }
-
-  async function deleteCode(id) {
-    if (!SB || !HIVE_USER) return;
-    if (!confirm('Delete this code?')) return;
-    try {
-      var r = await SB.from('access_codes').delete().eq('id', id);
-      if (r.error) { msg('code-msg', 'Error: ' + r.error.message); return; }
-      msg('code-msg', 'OK — code deleted.');
-      loadCodes();
-    } catch (e) { msg('code-msg', e.message || 'Error.'); }
-  }
-
-  document.getElementById('code-delete-used').addEventListener('click', async function () {
-    if (!SB || !HIVE_USER) { msg('code-msg', 'Sign in first.'); return; }
-    if (!confirm('Delete ALL spent codes (use_count >= max_uses)?')) return;
-    try {
-      var all = await SB.from('access_codes').select('id,use_count,max_uses');
-      if (all.error) { msg('code-msg', 'Error: ' + all.error.message); return; }
-      var spent = (all.data || []).filter(function (c) { return (c.use_count || 0) >= (c.max_uses || 1); });
-      if (!spent.length) { msg('code-msg', 'No spent codes to delete.'); return; }
-      var r = await SB.from('access_codes').delete().in('id', spent.map(function (c) { return c.id; }));
-      if (r.error) { msg('code-msg', 'Error: ' + r.error.message); return; }
-      msg('code-msg', 'OK — deleted ' + spent.length + ' spent codes.');
-      loadCodes();
-    } catch (e) { msg('code-msg', e.message || 'Error.'); }
-  });
-
-  document.getElementById('code-gen').addEventListener('click', async function () {
-    if (!SB || !HIVE_USER) { msg('code-msg', 'Sign in first.'); return; }
-    var label = (document.getElementById('code-label').value || '').trim();
-    var n = Math.max(1, Math.min(50, parseInt(document.getElementById('code-count').value || '5', 10)));
-    var uses = Math.max(1, Math.min(100, parseInt(document.getElementById('code-uses').value || '1', 10)));
-    msg('code-msg', 'Generating ' + n + ' codes (' + uses + ' use' + (uses === 1 ? '' : 's') + ' each)…');
-    var rows = [];
-    for (var i = 0; i < n; i++) rows.push({ code: randomCode(), label: label || null, max_uses: uses });
-    try {
-      var r = await SB.from('access_codes').insert(rows).select('code');
-      if (r.error) { msg('code-msg', 'Error: ' + r.error.message); return; }
-      msg('code-msg', 'OK — generated ' + (r.data ? r.data.length : n) + ' codes, ' + uses + ' use' + (uses === 1 ? '' : 's') + ' each.');
-      loadCodes();
-    } catch (e) { msg('code-msg', e.message || 'Error.'); }
-  });
-  document.getElementById('code-refresh').addEventListener('click', loadCodes);
-
-  /* ═══════════════════════════ Sales: start / end ═══════════════════════ */
-  function saleCountdown(endsAt) {
-    if (!endsAt) return 'no end timer';
-    var ms = new Date(endsAt).getTime() - Date.now();
-    if (ms <= 0) return 'expired';
-    var s = Math.floor(ms / 1000);
-    var d = Math.floor(s / 86400); s -= d * 86400;
-    var h = Math.floor(s / 3600); s -= h * 3600;
-    var m = Math.floor(s / 60);
-    return (d ? d + 'd ' : '') + h + 'h ' + m + 'm left';
-  }
-
-  async function loadSales() {
-    if (!SB || !HIVE_USER) return;
-    var container = document.getElementById('sale-list');
-    var activeBox = document.getElementById('sale-active');
-    var countEl = document.getElementById('old-sales-count');
-    try {
-      var r = await SB.from('sales').select('*').order('created_at', { ascending: false }).limit(20);
-      if (r.error) { msg('sale-msg', 'Error: ' + r.error.message); return; }
-      if (!r.data || !r.data.length) {
-        if (activeBox) activeBox.innerHTML = '';
-        container.innerHTML = '<p style="color:var(--dim);text-align:center;padding:20px;">No sales yet — start one above.</p>';
-        if (countEl) countEl.textContent = '';
-        return;
-      }
-      var now = Date.now();
-      var isLive = function (s) { return s.is_active && !(s.ends_at && new Date(s.ends_at).getTime() <= now); };
-      var live = r.data.filter(isLive);
-      var old = r.data.filter(function (s) { return !isLive(s); });
-      var rowHtml = function (s) {
-        var expired = s.ends_at && new Date(s.ends_at).getTime() <= now;
-        var on = isLive(s);
-        var cls = on ? 'approved' : 'denied';
-        var state = on ? '● ACTIVE' : (expired ? 'expired' : 'ended');
-        var timer = s.is_active ? ' · ⏳ ' + esc(saleCountdown(s.ends_at)) : '';
-        var endStr = s.ends_at ? ' · ends ' + esc(new Date(s.ends_at).toLocaleString()) : ' · no end timer';
-        return '<div class="row"><div class="who"><b>' + esc(s.label || 'Sale') + '</b>'
-          + '<span>Unlock €' + esc(s.unlock_price) + ' · Plus €' + esc(s.plus_price) + ' · Max €' + esc(s.max_price) + endStr + timer + '</span></div>'
-          + '<div class="acts"><span class="badge ' + cls + '">' + state + '</span>'
-          + (s.is_active ? '<button type="button" data-end-sale="' + esc(s.id) + '">End now</button>' : '') + '</div></div>';
-      };
-      if (activeBox) activeBox.innerHTML = live.length
-        ? '<div class="live-tag">LIVE NOW</div>' + live.map(rowHtml).join('')
-        : '<p style="font-size:13px;color:var(--dim);">No active sale — pricing shows defaults.</p>';
-      container.innerHTML = old.length
-        ? old.map(rowHtml).join('')
-        : '<p style="color:var(--dim);text-align:center;padding:20px;">No old sales.</p>';
-      if (countEl) countEl.textContent = old.length ? '(' + old.length + ')' : '';
-      container.querySelectorAll('[data-end-sale]').forEach(function (btn) {
-        btn.addEventListener('click', function () { endSale(btn.getAttribute('data-end-sale')); });
-      });
-      if (activeBox) activeBox.querySelectorAll('[data-end-sale]').forEach(function (btn) {
-        btn.addEventListener('click', function () { endSale(btn.getAttribute('data-end-sale')); });
-      });
-      if (live.length) msg('sale-msg', 'Live: "' + live[0].label + '" — Unlock €' + live[0].unlock_price + ' · ' + saleCountdown(live[0].ends_at) + '.');
-    } catch (e) { msg('sale-msg', e.message || 'Error.'); }
-  }
-
-  async function endSale(id) {
-    if (!SB || !HIVE_USER) return;
-    try {
-      var q = id
-        ? SB.from('sales').update({ is_active: false, ends_at: new Date().toISOString() }).eq('id', id)
-        : SB.from('sales').update({ is_active: false, ends_at: new Date().toISOString() }).eq('is_active', true);
-      var r = await q;
-      if (r.error) { msg('sale-msg', 'Error: ' + r.error.message); return; }
-      msg('sale-msg', 'OK — sale ended. Pricing shows defaults.');
-      loadSales();
-    } catch (e) { msg('sale-msg', e.message || 'Error.'); }
-  }
-
-  document.getElementById('sale-start').addEventListener('click', async function () {
-    if (!SB || !HIVE_USER) { msg('sale-msg', 'Sign in first.'); return; }
-    var label = (document.getElementById('sale-label').value || 'Sale').trim();
-    var unlock = parseFloat(document.getElementById('sale-unlock').value);
-    var plus = parseFloat(document.getElementById('sale-plus').value);
-    var max = parseFloat(document.getElementById('sale-max').value);
-    var endsRaw = document.getElementById('sale-ends').value;
-    if (isNaN(unlock) || isNaN(plus) || isNaN(max) || unlock < 0 || plus < 0 || max < 0) {
-      msg('sale-msg', 'Enter valid prices (0 or more).'); return;
-    }
-    var endsAt = endsRaw ? new Date(endsRaw).toISOString() : null;
-    if (endsAt && new Date(endsAt).getTime() <= Date.now()) { msg('sale-msg', 'End time must be in the future.'); return; }
-    msg('sale-msg', 'Starting sale…');
-    try {
-      await SB.from('sales').update({ is_active: false, ends_at: new Date().toISOString() }).eq('is_active', true);
-      var r = await SB.from('sales').insert([{
-        label: label, unlock_price: unlock, plus_price: plus, max_price: max,
-        is_active: true, ends_at: endsAt
-      }]).select('id');
-      if (r.error) { msg('sale-msg', 'Error: ' + r.error.message); return; }
-      msg('sale-msg', 'OK — "' + label + '" is live on /pricing.' + (endsAt ? ' Ends ' + new Date(endsAt).toLocaleString() + '.' : ''));
-      document.getElementById('sale-ends').value = '';
-      loadSales();
-    } catch (e) { msg('sale-msg', e.message || 'Error.'); }
-  });
-  document.getElementById('sale-end').addEventListener('click', function () { endSale(null); });
-  document.querySelectorAll('[data-preset-end]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var h = parseInt(btn.getAttribute('data-preset-end'), 10);
-      var d = new Date(Date.now() + h * 3600000);
-      var p = function (n) { return String(n).padStart(2, '0'); };
-      document.getElementById('sale-ends').value =
-        d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + 'T' + p(d.getHours()) + ':' + p(d.getMinutes());
-    });
-  });
   setInterval(function () { if (HIVE_USER) loadUsage(); }, 30000);
-  // Refresh countdowns every minute while dashboard is open
-  setInterval(function () { if (HIVE_USER) loadSales(); }, 60000);
 
   /* ═══════════════════════════ Claims inbox ═══════════════════════ */
   async function loadClaims() {

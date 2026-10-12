@@ -12,8 +12,8 @@ const { section, previous, next } = Astro.props;
 <section class="docs-section" data-doc-section data-doc-id={section.id} aria-labelledby={section.id}>
   <header class="docs-section-head">
     {section.plan && <span class="docs-plan-badge">{section.plan}</span>}
-    <h2 id={section.id} tabindex="-1">
-      <a class="docs-heading-link" href={`#${section.id}`} aria-label={`Link to ${section.title}`}>#</a>
+    <h2 id={section.id} tabindex="-1" aria-label={section.title}>
+      <a class="docs-heading-link" href={`#${section.id}`} aria-hidden="true" tabindex="-1">#</a>
       {section.title}
     </h2>
     <p class="docs-summary">{section.summary}</p>
