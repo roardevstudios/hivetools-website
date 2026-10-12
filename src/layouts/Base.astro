@@ -40,6 +40,8 @@ const canonical = new URL(canonicalPath, SITE_URL).toString();
     <script is:inline>document.documentElement.classList.add('js')</script>
   </head>
   <body class="min-h-dvh">
+    <script is:inline src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+    <script is:inline src="/hive-auth.js"></script>
     <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 hex-bg"></div>
     <div aria-hidden="true" id="glow" class="pointer-events-none fixed will-change-transform -z-10 size-[600px] rounded-full opacity-0 transition-opacity duration-700 md:opacity-100"
       style="background:radial-gradient(circle, rgb(240 138 36 / .10), transparent 65%); left:-300px; top:-300px;"></div>

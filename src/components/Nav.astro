@@ -13,7 +13,7 @@ const path = Astro.url.pathname.replace(/\.html$/, '');
       ))}
     </div>
     <div class="nav-actions col-start-3 flex items-center justify-self-end gap-2">
-      <a href="/auth" class="hidden shrink-0 whitespace-nowrap text-sm text-dim hover:text-text sm:inline">Sign in</a>
+      <a id="nav-auth-link" href="/auth" class="hidden shrink-0 whitespace-nowrap text-sm text-dim hover:text-text sm:inline">Sign in</a>
       <a href={NOTIFY_URL} class="btn btn-primary hidden shrink-0 whitespace-nowrap !min-h-9 !px-3 sm:inline-flex">Get release email</a>
       <button id="menu-btn" type="button" class="relative grid size-11 place-items-center rounded-xl lg:hidden" aria-label="Open menu" aria-controls="menu" aria-expanded="false">
         <span class="bar absolute h-0.5 w-5 -translate-y-1.5 rounded bg-text transition duration-300"></span>
@@ -26,7 +26,7 @@ const path = Astro.url.pathname.replace(/\.html$/, '');
 <div id="menu" class="fixed inset-0 z-40 flex flex-col bg-ink/95 px-6 pt-24 pb-10 backdrop-blur-2xl lg:hidden" hidden>
   <nav class="flex flex-col" aria-label="Mobile">
     {[...NAV, { href: '/profile', label: 'Profile' }, { href: '/auth', label: 'Sign in' }].map((l, i) => (
-      <a href={l.href} style={`--i:${i}`} class="menu-link border-b border-line py-4 font-display text-2xl font-semibold text-text">{l.label}</a>
+      <a id={l.href === '/auth' ? 'mobile-auth-link' : undefined} href={l.href} style={`--i:${i}`} class="menu-link border-b border-line py-4 font-display text-2xl font-semibold text-text">{l.label}</a>
     ))}
   </nav>
   <div class="mt-auto grid gap-3"><a href={NOTIFY_URL} class="btn btn-primary w-full !min-h-13 text-base">Get release email</a><a href={DISCORD} target="_blank" rel="noopener noreferrer" class="btn btn-ghost w-full !min-h-13 text-base">Discord community</a></div>
@@ -56,4 +56,16 @@ const path = Astro.url.pathname.replace(/\.html$/, '');
   btn.addEventListener('click', () => setOpen(menu.hidden));
   menu.addEventListener('click', (e) => { if ((e.target as Element).closest('a')) setOpen(false); });
   addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) setOpen(false); });
+
+  const updateAuthLink = (signedIn: boolean) => {
+    const desktop = document.getElementById('nav-auth-link');
+    const mobile = document.getElementById('mobile-auth-link');
+    if (desktop) { desktop.textContent = signedIn ? 'My account' : 'Sign in'; desktop.setAttribute('href', signedIn ? '/profile' : '/auth'); }
+    if (mobile) { mobile.textContent = signedIn ? 'My account' : 'Sign in'; mobile.setAttribute('href', signedIn ? '/profile' : '/auth'); }
+  };
+  const authClient = (window as any).hiveSupabase;
+  if (authClient) {
+    authClient.auth.onAuthStateChange((_event: string, session: any) => updateAuthLink(!!session?.user));
+    authClient.auth.getSession().then(({ data }: any) => updateAuthLink(!!data?.session?.user)).catch(() => updateAuthLink(false));
+  }
 </script>

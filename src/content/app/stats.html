@@ -29,15 +29,13 @@
   
   <script>
     (function(){
-      var URL='https://nqkmnmwbmikbgopwkvse.supabase.co';
-      var KEY='sb_publishable_p5TvTFyNO0-kS5yUQSkRXw_GBSsHec4';
       var out=document.getElementById('signedOut'),inside=document.getElementById('signedIn'),sb=null,authListenerAdded=false;
       var loadStatus=document.getElementById('loadStatus'),stats=document.getElementById('accountStats');
       function makeTile(label,value,detail){var a=document.createElement('article');a.className='tile spotlight';var l=document.createElement('span');l.className='label';l.textContent=label;var v=document.createElement('strong');v.textContent=value;var d=document.createElement('small');d.textContent=detail;a.append(l,v,d);return a}
       function showSignedOut(message){out.hidden=false;inside.hidden=true;loadStatus.textContent=message||''}
       async function load(){
-        if(!window.supabase){showSignedOut('Account sign-in could not load. Refresh and try again.');return}
-        if(!sb)sb=window.supabase.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:'pkce'}});
+        if(!window.hiveSupabase){showSignedOut('Account sign-in could not load. Refresh and try again.');return}
+        if(!sb)sb=window.hiveSupabase;
         if(!authListenerAdded){
           authListenerAdded=true;
           sb.auth.onAuthStateChange(function(event,session){

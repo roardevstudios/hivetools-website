@@ -219,20 +219,13 @@
 <script>
 (function () {
   /* ═══════════════════════════ Supabase ═══════════════════════ */
-  var SB = null;
+  var SB = window.hiveSupabase || null;
   var HIVE_USER = null;
   var PROFILE_ROWS = [];
   var QUOTA_BY_USER = {};
   var SUBSCRIPTION_BY_USER = {};
   var INSTALLS_BY_USER = {};
   var AUDIT_ENTRIES = [];
-
-  try {
-    SB = window.supabase.createClient('https://nqkmnmwbmikbgopwkvse.supabase.co',
-      'sb_publishable_p5TvTFyNO0-kS5yUQSkRXw_GBSsHec4', {
-        auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: 'pkce' }
-      });
-  } catch (e) { SB = null; }
 
   function msg(id, text) {
     var el = document.getElementById(id);

@@ -42,14 +42,7 @@
 
 <script>
 (function () {
-  var SB = null;
-  try {
-    SB = window.supabase.createClient(
-      'https://nqkmnmwbmikbgopwkvse.supabase.co',
-      'sb_publishable_p5TvTFyNO0-kS5yUQSkRXw_GBSsHec4', {
-        auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: 'pkce' }
-      });
-  } catch (e) { SB = null; }
+  var SB = window.hiveSupabase || null;
 
   var query = new URLSearchParams(window.location.search);
   var mode = 'in';
@@ -101,7 +94,7 @@
     msg('Opening Google…');
     try {
       try { if (query.get('next')) sessionStorage.setItem('hive_auth_next', query.get('next')); } catch (e) {}
-      var result = await SB.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin + '/auth?mode=oauth' } });
+      var result = await SB.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: 'https://hivetools.pro/auth?mode=oauth' } });
       if (result.error) { authPending = false; msg(result.error.message, 'err'); }
     } catch (err) {
       authPending = false;
@@ -151,17 +144,11 @@
     }
   });
 
-  (async function () {
-    if (!SB || query.get('mode') !== 'oauth') return;
-    try {
-      var result = await SB.auth.getSession();
-      var user = result.data && result.data.session && result.data.session.user;
-      if (user) {
-        try { await SB.from('profiles').upsert({ id: user.id, email: user.email }, { onConflict: 'id' }); } catch (e) {}
-        window.location.href = nextUrl();
-      }
-    } catch (e) {}
-  })();
+  if (query.get('mode') === 'oauth') {
+    var oauthError = query.get('error_description') || query.get('error');
+    if (oauthError) msg(oauthError, 'err');
+    else msg('Finishing sign in…');
+  }
 })();
 </script>
 

@@ -8,7 +8,6 @@ interface Props { title: string; html: string; noindex?: boolean }
 const { title, html, noindex } = Astro.props;
 ---
 <Base title={title} noindex={noindex}>
-  <script is:inline src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
   <div class="app-legacy pt-32 sm:pt-36">
     <Fragment set:html={html} />
   </div>

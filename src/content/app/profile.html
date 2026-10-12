@@ -58,14 +58,7 @@
 
 <script>
 (function () {
-  var SB = null;
-  try {
-    SB = window.supabase.createClient(
-      'https://nqkmnmwbmikbgopwkvse.supabase.co',
-      'sb_publishable_p5TvTFyNO0-kS5yUQSkRXw_GBSsHec4', {
-        auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: 'pkce' }
-      });
-  } catch (e) { SB = null; }
+  var SB = window.hiveSupabase || null;
 
   function msg(t) { var el = document.getElementById('pf-msg'); if (el) el.textContent = t || ''; }
   function esc(s) { return String(s == null ? '' : s); }
