@@ -79,7 +79,9 @@ Deno.serve(async (request) => {
 
     const body = await request.json();
     if (!['preview', 'send', 'test'].includes(body.action)) return response({ error: 'Choose preview, test, or send.' }, 400);
+    const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
     if (body.action === 'preview') {
+      if (!serviceKey) return response({ error: 'The server is missing its private database key.' }, 503);
       const recipients = await getRecipients(serviceKey);
       return response({ recipientCount: recipients.length });
     }
@@ -107,7 +109,6 @@ Deno.serve(async (request) => {
       return response({ tested: true });
     }
 
-    const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
     if (!serviceKey) return response({ error: 'The server is missing its private database key.' }, 503);
     const recipients = await getRecipients(serviceKey);
     if (!recipients.length) return response({ error: 'There are no opted-in recipients yet.' }, 400);
