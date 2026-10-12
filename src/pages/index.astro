@@ -2,337 +2,92 @@
 import Base from '../layouts/Base.astro';
 import SectionHead from '../components/SectionHead.astro';
 import DemoChat from '../components/DemoChat.astro';
-import BetaNotice from '../components/BetaNotice.astro';
 import Waitlist from '../components/Waitlist.astro';
 import { DISCORD, SUPPORT_EMAIL, X_URL } from '../lib/site';
+import { planCatalog, type PlanId } from '../lib/plans';
 
 const chapters = [[0, 'Intro'], [12, 'Agent crew'], [16, 'Specialists'], [28, 'Approval'], [36, 'Research'], [40, 'PC control'], [48, 'Voice'], [52, 'Bento'], [56, 'Punchline']] as const;
-
-const marquee = ['Cited research', 'Real PC control', 'Next-Gen Pro UI', 'Buddy at your cursor', 'Buddy notch', 'Voice in, voice out', 'Command palette', 'Fast · Auto · Heavy · Max', 'Agent swarm', 'HiveBox', 'Audit log'];
-
-const features = [
-  { t: 'Your AI crew, with faces', d: 'Scout researches, Hive answers, Pulse checks, Critic reviews. Every bot has its own mascot that animates while it works and winks when the job is finished.', span: 'md:col-span-2', img: '/hive-chat.webp' },
-  { t: 'Cited web research', d: 'Hive searches live and answers with Verified Sources cards: domain, title, snippet and links you can check yourself.', span: 'md:row-span-2', img: '/hive-search.webp' },
-  { t: 'Real PC control', d: 'Hive can open apps, run safe shell commands, click and type, always through the Allow / Deny prompt.', icon: '🖱️' },
-  { t: 'Group chats with @hand-offs', d: 'Invite people and bots into one space. Tag @scout and it can pass work to @critic on its own, up to four turns so it never loops.', icon: '💬' },
-  { t: 'HiveBox', d: 'One side panel with Crew, Skills and Work tabs. Hive asks before it writes a file.', icon: '📦' },
-  { t: 'Clear usage limits', d: "See today's tokens, what's left of your 25,000 daily free tokens, the last 7 days and exactly when each limit resets.", icon: '📊' },
-  { t: 'Command palette', d: 'Ctrl + K jumps to a new chat, Buddy, canvas, settings or the notch.', icon: '⌘' },
-  { t: 'Voice in, voice out', d: 'Push-to-talk dictation in the notch and spoken answers when a job finishes.', icon: '🎙️' },
-  { t: 'Fast · Auto · Heavy · Max', d: 'You never pick a model name. The title-bar pill is the mode; Hive chooses.', icon: '⚡' },
-  { t: 'Next-Gen Pro Workspace', d: 'A lean 56px icon rail, grouped conversations, a high-clarity stream, a tactile composer and a sliding artifact canvas built for deep focus.', span: 'md:col-span-2', img: '/hive-empty.webp' },
-  { t: 'Hive Sparks', d: 'Turn a loose idea into a focused prompt with Research, Build, Compare or Write starters, then edit before you send.', icon: '✨' },
-  { t: 'Mission Board', d: 'Save reusable prompts, group by project, set due dates, track progress and export a JSON backup. It stays on your device.', icon: '🗂️' },
-];
-
-const flow = [
-  ['Start with the outcome', 'Choose Research, Build, Compare or Write. Hive Sparks helps turn a rough idea into a focused task.', 'Hive Sparks'],
-  ['Add the context that matters', 'Set your goal, constraints, audience or criteria so the work starts with the details you care about.', 'Your direction'],
-  ['Review the plan and sources', 'Check the suggested steps before you send. Research results can include citations you can inspect.', 'You stay in control'],
-  ['Keep longer work organized', 'Track missions on the desktop Mission Board, then update their status or export the board when you need it.', 'Mission Board'],
-];
-
-const safety = [
-  ['It asks first. Every time.', 'Before Buddy opens, clicks or types anything, a card shows what it wants to do with Allow / Deny buttons. Nothing runs until you click Allow.'],
-  ['Destructive shell is blocked.', 'Commands that delete, format or modify system files are blocked in the app itself. You can never accidentally Allow one, because Hive can’t send it.'],
-  ['Everything is logged.', 'Every click, keystroke and shell command Buddy performs lands in the audit overlay. Review the full history at any time.'],
-  ['Local-first.', 'Your chats and files live on your machine. Hive only reaches the internet for search and the model itself.'],
-];
-
+const levelNames: Record<PlanId, string> = { free: 'Free', starter: 'Starter', plus: 'Plus', max: 'Max' };
+const featureCards = planCatalog.features.map((feature) => ({
+  title: feature.home,
+  plan: levelNames[feature.from ?? 'free'],
+  description: feature.id === 'tokens' ? `Hive Free chat allowance: ${feature.values[0]} tokens per day.`
+    : feature.id === 'voice' ? `${feature.values[0]} voice sessions per day on Hive Free.`
+    : feature.id === 'research' ? 'Cited web research is planned from Starter.'
+    : feature.id === 'pc' ? 'PC actions require an Allow or Deny decision; destructive commands are blocked.'
+    : feature.id === 'swarm' ? 'Scout, Hive and Pulse work together; Critic reviews after an answer. Sentry monitors tool calls.'
+    : feature.id === 'buddy' ? 'Buddy and the desktop notch are planned from Plus.'
+    : feature.id === 'cloud' ? 'HiveBox cloud disk is planned from Plus.'
+    : feature.id === 'background' ? 'HiveBox background tasks are planned for Max.'
+    : feature.id === 'models' ? 'Standard models are planned for Free through Plus; Max adds the fastest models and top priority.'
+    : feature.id === 'tools' ? 'Standard agent tools are planned from Starter.'
+    : 'Core chat workspace is planned across all plans.',
+}));
 const faq = [
-  ['Is Hive a web app?', 'No. Hive is a Windows 10/11 desktop app. This website is for product information, docs and getting the app.'],
-  ['Does the website run Hive Sparks or save missions?', 'No. Hive Sparks and the Mission Board are features in the desktop app. The preview on this page is only an explanation; it does not submit or store prompts.'],
-  ['Where does the Mission Board save my prompts?', 'The board is stored locally in the Hive desktop app on your device. You can export it as JSON for a backup or import it later. It does not sync through this website.'],
-  ['Can Hive control my PC without asking?', 'No. PC actions show an Allow or Deny request before they run, and destructive commands are blocked. You stay in control of whether an action happens.'],
-  ['Does Hive need an internet connection?', "Yes, for AI model requests and live web research. The Mission Board itself is stored locally. Check the selected model provider's terms for how it handles requests."],
+  ['Is Hive available to download?', 'The public beta installer was removed. We’ll explain what changed when v0.0.1 is posted.'],
+  ['What does Hive Free include?', 'The planned Free tier includes 25,000 Hive Free chat tokens per day, 5 voice sessions per day, standard models, and core chat.'],
+  ['Are paid plans one-time purchases?', 'No. Starter, Plus, and Max are planned monthly subscriptions. Checkout is not open yet.'],
+  ['Where do chats and prompts go?', 'Chats and the Mission Board stay on your device. This website does not run prompts. Model requests are sent to the provider selected in the app.'],
 ];
 ---
 <Base title="Hive — research, agents, and PC control in one AI workspace">
-  <!-- Hero -->
   <section class="relative overflow-hidden pt-32 pb-20 sm:pt-40">
-    <div aria-hidden="true" class="absolute left-1/2 top-0 -z-10 h-[420px] w-[700px] -translate-x-1/2 rounded-full opacity-60 blur-3xl md:h-[620px] md:w-[1100px]"
-      style="background: radial-gradient(closest-side, rgb(240 138 36 / .35), transparent), radial-gradient(closest-side at 80% 40%, rgb(29 155 240 / .12), transparent);"></div>
+    <div aria-hidden="true" class="absolute left-1/2 top-0 -z-10 h-[420px] w-[700px] -translate-x-1/2 rounded-full opacity-60 blur-3xl md:h-[620px] md:w-[1100px]" style="background: radial-gradient(closest-side, rgb(240 138 36 / .35), transparent), radial-gradient(closest-side at 80% 40%, rgb(29 155 240 / .12), transparent);"></div>
     <div class="wrap grid items-center gap-12 lg:grid-cols-[1.15fr_.85fr]">
       <div class="text-center lg:text-left">
-        <a href="#beta" class="hero-in inline-flex items-center gap-2 rounded-full border border-line bg-panel/70 px-3 py-1.5 text-xs text-soft backdrop-blur hover:border-honey/40">
-          <span class="live-dot"></span> Hive v0.0.1 · Coming soon <span class="text-dim">→</span>
-        </a>
-        <h1 class="mt-6 text-[2.75rem] font-bold leading-[1] sm:text-6xl lg:text-7xl" id="hero-title">
-          <span class="word">Your</span> <span class="word">ideas,</span> <span class="word">meet</span><br class="hidden sm:block" />
-          <span class="word text-gradient">your</span> <span class="word text-gradient">AI</span> <span class="word text-gradient">crew.</span>
-        </h1>
-        <p class="hero-in lead mx-auto mt-6 max-w-xl lg:mx-0">Research with sources. Hand off work to your crew. Let Buddy use your PC when you approve. Hive brings the whole workflow into one focused Windows desktop app.</p>
-        <div class="hero-in mt-8 flex flex-col items-center lg:items-start">
-          <Waitlist source="hero" cta="Get early access" />
-          <div class="mt-4 flex gap-4 text-sm">
-            <a href="#tour" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">Watch the tour ↓</a>
-            <a href={DISCORD} target="_blank" rel="noopener noreferrer" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">Join the Discord ↗</a>
-          </div>
-        </div>
-        <ol class="hero-in mt-10 grid grid-cols-3 gap-2 text-left text-xs sm:text-sm">
-          {['Ask Hive anything', 'Your crew works together', 'You approve PC actions'].map((s, i) => (
-            <li class="rounded-2xl border border-line bg-panel/60 p-3"><span class="font-display text-honey-2">0{i + 1}</span><br />{s}</li>
-          ))}
-        </ol>
+        <span class="hero-in inline-flex items-center gap-2 rounded-full border border-line bg-panel/70 px-3 py-1.5 text-xs text-soft backdrop-blur"><span class="live-dot"></span> Hive v0.0.1 · release details to come</span>
+        <h1 class="mt-6 text-[2.75rem] font-bold leading-[1] sm:text-6xl lg:text-7xl" id="hero-title"><span class="word">Your</span> <span class="word">ideas,</span> <span class="word">meet</span><br class="hidden sm:block" /><span class="word text-gradient">your</span> <span class="word text-gradient">AI</span> <span class="word text-gradient">crew.</span></h1>
+        <p class="hero-in lead mx-auto mt-6 max-w-xl lg:mx-0">Research with sources. Hand off work to your crew. Let Buddy use your PC when you approve. Hive brings the workflow into one focused Windows desktop app.</p>
+        <div class="hero-in mt-8 flex flex-col items-center lg:items-start"><a class="btn btn-primary" href="#notify">Email me when v0.0.1 is ready</a><div class="mt-4 flex gap-4 text-sm"><a href="#tour" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">Watch the tour ↓</a><a href={DISCORD} target="_blank" rel="noopener noreferrer" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">Discord ↗</a><a href={X_URL} target="_blank" rel="noopener noreferrer" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">X ↗</a></div></div>
       </div>
-      <div class="hero-in relative mx-auto w-64 sm:w-80 lg:w-full lg:max-w-sm" aria-hidden="true">
-        <div class="absolute inset-8 rounded-full bg-honey/30 blur-3xl"></div>
-        <img src="/hive-buddy-float.webp" alt="" width="330" height="330" class="animate-float relative w-full drop-shadow-[0_30px_60px_rgba(240,138,36,.35)]" fetchpriority="high" />
-      </div>
+      <div class="hero-in relative mx-auto w-64 sm:w-80 lg:w-full lg:max-w-sm" aria-hidden="true"><div class="absolute inset-8 rounded-full bg-honey/30 blur-3xl"></div><img src="/hive-buddy-float.webp" alt="" width="330" height="330" class="animate-float relative w-full drop-shadow-[0_30px_60px_rgba(240,138,36,.35)]" fetchpriority="high" /></div>
     </div>
   </section>
 
-  <!-- Marquee -->
-  <div class="relative overflow-hidden border-y border-line py-4 [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]" aria-label="Feature highlights">
-    <div class="marquee flex w-max gap-10 whitespace-nowrap text-sm text-dim">
-      {[...marquee, ...marquee].map((m, i) => <span aria-hidden={i >= marquee.length ? 'true' : undefined} class="flex items-center gap-10">{m}<span class="text-honey/60">⬢</span></span>)}
-    </div>
-  </div>
-
-  <!-- Video tour -->
   <section id="tour" class="wrap py-24">
     <SectionHead eyebrow="Meet your desktop AI" title="See Hive at work." lead="A quick tour of research, PC control, your AI crew and more." center />
     <div class="glass mx-auto max-w-5xl overflow-hidden p-2 sm:p-3" data-reveal>
-      <video id="tour-video" class="aspect-video w-full rounded-2xl bg-black" controls playsinline preload="metadata" poster="/videos/hive-launch-v5-poster.jpg"
-        aria-label="Hive launch film: the agent crew, approvals, cited research, PC control and voice">
-        <source src="/videos/hive-launch-v5.mp4" type="video/mp4" />
-      </video>
-      <div class="flex gap-2 overflow-x-auto p-2 pt-3 [scrollbar-width:none]" role="group" aria-label="Chapters">
-        {chapters.map(([t, label]) => (
-          <button type="button" data-t={t} class="shrink-0 rounded-full border border-line px-3.5 py-1.5 text-sm text-dim transition hover:border-honey/50 hover:text-text">{label}</button>
-        ))}
-      </div>
-    </div>
-    <dl class="mx-auto mt-10 grid max-w-3xl grid-cols-3 gap-4 text-center">
-      {[['Soon', 'Hive v0.0.1 public release'], ['4', 'crew agents team up on one message'], ['100%', 'of PC actions need your Allow']].map(([n, l], i) => (
-        <div data-reveal style={`--i:${i}`}><dt class="sr-only">{l}</dt><dd class="font-display text-3xl font-bold text-text sm:text-5xl" data-count={n}>{n}</dd><p class="mt-1 text-xs text-dim sm:text-sm">{l}</p></div>
-      ))}
-    </dl>
-  </section>
-
-  <!-- Demo -->
-  <section id="demo-section" class="wrap py-16">
-    <div class="grid items-center gap-12 lg:grid-cols-2">
-      <div>
-        <SectionHead eyebrow="Try the demo" title="A little work, handled together." lead="A scripted preview of the app. Watch Hive research, ask before it touches your PC, and pull the crew in. Pick a scenario to replay it." />
-        <ul class="-mt-4 space-y-3 text-sm" data-reveal>
-          <li class="flex gap-3"><span class="text-honey">✓</span> Answers come with sources you can check.</li>
-          <li class="flex gap-3"><span class="text-honey">✓</span> PC actions always wait for your Allow.</li>
-          <li class="flex gap-3"><span class="text-honey">✓</span> Destructive shell commands are blocked outright.</li>
-        </ul>
-      </div>
-      <DemoChat />
+      <video id="tour-video" class="aspect-video w-full rounded-2xl bg-black" controls playsinline preload="metadata" poster="/videos/hive-launch-v5-poster.jpg" aria-label="Hive launch film: the agent crew, approvals, cited research, PC control and voice"><source src="/videos/hive-launch-v5.mp4" type="video/mp4" /></video>
+      <div class="flex gap-2 overflow-x-auto p-2 pt-3 [scrollbar-width:none]" role="group" aria-label="Chapters">{chapters.map(([t, label]) => <button type="button" data-t={t} class="shrink-0 rounded-full border border-line px-3.5 py-1.5 text-sm text-dim transition hover:border-honey/50 hover:text-text">{label}</button>)}</div>
     </div>
   </section>
 
-  <!-- Features bento -->
+  <section id="demo-section" class="wrap py-16"><div class="grid items-center gap-12 lg:grid-cols-2"><div><SectionHead eyebrow="Scripted preview" title="A little work, handled together." lead="Watch a preview of the app. This demonstration does not submit prompts or control your PC." /></div><DemoChat /></div></section>
+
   <section id="features" class="wrap py-24">
-    <SectionHead eyebrow="Available now" title="One window. Every job." lead="Everything below ships in the current Windows build." />
+    <SectionHead eyebrow="Planned plan features" title="One window. Every job." lead="The same plan catalog powers this overview and the pricing comparison. Features are planned and subject to change before checkout opens." />
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{featureCards.map((feature, i) => <article data-reveal style={`--i:${i % 3}`} class="card glass p-6"><span class="eyebrow">{feature.plan}</span><h3 class="mt-3 text-lg font-semibold">{feature.title}</h3><p class="mt-2 text-sm leading-relaxed text-dim">{feature.description}</p></article>)}</div>
+  </section>
+
+  <section id="hive-design" class="wrap pb-16"><div class="glass relative overflow-hidden p-8 sm:p-12" data-reveal><div aria-hidden="true" class="absolute -right-16 -top-24 size-64 rounded-full bg-honey/15 blur-3xl"></div><div class="relative max-w-3xl"><span class="eyebrow">Coming to the Hive app</span><h2 class="h-section mt-4">Meet Hive Design.</h2><p class="lead mt-5">A new creative space is on the way. Hive Design is coming to the Hive app.</p></div></div></section>
+
+  <section id="safety" class="wrap py-24"><SectionHead eyebrow="Your PC, your call" title="What we can and can’t promise." lead="Permission, data handling, and who builds Hive." />
     <div class="grid gap-4 md:grid-cols-3">
-      {features.map((f, i) => (
-        <article data-reveal style={`--i:${i % 3}`} class:list={['card glass group relative overflow-hidden p-6 transition duration-500 hover:-translate-y-1 hover:border-honey/40', f.span]}>
-          {f.icon && <div class="mb-4 grid size-11 place-items-center rounded-xl border border-line bg-panel-2 text-xl" aria-hidden="true">{f.icon}</div>}
-          <h3 class="text-lg font-semibold">{f.t}</h3>
-          <p class="mt-2 text-sm leading-relaxed text-dim">{f.d}</p>
-          {f.img && (
-            <img src={f.img} alt="" loading="lazy" width="1923" height="1130"
-              class="mt-6 w-full rounded-xl border border-line object-cover object-left-top transition duration-700 group-hover:scale-[1.02]" />
-          )}
-        </article>
-      ))}
+      <article class="glass p-6"><h3 class="text-lg font-semibold">Permission</h3><p class="mt-2 text-sm leading-relaxed text-dim">Every PC action asks for Allow or Deny. Destructive commands are blocked before they reach the screen. Actions are logged locally.</p></article>
+      <article class="glass p-6"><h3 class="text-lg font-semibold">Where data lives</h3><p class="mt-2 text-sm leading-relaxed text-dim">Chats and the Mission Board stay on your device; this site does not run prompts. Account and usage counters are handled by Supabase. Model requests go to the provider selected in the app.</p></article>
+      <article class="glass p-6"><h3 class="text-lg font-semibold">Who makes Hive</h3><p class="mt-2 text-sm leading-relaxed text-dim">Apis is an independent studio. Contact <a class="text-honey-2 underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> or join our <a class="text-honey-2 underline" href={DISCORD} target="_blank" rel="noopener noreferrer">Discord</a>.</p></article>
     </div>
   </section>
 
-  <!-- Hive Design -->
-  <section id="hive-design" class="wrap pb-16">
-    <div class="glass relative overflow-hidden p-8 sm:p-12" data-reveal>
-      <div aria-hidden="true" class="absolute -right-16 -top-24 size-64 rounded-full bg-honey/15 blur-3xl"></div>
-      <div class="relative max-w-3xl">
-        <span class="eyebrow">Coming to the Hive app</span>
-        <h2 class="h-section mt-4">Meet Hive Design.</h2>
-        <p class="lead mt-5">A new creative space is on the way. Hive Design is coming to the Hive app, bringing design work into the same focused workspace.</p>
-        <span class="mt-6 inline-flex items-center gap-2 rounded-full border border-honey/40 bg-honey/10 px-3 py-1.5 text-sm font-medium text-honey-2"><span class="live-dot"></span> In the works</span>
-      </div>
-    </div>
-  </section>
+  <section id="notify" class="wrap py-16"><div class="glass p-8 sm:p-12" data-reveal><SectionHead eyebrow="Release email" title="Get the v0.0.1 update." lead="We’ll email you when release details are posted." center /><div class="mx-auto mt-7 flex justify-center"><Waitlist source="home-notify" cta="Email me when v0.0.1 is ready" compact /></div></div></section>
 
-  <!-- Buddy -->
-  <section class="wrap py-16">
-    <div class="glass relative grid items-center gap-8 overflow-hidden p-8 sm:p-12 md:grid-cols-2" data-reveal>
-      <div>
-        <span class="eyebrow">Buddy at your cursor</span>
-        <h2 class="h-section mt-4">Meet Buddy.</h2>
-        <p class="lead mt-5">An orange companion trails your mouse, pops an island when it listens or types, and hides when Hive hides. Press <kbd class="rounded border border-line bg-panel-2 px-1.5 text-sm text-text">Ctrl</kbd> + <kbd class="rounded border border-line bg-panel-2 px-1.5 text-sm text-text">Shift</kbd> + <kbd class="rounded border border-line bg-panel-2 px-1.5 text-sm text-text">J</kbd> anywhere to ask it something.</p>
-        <p class="mt-6 text-sm text-dim">Five inks to choose from:</p>
-        <div class="mt-3 flex flex-wrap gap-2" role="list">
-          {[['Orange', '#f08a24'], ['Ink', '#2b2f38'], ['Ghost', '#e6e8ec'], ['Cobalt', '#2f6bff'], ['Amber', '#f2c14e']].map(([n, c]) => (
-            <button type="button" role="listitem" data-ink={c} class="ink flex items-center gap-2 rounded-full border border-line px-3 py-1.5 text-sm transition hover:border-honey/50">
-              <span class="size-3 rounded-full" style={`background:${c}`}></span>{n}
-            </button>
-          ))}
-        </div>
-      </div>
-      <div class="relative">
-        <img src="/hive-notch.webp" alt="The Buddy notch island at the top of the screen" loading="lazy" width="1050" height="330" class="w-full rounded-2xl border border-line" />
-        <img id="buddy-ink" src="/hive-buddy-float.webp" alt="" aria-hidden="true" loading="lazy" width="330" height="330" class="animate-float absolute -bottom-10 right-4 w-28 transition duration-500 sm:w-36" />
-      </div>
-    </div>
-  </section>
+  <section id="faq" class="wrap py-16"><SectionHead eyebrow="Good to know" title="Hive, clearly explained." lead="A few quick answers about release status, plans, and data." /><div class="divide-y divide-line rounded-3xl border border-line bg-panel/50">{faq.map(([q, a]) => <details class="faq group px-6" data-reveal><summary class="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-4 font-medium text-text">{q}<span class="grid size-8 shrink-0 place-items-center rounded-full border border-line text-honey-2 transition duration-300 group-open:rotate-45">+</span></summary><p class="pb-5 text-dim">{a}</p></details>)}</div></section>
 
-  <!-- Workflow -->
-  <section id="workflow" class="wrap py-24">
-    <SectionHead eyebrow="A clearer way to work" title="From rough idea to finished work." lead="Start with a useful prompt, keep longer work organized, then decide what to send and what to do next." />
-    <ol class="relative ml-4 border-l border-line pl-8 sm:ml-6 sm:pl-12" id="flow">
-      <span aria-hidden="true" id="flow-line" class="absolute -left-px top-0 h-full w-px origin-top scale-y-0 bg-gradient-to-b from-honey-2 to-honey"></span>
-      {flow.map(([t, d, tag], i) => (
-        <li class="relative pb-12 last:pb-0" data-reveal>
-          <span class="absolute -left-[3.05rem] grid size-9 place-items-center rounded-full border border-honey/40 bg-ink font-display text-sm text-honey-2 sm:-left-[4.05rem]">0{i + 1}</span>
-          <span class="text-xs uppercase tracking-widest text-dim">{tag}</span>
-          <h3 class="mt-1 text-xl font-semibold">{t}</h3>
-          <p class="mt-2 max-w-xl text-dim">{d}</p>
-        </li>
-      ))}
-    </ol>
-    <p class="mt-10 rounded-2xl border border-line bg-panel/60 p-4 text-sm text-dim" data-reveal>ⓘ This page is an overview. Hive Sparks and the Mission Board run in the Windows app; the website does not submit prompts or save missions.</p>
-  </section>
-
-  <!-- Safety -->
-  <section id="safety" class="wrap py-24">
-    <SectionHead eyebrow="Your PC, your call" title="How Hive keeps your PC safe." lead="PC control is powerful, so it is built permission-first. Here is exactly what happens when Hive wants to touch your machine." />
-    <div class="grid gap-4 sm:grid-cols-2">
-      {safety.map(([t, d], i) => (
-        <div class="glass p-6" data-reveal style={`--i:${i}`}>
-          <span class="grid size-9 place-items-center rounded-full bg-mint/15 font-display text-mint">{i + 1}</span>
-          <h3 class="mt-4 text-lg font-semibold">{t}</h3>
-          <p class="mt-2 text-sm leading-relaxed text-dim">{d}</p>
-        </div>
-      ))}
-    </div>
-    <div class="mt-4 rounded-3xl border border-red-500/30 bg-red-500/[.06] p-6 text-sm leading-relaxed text-soft" data-reveal>
-      <strong class="text-red-300">Hard-blocked, no exceptions:</strong> deleting files outside the workspace, formatting drives, modifying the registry, killing system processes, and any command Hive classifies as destructive. These never reach the Allow screen; they are refused at the source.
-    </div>
-  </section>
-
-  <!-- Trust -->
-  <section class="wrap py-16">
-    <SectionHead eyebrow="Why trust it" title="Why people trust Hive." />
-    <div class="grid gap-4 md:grid-cols-3">
-      {[
-        ['Hive v0.0.1 is coming soon', 'The first public release is in preparation. Release date and installer details will be announced here.', '/changelog', 'Follow release updates →'],
-        ['Discord community', 'Real users, daily. Bug reports, feature requests and support happen in public. Join and ask anything.', DISCORD, 'Join the server →'],
-        ['Thank you', 'Thanks to everyone who tried the beta and shared feedback. We’ll post future release news on the changelog.', '/changelog', 'Changelog →'],
-      ].map(([t, d, href, cta], i) => (
-        <a href={href} {...(href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})} class="glass group block p-6 transition hover:-translate-y-1 hover:border-honey/40" data-reveal style={`--i:${i}`}>
-          <h3 class="text-lg font-semibold">{t}</h3>
-          <p class="mt-2 text-sm text-dim">{d}</p>
-          <span class="mt-4 inline-block text-sm text-honey-2 transition group-hover:translate-x-1">{cta}</span>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <div class="py-8"><BetaNotice /></div>
-
-  <!-- Roadmap -->
-  <section class="wrap py-24">
-    <SectionHead eyebrow="Roadmap" title="What's next." lead="These are future directions, with timing to be confirmed." />
-    <div class="glass flex flex-col gap-4 p-6 sm:flex-row sm:items-start sm:p-8" data-reveal>
-      <span class="w-fit rounded-full border border-honey/40 bg-honey/10 px-3 py-1 text-xs font-semibold text-honey-2">Upcoming</span>
-      <div>
-        <h3 class="text-xl font-semibold">Cloud Computer</h3>
-        <p class="mt-2 text-dim">A remote workspace for Hive agents to run tasks, use tools and return results to your desktop. Agent controls will stay in the Hive desktop app.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Follow the build -->
-  <section id="community" class="wrap py-16">
-    <SectionHead eyebrow="Built in public" title="Follow the build." lead="We share what we’re working on, what broke and what’s next. Ideas from the community shape the roadmap." />
-    <div class="grid gap-4 md:grid-cols-2">
-      <a href={DISCORD} target="_blank" rel="noopener noreferrer" class="glass group block p-7 transition hover:-translate-y-1 hover:border-honey/40" data-reveal>
-        <span class="text-3xl" aria-hidden="true">💬</span>
-        <h3 class="mt-4 text-xl font-semibold">Discord community</h3>
-        <p class="mt-2 text-sm text-dim">Share ideas in #ideas, get help from the team, and hear about releases first in #announcements.</p>
-        <span class="mt-5 inline-block text-sm text-honey-2 transition group-hover:translate-x-1">Join the server →</span>
-      </a>
-      <a href={X_URL} target="_blank" rel="noopener noreferrer" class="glass group block p-7 transition hover:-translate-y-1 hover:border-honey/40" data-reveal style="--i:1">
-        <span class="font-display text-3xl font-bold text-text" aria-hidden="true">𝕏</span>
-        <h3 class="mt-4 text-xl font-semibold">Hive on X</h3>
-        <p class="mt-2 text-sm text-dim">Short demos, build notes and release news from the Apis team.</p>
-        <span class="mt-5 inline-block text-sm text-honey-2 transition group-hover:translate-x-1">Follow @RoarDEV2014 →</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq" class="wrap py-16">
-    <SectionHead eyebrow="Good to know" title="Hive, clearly explained." lead="A few quick answers about the desktop app, the website and where your work lives." />
-    <div class="divide-y divide-line rounded-3xl border border-line bg-panel/50">
-      {faq.map(([q, a]) => (
-        <details class="faq group px-6" data-reveal>
-          <summary class="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-4 font-medium text-text">
-            {q}<span class="grid size-8 shrink-0 place-items-center rounded-full border border-line text-honey-2 transition duration-300 group-open:rotate-45">+</span>
-          </summary>
-          <p class="pb-5 text-dim">{a}</p>
-        </details>
-      ))}
-    </div>
-  </section>
-
-  <!-- Team -->
-  <section id="team" class="wrap py-24 text-center">
-    <div data-reveal>
-      <img src="/logohive.png" alt="" width="345" height="452" loading="lazy" class="mx-auto h-16 w-auto" />
-      <span class="eyebrow mt-6">Who we are</span>
-      <h2 class="h-section mt-4">Built by Apis.</h2>
-      <p class="lead mx-auto mt-5 max-w-2xl">Apis is an independent studio that designs, builds and ships Hive end to end: the desktop app, the buddy engine and this site. Questions? Email <a class="text-honey-2 underline-offset-4 hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> or ask in the <a class="text-honey-2 underline-offset-4 hover:underline" href={DISCORD} target="_blank" rel="noopener noreferrer">Discord</a>.</p>
-    </div>
-  </section>
+  <section id="team" class="wrap py-24 text-center"><div data-reveal><img src="/logohive.png" alt="" width="345" height="452" loading="lazy" class="mx-auto h-16 w-auto" /><span class="eyebrow mt-6">Who we are</span><h2 class="h-section mt-4">Built by Apis.</h2><p class="lead mx-auto mt-5 max-w-2xl">Apis is an independent studio building Hive. Questions? Email <a class="text-honey-2 underline-offset-4 hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> or ask in the <a class="text-honey-2 underline-offset-4 hover:underline" href={DISCORD} target="_blank" rel="noopener noreferrer">Discord</a>.</p></div></section>
 </Base>
 
 <style>
-  .marquee { animation: marquee 40s linear infinite; }
-  @keyframes marquee { to { transform: translateX(-50%); } }
   .faq summary::-webkit-details-marker { display: none; }
   .faq[open] p { animation: fade .4s var(--ease-spring); }
   @keyframes fade { from { opacity: 0; transform: translateY(-6px); } }
 </style>
 
 <script>
-  import { animate, stagger, scroll } from 'motion';
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (!reduce) {
-    // Hero: words rise in, then supporting content
+  import { animate, stagger } from 'motion';
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     animate('#hero-title .word', { opacity: [0, 1], y: [28, 0] }, { delay: stagger(0.07), duration: 0.8, ease: [0.2, 0.8, 0.2, 1] });
     animate('.hero-in', { opacity: [0, 1], y: [16, 0] }, { delay: stagger(0.08, { startDelay: 0.35 }), duration: 0.7, ease: [0.2, 0.8, 0.2, 1] });
-    // Workflow: progress line fills as you scroll through the steps
-    const flow = document.getElementById('flow');
-    if (flow) scroll(animate('#flow-line', { scaleY: [0, 1] }, { ease: 'linear' }), { target: flow, offset: ['start 70%', 'end 60%'] });
-  } else {
-    document.getElementById('flow-line')?.style.setProperty('transform', 'none');
   }
-
-  // Video chapters
   const video = document.getElementById('tour-video') as HTMLVideoElement | null;
-  document.querySelectorAll<HTMLButtonElement>('[data-t]').forEach((b) => b.addEventListener('click', () => {
-    if (!video) return;
-    video.currentTime = Number(b.dataset.t);
-    video.play().catch(() => {});
-  }));
-
-  // Buddy ink picker
-  const buddy = document.getElementById('buddy-ink') as HTMLImageElement | null;
-  const hues: Record<string, string> = { '#f08a24': 'none', '#2b2f38': 'grayscale(1) brightness(.45)', '#e6e8ec': 'grayscale(1) brightness(1.6)', '#2f6bff': 'hue-rotate(195deg) saturate(1.4)', '#f2c14e': 'hue-rotate(18deg) saturate(1.2)' };
-  document.querySelectorAll<HTMLButtonElement>('.ink').forEach((b) => b.addEventListener('click', () => { if (buddy) buddy.style.filter = hues[b.dataset.ink!]; }));
-
-  // Count-up stats
-  document.querySelectorAll<HTMLElement>('[data-count]').forEach((el) => {
-    const raw = el.dataset.count!, n = parseFloat(raw), suffix = raw.replace(/[\d.]/g, '');
-    if (reduce || !n) return;
-    new IntersectionObserver(([e], o) => {
-      if (!e.isIntersecting) return; o.disconnect();
-      animate(0, n, { duration: 1.4, ease: [0.2, 0.8, 0.2, 1], onUpdate: (v) => (el.textContent = Math.round(v) + suffix) });
-    }).observe(el);
-  });
+  document.querySelectorAll<HTMLButtonElement>('[data-t]').forEach((button) => button.addEventListener('click', () => { if (!video) return; video.currentTime = Number(button.dataset.t); video.play().catch(() => {}); }));
 </script>

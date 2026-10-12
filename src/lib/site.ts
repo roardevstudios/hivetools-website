@@ -7,11 +7,11 @@ export const NAV = [
   { href: '/docs', label: 'Docs' },
   { href: '/pricing', label: 'Pricing' },
   { href: '/changelog', label: 'Changelog' },
-  { href: '/benchmarks', label: 'Benchmarks' },
-  { href: '/stats', label: 'Stats' },
 ];
 export const X_URL = 'https://x.com/RoarDEV2014';
 export const SITE_URL = 'https://hivetools.pro';
+export const RELEASE_STATUS = 'The public beta installer was removed. We’ll explain what changed when v0.0.1 is posted.';
+export const NOTIFY_URL = '/#notify';
 
 // Public Supabase project + publishable key (safe to ship; access is enforced by RLS).
 // waitlist_emails allows anonymous INSERT only; reads are admin-only.

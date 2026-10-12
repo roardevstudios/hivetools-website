@@ -2,8 +2,8 @@
     <p>Hive is a Windows desktop workspace. One window holds a chat column with cited answers, a code canvas, a roster of agent bots, HiveBox, and a system-wide buddy — an orange companion that trails your cursor and pops a notch island with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd>.</p>
     <aside data-callout="green"><strong>Local-first.</strong> Chats, settings, and transcripts live on your machine.</aside>
     <h2 id="get-hive">Download &amp; Install</h2>
-    <aside data-callout="honey"><strong>Hive v0.0.1 is coming soon.</strong> We are preparing Hive’s first public release. The launch date and installer will be announced on the <a href="/changelog">changelog</a>.</aside>
-    <p>The Hive v0.0.1 installer will be published here when the first public release is ready. Follow the <a href="/changelog">changelog</a> for launch news.</p>
+    <aside data-callout="honey"><strong>The public beta installer was removed.</strong> We’ll explain what changed when v0.0.1 is posted. See the <a href="/changelog">changelog</a> for release updates.</aside>
+    <p>There is no public installer download at this time.</p>
     <h2 id="workspace-ui">Workspace UI</h2>
     <p>Hive features a minimalist pro-tool interface designed around high density and deep focus. The interface is composed of four primary columns:</p>
     <ul>
@@ -34,7 +34,7 @@
         <tr><td><code>/type &lt;text&gt;</code></td><td>Types into the focused window</td></tr>
       </tbody></table>
     <h2 id="swarm">Swarm &amp; bots</h2>
-    <p>Scout, Hive, and Pulse start <strong>together</strong> on one message. Critic only runs after Hive answers. Sentry watches tool calls and rewrites fake citations or destructive commands. A swarm strip appears when two or more agents overlap.</p>
+    <p>Scout, Hive, and Pulse can work together. Critic reviews after Hive answers. Sentry monitors tool calls.</p>
     <h2 id="palette">Command palette</h2>
     <p><kbd>Ctrl</kbd> + <kbd>K</kbd> opens the palette: new chat, group, Buddy, canvas, settings, workers, notch.</p>
     <h2 id="modes">Modes</h2>
@@ -69,7 +69,7 @@
     <h3>Windows only?</h3>
     <p>Yes, today — the buddy click/type engine is Windows-native.</p>
     <h3>Is it free?</h3>
-    <p>Hive v0.0.1 is coming soon. The installer and release details will be posted on the <a href="/changelog">changelog</a>.</p>
+    <p>The public beta installer was removed. We’ll explain what changed when v0.0.1 is posted on the <a href="/changelog">changelog</a>.</p>
     <h3>Where is my data?</h3>
     <p>On your machine: chats and settings in local storage. The website keeps only auth + profile rows.</p>
     <h3>The buddy vanished!</h3>
@@ -87,15 +87,15 @@
     <p><i>Last updated: September 2026.</i> Hive ("we", "Apis") makes the Hive desktop app and the hivetools.pro website.</p>
     <h3>What we collect</h3>
     <ul>
-      <li><b>Account data:</b> your email, display name and onboarding answers (profession, preferences, referral source) when you sign up.</li>
-      <li><b>Purchase data:</b> order IDs and buyer email from PayPal when you buy Unlock or a token plan. We never see your card details — PayPal handles payment.</li>
+      <li><b>Account data:</b> your email and account profile information when you sign up.</li>
+      <li><b>Purchase data:</b> Checkout is not open yet; no Hive purchases can currently be made through this site.</li>
       <li><b>Usage data:</b> token and voice-session counters, so your daily quota is enforced on our side rather than only on your machine.</li>
       <li><b>Local data stays local:</b> your chats, settings and transcripts live on your machine, not on our servers. They are <b>not</b> synced between your devices.</li>
     </ul>
     <h3>How we use it</h3>
     <p>To run your account, enforce quotas, provide product information, and improve Hive. We do not sell your data and we do not show ads.</p>
     <h3>Sharing</h3>
-    <p>We share the minimum necessary with our processors: Supabase (hosting/auth/database), PayPal (payments) and Google (if you sign in with Google). No other third parties.</p>
+    <p>We use Supabase for account hosting, authentication and database services, and Google when you choose Google sign-in. Model requests are sent to the provider selected in the app. <!-- TODO: Name the model providers used by the released app and confirm provider-specific privacy disclosures before publication. --> Payment processing is not active while checkout is closed.</p>
     <h3>Your rights</h3>
     <p>Ask for a copy, correction or deletion of your data any time at <a href="mailto:apis.new.world@gmail.com">apis.new.world@gmail.com</a>. Deleting your account removes your profile, quota and subscription rows; PayPal keeps its own transaction records.</p>
     <h3>Retention</h3>
@@ -103,15 +103,15 @@
     <h2 id="terms">Terms of Service</h2>
     <p><i>Last updated: September 2026.</i> By downloading or using Hive you agree to these terms.</p>
     <h3>License</h3>
-    <p>Unlock gives you a personal, non-transferable license for the Hive Windows app, including all v0.x updates. One access code covers the uses stated at purchase — don't share codes publicly.</p>
+    <p>Planned Hive plans and features are described on the <a href="/pricing">pricing page</a>. Checkout is not open yet, and no paid plan can currently be purchased.</p>
     <h3>Token plans</h3>
-    <p>Tokens Plus and Tokens Max are monthly subscriptions billed via PayPal. Daily token and voice limits reset every 24 hours; unused quota doesn't roll over. Cancel anytime in PayPal → Settings → Payments — you keep your limits until the billing period ends.</p>
+    <p>The planned paid plans are monthly subscriptions. Checkout is not open yet; billing, cancellation, renewal and quota terms will be published before purchases are enabled.</p>
     <h3>Fair use</h3>
-    <p>Don't abuse the service: no reselling access, no circumventing quotas or codes, no using Hive to harm systems you don't own or have permission to touch. PC-control actions always need your explicit Allow — you are responsible for what you approve.</p>
+    <p>Don't use Hive to harm systems you don't own or have permission to touch. PC-control actions require your explicit Allow.</p>
     <h3>Availability</h3>
     <p>Hive is a preview (Windows 10/11). Features may change, break or move between plans. We aim for reliability but give no uptime guarantees.</p>
     <h3>Refunds</h3>
-    <p>Unlock is a digital license delivered instantly, so it's generally non-refundable — but if your code never worked, contact us within 14 days at <a href="mailto:apis.new.world@gmail.com">apis.new.world@gmail.com</a> and we'll make it right. Subscriptions can be cancelled anytime; the current month is not refunded.</p>
+    <p>Checkout is not open yet. Purchase, cancellation and refund terms will be published before paid plans are offered.</p>
     <h3>Liability</h3>
     <p>Hive is provided "as is". To the maximum extent allowed by law, we are not liable for indirect damages or for actions the app takes with your approval.</p>
     <h3>Contact</h3>
