@@ -46,14 +46,16 @@ const shareUrl = `${SITE_URL}/?ref=share`;
 </div>
 
 <style>
-  .wl-success { width: min(92vw, 620px); max-width: none; max-height: min(88vh, 760px); overflow: auto; padding: 0; color: #f7f4ee; background: transparent; border: 0; }
-  .wl-success::backdrop { background: rgb(4 6 10 / .78); backdrop-filter: blur(9px); }
-  .wl-success[open] { animation: wl-dialog-in 360ms cubic-bezier(.2,.8,.2,1) both; }
-  .wl-success-card { position: relative; overflow: hidden; padding: 34px clamp(20px, 6vw, 52px) 30px; text-align: center; border: 1px solid rgb(255 255 255 / .12); border-radius: 28px; background: radial-gradient(ellipse at 50% 0%, rgb(240 138 36 / .13), transparent 48%), #0c0e13; box-shadow: 0 28px 100px rgb(0 0 0 / .55); }
+  .wl-success { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; max-width: none; max-height: none; margin: 0; overflow: auto; padding: 0; color: #f7f4ee; background: transparent; border: 0; }
+  .wl-success::backdrop { background: #07080b; }
+  .wl-success[open] { animation: wl-screen-in 520ms cubic-bezier(.2,.8,.2,1) both; }
+  .wl-success-card { position: relative; isolation: isolate; display: grid; min-height: 100vh; min-height: 100dvh; place-content: center; justify-items: center; overflow: hidden; padding: clamp(28px, 6vh, 64px) clamp(20px, 6vw, 72px); text-align: center; border: 0; border-radius: 0; background: radial-gradient(ellipse at 50% 43%, rgb(240 138 36 / .2), transparent 30%), radial-gradient(ellipse at 8% 100%, rgb(240 138 36 / .12), transparent 36%), radial-gradient(ellipse at 95% 0%, rgb(255 190 92 / .1), transparent 34%), repeating-linear-gradient(135deg, transparent 0 48px, rgb(255 255 255 / .018) 49px 50px, transparent 51px 98px), #090a0e; }
+  .wl-success-card::before, .wl-success-card::after { position: absolute; z-index: -1; top: 50%; left: 50%; width: min(125vw, 150vh); aspect-ratio: 1; content: ""; border: 1px solid rgb(255 183 89 / .28); border-radius: 50%; pointer-events: none; animation: wl-screen-ripple 2.8s cubic-bezier(.12,.68,.26,1) both; }
+  .wl-success-card::after { animation-delay: 380ms; }
   .wl-close { position: absolute; z-index: 2; top: 12px; right: 14px; display: grid; width: 38px; height: 38px; place-items: center; border: 1px solid rgb(255 255 255 / .12); border-radius: 50%; color: #b7bbc4; background: rgb(255 255 255 / .04); font-size: 25px; line-height: 1; cursor: pointer; transition: color .2s ease, background .2s ease; }
   .wl-close:hover { color: white; background: rgb(255 255 255 / .1); }
-  .wl-celebration { position: relative; display: grid; width: 184px; height: 160px; place-items: center; margin: 0 auto 7px; }
-  .wl-mascot-wrap { display: grid; width: 144px; height: 144px; place-items: center; border-radius: 50%; background: radial-gradient(circle, rgb(240 138 36 / .17), transparent 70%); animation: wl-mascot-pop 620ms cubic-bezier(.2,1.5,.45,1) both, wl-mascot-float 2.4s ease-in-out 620ms infinite; }
+  .wl-celebration { position: relative; display: grid; width: min(68vw, 300px); height: min(56vw, 240px); place-items: center; margin: 0 auto 12px; }
+  .wl-mascot-wrap { display: grid; width: min(48vw, 204px); height: min(48vw, 204px); place-items: center; border-radius: 50%; background: radial-gradient(circle, rgb(240 138 36 / .28), transparent 70%); animation: wl-mascot-pop 620ms cubic-bezier(.2,1.5,.45,1) both, wl-mascot-float 2.4s ease-in-out 620ms infinite; }
   .wl-mascot { display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 24px rgb(240 138 36 / .28)); }
   .wl-check { position: absolute; right: 11px; bottom: 4px; display: grid; width: 45px; height: 45px; place-items: center; border: 1px solid rgb(124 239 177 / .5); border-radius: 50%; background: #0e241c; box-shadow: 0 0 30px rgb(84 227 148 / .25); animation: wl-check-pop 420ms cubic-bezier(.2,1.4,.5,1) 280ms both; }
   .wl-check svg { width: 28px; height: 28px; }
@@ -70,13 +72,14 @@ const shareUrl = `${SITE_URL}/?ref=share`;
   .wl-close-action { margin-top: 22px; padding: 9px 20px; border: 0; border-radius: 999px; color: #17100a; background: linear-gradient(110deg, #ffd082, #f08a24); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; transition: transform .2s ease, filter .2s ease; }
   .wl-close-action:hover { transform: translateY(-1px); filter: brightness(1.06); }
   .wl-close:focus-visible, .wl-close-action:focus-visible, .wl-success-links a:focus-visible, .wl-success-links button:focus-visible { outline: 2px solid #ffb253; outline-offset: 3px; }
-  @keyframes wl-dialog-in { from { opacity: 0; transform: translateY(16px) scale(.97); } to { opacity: 1; transform: none; } }
+  @keyframes wl-screen-in { from { opacity: 0; transform: scale(1.035); } to { opacity: 1; transform: none; } }
+  @keyframes wl-screen-ripple { from { opacity: 0; transform: translate(-50%, -50%) scale(.16); box-shadow: 0 0 0 0 rgb(255 174 72 / .14); } 35% { opacity: .75; } to { opacity: 0; transform: translate(-50%, -50%) scale(1.28); box-shadow: 0 0 90px 34px rgb(255 174 72 / .045); } }
   @keyframes wl-mascot-pop { from { opacity: 0; transform: translateY(12px) scale(.65) rotate(-8deg); } to { opacity: 1; transform: none; } }
   @keyframes wl-mascot-float { 50% { transform: translateY(-5px) rotate(2deg); } }
   @keyframes wl-check-pop { from { opacity: 0; transform: scale(.25) rotate(-22deg); } to { opacity: 1; transform: scale(1) rotate(0); } }
   @keyframes wl-check-draw { to { stroke-dashoffset: 0; } }
   @keyframes wl-sparkle { from { opacity: .35; transform: scale(.75) rotate(-12deg); } to { opacity: 1; transform: scale(1.12) rotate(12deg); } }
-  @media (prefers-reduced-motion: reduce) { .wl-success[open], .wl-mascot-wrap, .wl-check, .wl-check path, .wl-spark { animation: none !important; } .wl-check path { stroke-dashoffset: 0; } }
+  @media (prefers-reduced-motion: reduce) { .wl-success[open], .wl-success-card::before, .wl-success-card::after, .wl-mascot-wrap, .wl-check, .wl-check path, .wl-spark { animation: none !important; } .wl-check path { stroke-dashoffset: 0; } }
   @media (max-width: 480px) { .wl-success-card { padding-top: 42px; } .wl-success-links { gap: 6px; } }
 </style>
 
