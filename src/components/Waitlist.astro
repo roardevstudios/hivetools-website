@@ -6,17 +6,19 @@ const shareText = 'Hive is a Windows AI workspace: cited research, an AI crew, a
 const shareUrl = `${SITE_URL}/?ref=share`;
 ---
 <div class="waitlist" data-plan={plan ?? ''} data-source={source} data-url={SUPABASE_URL} data-key={SUPABASE_PUBLISHABLE_KEY}>
-  <form class:list={['wl-form flex flex-col gap-2 sm:flex-row', compact ? 'max-w-md' : 'max-w-lg']} novalidate>
-    <label class="sr-only" for={`wl-${source}`}>Email address</label>
-    <input id={`wl-${source}`} name="email" type="email" required autocomplete="email" inputmode="email" placeholder="you@example.com"
-      class="min-h-12 flex-1 rounded-full border border-line bg-panel/80 px-5 text-base text-text placeholder:text-dim focus:border-honey/60 focus:outline-none" />
-    <button type="submit" class="btn btn-primary !min-h-12 !px-6 text-base">{cta}</button>
+  <form class:list={['wl-form flex flex-col gap-3', compact ? 'max-w-md' : 'max-w-lg']} novalidate>
+    <div class="flex min-w-0 flex-col gap-2 sm:flex-row">
+      <label class="sr-only" for={`wl-${source}`}>Email address</label>
+      <input id={`wl-${source}`} name="email" type="email" required autocomplete="email" inputmode="email" placeholder="you@example.com"
+        class="min-h-12 flex-1 rounded-full border border-line bg-panel/80 px-5 text-base text-text placeholder:text-dim focus:border-honey/60 focus:outline-none" />
+      <button type="submit" class="btn btn-primary !min-h-12 !px-6 text-base">{cta}</button>
+    </div>
+    <label class="flex items-start gap-2 text-xs text-dim">
+      <input class="mt-0.5" name="release-consent" type="checkbox" required />
+      <span>I agree to receive Hive release updates by email. I can unsubscribe at any time.</span>
+    </label>
   </form>
-  <label class="mt-3 flex items-start gap-2 text-xs text-dim">
-    <input class="mt-0.5" name="release-consent" type="checkbox" required />
-    <span>I agree to receive Hive release updates by email. I can unsubscribe at any time.</span>
-  </label>
-  <p class="wl-note mt-2 text-xs text-dim" aria-live="polite">We’ll email release updates from apis.new.world@gmail.com.</p>
+  <p class="wl-note mt-2 min-h-5 text-sm font-medium text-dim" role="status" aria-live="polite">We’ll email release updates from apis.new.world@gmail.com.</p>
   <dialog class="wl-success" aria-labelledby={`wl-success-title-${source}`} aria-describedby={`wl-success-copy-${source}`}>
     <div class="wl-success-card">
       <button type="button" class="wl-close" aria-label="Close confirmation">×</button>
