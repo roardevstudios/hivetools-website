@@ -35,6 +35,9 @@
         <button class="btn primary block" id="email-submit" type="submit" style="margin-top:20px;">Sign in</button>
       </form>
       <p id="auth-msg" role="status" aria-live="polite"></p>
+      <p id="desktop-handoff" role="status" aria-live="polite" hidden>
+        Signing in to the Hive app… If it doesn’t open, <a id="desktop-app-link" href="#">click here to open Hive</a>.
+      </p>
     </div>
 
   </div>
@@ -95,6 +98,9 @@
     msg('Opening Google…');
     try {
       try { if (query.get('next')) sessionStorage.setItem('hive_auth_next', query.get('next')); } catch (e) {}
+      if (query.get('desktop') === '1' && query.get('proto') === '2') {
+        try { sessionStorage.setItem('hive_desktop_login', '1'); } catch (e) {}
+      }
       var result = await SB.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: 'https://hivetools.pro/auth?mode=oauth' } });
       if (result.error) { authPending = false; msg(result.error.message, 'err'); }
     } catch (err) {
@@ -123,6 +129,7 @@
           session = stored.data && stored.data.session;
         }
         if (!session) throw new Error('Sign-in finished without saving a session. Please try again.');
+        if (window.hiveFinishDesktopLogin && window.hiveFinishDesktopLogin(session)) return;
         window.location.href = nextUrl();
         return;
       }
@@ -137,6 +144,7 @@
         msg('Your account is ready. We’ll email you when v0.0.1 is posted. Buddy, voice, and PC actions are not available on the website.', 'ok');
         return;
       }
+      if (window.hiveFinishDesktopLogin && window.hiveFinishDesktopLogin(signup.data.session)) return;
       window.location.href = nextUrl();
     } catch (err) {
       authPending = false;
