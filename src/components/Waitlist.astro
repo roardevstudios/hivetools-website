@@ -102,7 +102,7 @@ const shareUrl = `${SITE_URL}/?ref=share`;
         const res = await fetch(`${root.dataset.url}/rest/v1/rpc/subscribe_release_email`, {
           method: 'POST',
           headers: { apikey: root.dataset.key!, Authorization: `Bearer ${root.dataset.key}`, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
-          body: JSON.stringify({ email, p_plan_interest: root.dataset.plan || null, p_consent: true }),
+          body: JSON.stringify({ p_email: email, p_plan_interest: root.dataset.plan || null, p_consent: true }),
         });
         if (!res.ok) throw new Error(String(res.status));
         if (typeof success.showModal === 'function') success.showModal();
