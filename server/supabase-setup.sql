@@ -37,6 +37,7 @@ create table if not exists public.profiles (
   assistant_prefs text,
   customer_number serial unique,
   notify boolean not null default true,
+  release_updates_opted_in_at timestamptz,
   created_at timestamptz not null default now()
 );
 alter table public.profiles add column if not exists is_admin boolean not null default false;
@@ -387,11 +388,13 @@ create table if not exists public.waitlist_emails (
   id uuid primary key default gen_random_uuid(),
   email text not null unique,
   plan_interest text,
+  release_updates_opted_in_at timestamptz,
   created_at timestamptz not null default now(),
   constraint waitlist_emails_plan_interest_check
     check (plan_interest is null or plan_interest in ('tokens_plus', 'token_max'))
 );
 alter table public.waitlist_emails add column if not exists plan_interest text;
+alter table public.waitlist_emails add column if not exists release_updates_opted_in_at timestamptz;
 do $$
 begin
   if not exists (
@@ -406,11 +409,47 @@ begin
 end $$;
 alter table public.waitlist_emails enable row level security;
 drop policy if exists "anyone insert waitlist email" on public.waitlist_emails;
-create policy "anyone insert waitlist email"
-  on public.waitlist_emails for insert with check (true);
+drop policy if exists "opted-in waitlist insert or admin" on public.waitlist_emails;
+create policy "opted-in waitlist insert or admin"
+  on public.waitlist_emails for insert
+  with check (release_updates_opted_in_at is not null or public.is_hive_admin());
 drop policy if exists "admin read waitlist emails" on public.waitlist_emails;
 create policy "admin read waitlist emails"
   on public.waitlist_emails for select using (public.is_hive_admin());
+
+create or replace function public.subscribe_release_email(
+  p_email text,
+  p_plan_interest text default null,
+  p_consent boolean default false
+)
+returns boolean
+language plpgsql
+security definer
+set search_path = public, pg_temp
+as $$
+declare
+  normalized_email text := lower(trim(coalesce(p_email, '')));
+begin
+  if p_consent is distinct from true then
+    raise exception 'release email consent is required' using errcode = '22023';
+  end if;
+  if normalized_email !~ '^[^[:space:]@]+@[^[:space:]@]+\.[^[:space:]@]+$' then
+    raise exception 'valid email required' using errcode = '22023';
+  end if;
+  if p_plan_interest is not null and p_plan_interest not in ('tokens_plus', 'token_max') then
+    raise exception 'unknown plan interest' using errcode = '22023';
+  end if;
+
+  insert into public.waitlist_emails (email, plan_interest, release_updates_opted_in_at)
+  values (normalized_email, p_plan_interest, now())
+  on conflict (email) do update
+    set plan_interest = coalesce(excluded.plan_interest, public.waitlist_emails.plan_interest),
+        release_updates_opted_in_at = now();
+  return true;
+end;
+$$;
+revoke all on function public.subscribe_release_email(text, text, boolean) from public;
+grant execute on function public.subscribe_release_email(text, text, boolean) to anon, authenticated;
 
 create or replace function public.request_upgrade(p_email text, p_plan text)
 returns boolean

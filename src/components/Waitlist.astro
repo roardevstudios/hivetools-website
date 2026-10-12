@@ -12,7 +12,11 @@ const shareUrl = `${SITE_URL}/?ref=share`;
       class="min-h-12 flex-1 rounded-full border border-line bg-panel/80 px-5 text-base text-text placeholder:text-dim focus:border-honey/60 focus:outline-none" />
     <button type="submit" class="btn btn-primary !min-h-12 !px-6 text-base">{cta}</button>
   </form>
-  <p class="wl-note mt-2 text-xs text-dim" aria-live="polite">Email me when v0.0.1 is ready. No spam; unsubscribe at any time.</p>
+  <label class="mt-3 flex items-start gap-2 text-xs text-dim">
+    <input class="mt-0.5" name="release-consent" type="checkbox" required />
+    <span>I agree to receive Hive release updates by email. I can unsubscribe at any time.</span>
+  </label>
+  <p class="wl-note mt-2 text-xs text-dim" aria-live="polite">We’ll email release updates from apis.new.world@gmail.com.</p>
   <div class="wl-done mt-1 hidden">
     <p class="font-medium text-text">You’re on the list. 🐝</p>
     <p class="mt-1 text-sm text-dim">Follow the build on Discord or X.</p>
@@ -36,15 +40,16 @@ const shareUrl = `${SITE_URL}/?ref=share`;
       e.preventDefault();
       const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim().toLowerCase();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { note.textContent = 'Please enter a valid email address.'; note.style.color = '#fca5a5'; return; }
+      const consent = form.elements.namedItem('release-consent') as HTMLInputElement;
+      if (!consent.checked) { note.textContent = 'Please opt in to receive release updates.'; note.style.color = '#fca5a5'; return; }
       btn.disabled = true; btn.textContent = 'Joining…';
       try {
-        const res = await fetch(`${root.dataset.url}/rest/v1/waitlist_emails`, {
+        const res = await fetch(`${root.dataset.url}/rest/v1/rpc/subscribe_release_email`, {
           method: 'POST',
           headers: { apikey: root.dataset.key!, Authorization: `Bearer ${root.dataset.key}`, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
-          body: JSON.stringify({ email, plan_interest: root.dataset.plan || null }),
+          body: JSON.stringify({ email, p_plan_interest: root.dataset.plan || null, p_consent: true }),
         });
-        // 409 = already on the list, which is fine.
-        if (!res.ok && res.status !== 409) throw new Error(String(res.status));
+        if (!res.ok) throw new Error(String(res.status));
         form.classList.add('hidden'); note.classList.add('hidden'); done.classList.remove('hidden');
         if (!matchMedia('(prefers-reduced-motion: reduce)').matches) done.animate?.([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 450, easing: 'cubic-bezier(.2,.8,.2,1)' });
       } catch {

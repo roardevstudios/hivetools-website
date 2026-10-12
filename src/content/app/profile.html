@@ -109,7 +109,7 @@
     var name = (profile && profile.display_name) || (user.email || '').split('@')[0];
     document.getElementById('pf-name').textContent = name;
      document.getElementById('pf-display').value = (profile && profile.display_name) || '';
-     document.getElementById('pf-notify').checked = !profile || profile.notify !== false;
+     document.getElementById('pf-notify').checked = Boolean(profile && profile.release_updates_opted_in_at && profile.notify !== false);
     var isAdmin = Boolean((profile && (profile.is_admin === true || profile.is_admin === 'true')) || (user && user.email && /samkomedved/i.test(user.email)));
     show('pf-admin-btn', isAdmin);
     var st = ((profile && profile.status) || 'approved').toLowerCase();
@@ -138,7 +138,13 @@
        var v = document.getElementById('pf-display').value.trim();
        var notify = document.getElementById('pf-notify').checked;
        try {
-         var r = await SB.from('profiles').upsert({ id: user.id, email: user.email, display_name: v || null, notify: notify }, { onConflict: 'id' });
+         var r = await SB.from('profiles').upsert({
+           id: user.id,
+           email: user.email,
+           display_name: v || null,
+           notify: notify,
+           release_updates_opted_in_at: notify ? new Date().toISOString() : null
+         }, { onConflict: 'id' });
         if (r.error) { msg('Error: ' + r.error.message); return; }
         document.getElementById('pf-name').textContent = v || name;
         msg('Saved ✓');

@@ -171,6 +171,22 @@
         </details>
       </section>
 
+      <section class="sec" aria-labelledby="release-email-title">
+        <h2 id="release-email-title">Release email</h2>
+        <p class="hint" style="margin-bottom:12px;">Send a release update to people who explicitly opted in on the website or in their Hive profile. Messages come from apis.new.world@gmail.com.</p>
+        <label for="release-subject" class="hint">Subject</label>
+        <input id="release-subject" maxlength="120" placeholder="Hive release update" style="width:100%;margin:6px 0 12px;" />
+        <label for="release-message" class="hint">Message</label>
+        <textarea id="release-message" maxlength="8000" rows="7" placeholder="Write your release update…" style="width:100%;margin:6px 0 12px;resize:vertical;"></textarea>
+        <label for="release-confirm" class="hint">Type SEND RELEASE EMAIL to enable sending</label>
+        <input id="release-confirm" autocomplete="off" placeholder="SEND RELEASE EMAIL" style="width:100%;margin:6px 0 12px;" />
+        <div class="row-actions" style="margin-top:0;">
+          <button class="btn ghost" id="release-preview" type="button">Preview recipients</button>
+          <button class="primary" id="release-send" type="button" disabled>Send release email</button>
+        </div>
+        <p id="release-email-msg" class="msg-line" role="status" aria-live="polite">Preview the opted-in recipient count before sending.</p>
+      </section>
+
       <section class="sec">
         <h2>Upgrade requests</h2>
         <p class="hint" style="margin-bottom:12px;">People who requested Tokens Plus or Tokens Max from the pricing page appear here. Apply the entitlement from their account row when the plans launch.</p>
@@ -635,6 +651,66 @@
      } catch (e) { msg('upgrade-msg', e.message || 'Error.'); }
    }
    document.getElementById('upgrade-refresh').addEventListener('click', loadUpgradeRequests);
+
+   var releaseRecipientCount = null;
+   var releaseInputs = ['release-subject', 'release-message', 'release-confirm'];
+   function updateReleaseSendState() {
+     var sendButton = document.getElementById('release-send');
+     var phrase = document.getElementById('release-confirm').value.trim();
+     sendButton.disabled = !HIVE_USER || releaseRecipientCount === null || releaseRecipientCount < 1 || phrase !== 'SEND RELEASE EMAIL';
+   }
+   releaseInputs.forEach(function (id) {
+     document.getElementById(id).addEventListener('input', updateReleaseSendState);
+   });
+   async function invokeReleaseEmail(action) {
+     if (!SB || !HIVE_USER) throw new Error('Sign in with the owner account first.');
+     var payload = { action: action };
+     if (action === 'send') {
+       payload.subject = document.getElementById('release-subject').value.trim();
+       payload.message = document.getElementById('release-message').value.trim();
+     }
+     var result = await SB.functions.invoke('release-email', { body: payload });
+     if (result.error) {
+       var detail = result.data && result.data.error;
+       throw new Error(detail || result.error.message || 'Request failed.');
+     }
+     if (result.data && result.data.error) throw new Error(result.data.error);
+     return result.data;
+   }
+   document.getElementById('release-preview').addEventListener('click', async function () {
+     setButtonBusy(this, true, 'Checking…');
+     msg('release-email-msg', 'Checking consented recipients…');
+     try {
+       var result = await invokeReleaseEmail('preview');
+       releaseRecipientCount = Number(result.recipientCount || 0);
+       msg('release-email-msg', releaseRecipientCount + ' opted-in recipient' + (releaseRecipientCount === 1 ? '' : 's') + ' will receive the email.');
+     } catch (e) {
+       releaseRecipientCount = null;
+       msg('release-email-msg', 'Preview failed: ' + (e.message || 'Unknown error'));
+     } finally {
+       setButtonBusy(this, false);
+       updateReleaseSendState();
+     }
+   });
+   document.getElementById('release-send').addEventListener('click', async function () {
+     if (document.getElementById('release-confirm').value.trim() !== 'SEND RELEASE EMAIL') return;
+     var count = releaseRecipientCount;
+     if (!confirm('Send this release update to ' + count + ' opted-in recipient' + (count === 1 ? '' : 's') + ' from apis.new.world@gmail.com?')) return;
+     setButtonBusy(this, true, 'Sending…');
+     msg('release-email-msg', 'Sending release update…');
+     try {
+       var result = await invokeReleaseEmail('send');
+       msg('release-email-msg', 'Sent to ' + Number(result.sent || 0) + ' opted-in recipient' + (Number(result.sent) === 1 ? '' : 's') + ' from apis.new.world@gmail.com.');
+       releaseRecipientCount = null;
+       document.getElementById('release-confirm').value = '';
+       audit('Release email sent to ' + Number(result.sent || 0) + ' opted-in recipients.');
+     } catch (e) {
+       msg('release-email-msg', 'Send failed: ' + (e.message || 'Unknown error'));
+     } finally {
+       setButtonBusy(this, false);
+       updateReleaseSendState();
+     }
+   });
 
    /* ═══════════════════════════ Scroll helpers ═══════════════════════ */
   var prog = document.getElementById('progress-bar');

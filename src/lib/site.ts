@@ -14,6 +14,6 @@ export const RELEASE_STATUS = 'The public beta installer was removed. We’ll ex
 export const NOTIFY_URL = '/#notify';
 
 // Public Supabase project + publishable key (safe to ship; access is enforced by RLS).
-// waitlist_emails allows anonymous INSERT only; reads are admin-only.
+// Release email signups use a narrow consent-checked RPC; reads remain admin-only.
 export const SUPABASE_URL = 'https://nqkmnmwbmikbgopwkvse.supabase.co';
 export const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_p5TvTFyNO0-kS5yUQSkRXw_GBSsHec4';
