@@ -181,6 +181,7 @@
         <label for="release-confirm" class="hint">Type SEND RELEASE EMAIL to enable sending</label>
         <input id="release-confirm" autocomplete="off" placeholder="SEND RELEASE EMAIL" style="width:100%;margin:6px 0 12px;" />
         <div class="row-actions" style="margin-top:0;">
+          <button class="btn ghost" id="release-test" type="button" disabled>Send test to sender inbox</button>
           <button class="btn ghost" id="release-preview" type="button">Preview recipients</button>
           <button class="primary" id="release-send" type="button" disabled>Send release email</button>
         </div>
@@ -285,6 +286,7 @@
       return false;
     }
     HIVE_USER = user;
+    updateReleaseSendState();
     void updateDashboard();
     return true;
   }
@@ -656,6 +658,7 @@
    var releaseInputs = ['release-subject', 'release-message', 'release-confirm'];
    function updateReleaseSendState() {
      var sendButton = document.getElementById('release-send');
+     document.getElementById('release-test').disabled = !HIVE_USER;
      var phrase = document.getElementById('release-confirm').value.trim();
      sendButton.disabled = !HIVE_USER || releaseRecipientCount === null || releaseRecipientCount < 1 || phrase !== 'SEND RELEASE EMAIL';
    }
@@ -687,6 +690,19 @@
      } catch (e) {
        releaseRecipientCount = null;
        msg('release-email-msg', 'Preview failed: ' + (e.message || 'Unknown error'));
+     } finally {
+       setButtonBusy(this, false);
+       updateReleaseSendState();
+     }
+   });
+   document.getElementById('release-test').addEventListener('click', async function () {
+     setButtonBusy(this, true, 'Sending test…');
+     msg('release-email-msg', 'Sending one test message to the sender inbox…');
+     try {
+       await invokeReleaseEmail('test');
+       msg('release-email-msg', 'Test message sent to apis.new.world@gmail.com. Check the inbox and spam folder.');
+     } catch (e) {
+       msg('release-email-msg', 'Test failed: ' + (e.message || 'Unknown error'));
      } finally {
        setButtonBusy(this, false);
        updateReleaseSendState();

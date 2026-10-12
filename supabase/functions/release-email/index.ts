@@ -77,22 +77,11 @@ Deno.serve(async (request) => {
       return response({ error: 'Admin access is required.' }, 403);
     }
 
-    const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
-    if (!serviceKey) return response({ error: 'The server is missing its private database key.' }, 503);
-
     const body = await request.json();
-    if (!['preview', 'send'].includes(body.action)) return response({ error: 'Choose preview or send.' }, 400);
-    const recipients = await getRecipients(serviceKey);
-    if (body.action === 'preview') return response({ recipientCount: recipients.length });
-    if (!recipients.length) return response({ error: 'There are no opted-in recipients yet.' }, 400);
-    if (recipients.length > MAX_RECIPIENTS_PER_SEND) {
-      return response({ error: 'This list is above the Gmail send limit for one broadcast. Use a dedicated mailing service before sending.' }, 400);
-    }
-
-    const subject = typeof body.subject === 'string' ? body.subject.trim() : '';
-    const message = typeof body.message === 'string' ? body.message.trim() : '';
-    if (!subject || subject.length > 120 || !message || message.length > 8000) {
-      return response({ error: 'Add a subject (up to 120 characters) and message (up to 8,000 characters).' }, 400);
+    if (!['preview', 'send', 'test'].includes(body.action)) return response({ error: 'Choose preview, test, or send.' }, 400);
+    if (body.action === 'preview') {
+      const recipients = await getRecipients(serviceKey);
+      return response({ recipientCount: recipients.length });
     }
 
     const gmailUser = Deno.env.get('GMAIL_USER')?.trim().toLowerCase();
@@ -105,6 +94,33 @@ Deno.serve(async (request) => {
       host: 'smtp.gmail.com', port: 465, secure: true,
       auth: { user: gmailUser, pass: gmailPassword },
     });
+    if (body.action === 'test') {
+      await transporter.sendMail({
+        from: `Hive <${FROM_EMAIL}>`,
+        to: FROM_EMAIL,
+        replyTo: SUPPORT_EMAIL,
+        subject: 'Hive release email delivery test',
+        text: 'This is a test message confirming that Hive release emails can be sent.',
+        html: '<p>This is a test message confirming that Hive release emails can be sent.</p>',
+      });
+      await transporter.close();
+      return response({ tested: true });
+    }
+
+    const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+    if (!serviceKey) return response({ error: 'The server is missing its private database key.' }, 503);
+    const recipients = await getRecipients(serviceKey);
+    if (!recipients.length) return response({ error: 'There are no opted-in recipients yet.' }, 400);
+    if (recipients.length > MAX_RECIPIENTS_PER_SEND) {
+      return response({ error: 'This list is above the Gmail send limit for one broadcast. Use a dedicated mailing service before sending.' }, 400);
+    }
+
+    const subject = typeof body.subject === 'string' ? body.subject.trim() : '';
+    const message = typeof body.message === 'string' ? body.message.trim() : '';
+    if (!subject || subject.length > 120 || !message || message.length > 8000) {
+      return response({ error: 'Add a subject (up to 120 characters) and message (up to 8,000 characters).' }, 400);
+    }
+
     const safeSubject = escapeHtml(subject);
     const htmlMessage = escapeHtml(message).replace(/\r?\n/g, '<br>');
     await transporter.sendMail({
