@@ -6,7 +6,7 @@ import Waitlist from '../components/Waitlist.astro';
 import { DISCORD, SUPPORT_EMAIL, X_URL } from '../lib/site';
 import { planCatalog, type PlanId } from '../lib/plans';
 
-const chapters = [[0, 'Intro'], [12, 'Agent crew'], [16, 'Specialists'], [28, 'Approval'], [36, 'Research'], [40, 'PC control'], [48, 'Voice'], [52, 'Bento'], [56, 'Punchline']] as const;
+const chapters = [[0, 'Intro'], [4, 'Meet Hive'], [7.7, 'PC action'], [13.3, 'Cited research'], [18, 'Agent crew'], [23, 'Approvals'], [28.3, 'Voice'], [32.3, 'Code work'], [36.7, 'Night watch'], [40.7, 'Research, create, act'], [44.3, 'Features'], [47.8, 'Hive']] as const;
 const levelNames: Record<PlanId, string> = { free: 'Free', starter: 'Starter', plus: 'Plus', max: 'Max' };
 const featureCards = planCatalog.features.map((feature) => ({
   title: feature.home,
@@ -47,7 +47,7 @@ const faq = [
   <section id="tour" class="wrap py-24">
     <SectionHead eyebrow="Meet your desktop AI" title="See Hive at work." lead="A quick tour of research, PC control, your AI crew and more." center />
     <div class="glass mx-auto max-w-5xl overflow-hidden p-2 sm:p-3" data-reveal>
-      <video id="tour-video" class="aspect-video w-full rounded-2xl bg-black" controls playsinline preload="metadata" poster="/videos/hive-launch-v5-poster.jpg" aria-label="Hive launch film: the agent crew, approvals, cited research, PC control and voice"><source src="/videos/hive-launch-v5.mp4" type="video/mp4" /></video>
+      <video id="tour-video" class="aspect-video w-full rounded-2xl bg-black" controls playsinline preload="metadata" poster="/videos/hive-motion-design-poster.jpg" aria-label="Hive motion design film: PC actions, cited research, agent teamwork, approvals, voice, and code"><source src="/videos/hive-motion-design.mp4" type="video/mp4" /></video>
       <div class="flex gap-2 overflow-x-auto p-2 pt-3 [scrollbar-width:none]" role="group" aria-label="Chapters">{chapters.map(([t, label]) => <button type="button" data-t={t} class="shrink-0 rounded-full border border-line px-3.5 py-1.5 text-sm text-dim transition hover:border-honey/50 hover:text-text">{label}</button>)}</div>
     </div>
   </section>
