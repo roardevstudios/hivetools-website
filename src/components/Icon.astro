@@ -1,0 +1,68 @@
+---
+// Custom Hive icon set. One 24px grid, 1.75px rounded strokes, currentColor.
+// Replaces emoji and text arrows so every icon shares the same weight and shape.
+type Name =
+  | 'research' | 'plan' | 'chat' | 'pc' | 'folder' | 'bolt' | 'shield' | 'mic'
+  | 'code' | 'cloud' | 'bot' | 'globe' | 'lock' | 'mail' | 'check' | 'x' | 'chat-bubble'
+  | 'arrow-up-right' | 'arrow-right' | 'arrow-left' | 'arrow-down' | 'arrow-up'
+  | 'refresh' | 'close' | 'trash' | 'spark' | 'hex' | 'tokens' | 'tools' | 'buddy';
+
+export type IconName = Name;
+interface Props { name: Name; size?: number; class?: string; title?: string }
+const { name, size = 24, class: className = '', title } = Astro.props;
+
+const paths: Record<Name, string> = {
+  research: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/><path d="M8 10.5h5M10.5 8v5"/>',
+  plan: '<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h5M8 17h3"/>',
+  chat: '<path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v7a2.5 2.5 0 0 1-2.5 2.5H11l-4.5 3.5V16H6.5A2.5 2.5 0 0 1 4 13.5z"/>',
+  pc: '<rect x="3" y="4" width="18" height="12" rx="2.5"/><path d="M8 20h8M12 16v4"/><path d="m8.5 8.5 2 2-2 2M12.5 12.5h3"/>',
+  folder: '<path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h3.7l2 2.2h6.3A2.5 2.5 0 0 1 20 9.7v7.8a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 2 17.5z"/>',
+  bolt: '<path d="M13 3 5.5 13.5H12L11 21l7.5-10.5H12z"/>',
+  shield: '<path d="M12 3 5 6v5.5c0 4.4 3 8.2 7 9.5 4-1.3 7-5.1 7-9.5V6z"/><path d="m9 12 2.2 2.2L15.5 10"/>',
+  mic: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/>',
+  code: '<path d="m8 8-4 4 4 4M16 8l4 4-4 4M13.5 5.5l-3 13"/>',
+  cloud: '<path d="M7 18.5a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 17.8 9.5 3.9 3.9 0 0 1 17.5 18.5z"/>',
+  bot: '<rect x="4.5" y="7.5" width="15" height="11.5" rx="3.5"/><path d="M12 7.5V4.5M9.5 13h.01M14.5 13h.01M9.5 16.5h5"/><circle cx="12" cy="3.5" r="1"/>',
+  globe: '<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 3.8 5.4 3.8 8.5S14.5 17.9 12 20.5M12 3.5C9.5 6.1 8.2 8.9 8.2 12s1.3 5.9 3.8 8.5"/>',
+  lock: '<rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/>',
+  mail: '<rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="m4 7.5 8 6 8-6"/>',
+  check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+  x: '<path d="M5 5l14 14M19 5 5 19"/>',
+  'chat-bubble': '<path d="M5 6.5h14v9H10l-4 3v-3H5z"/>',
+  'arrow-up-right': '<path d="M7 17 17 7M9 7h8v8"/>',
+  'arrow-right': '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  'arrow-left': '<path d="M19 12H5M11 6l-6 6 6 6"/>',
+  'arrow-down': '<path d="M12 5v14M6 13l6 6 6-6"/>',
+  'arrow-up': '<path d="M12 19V5M6 11l6-6 6 6"/>',
+  refresh: '<path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/>',
+  close: '<path d="M6 6l12 12M18 6 6 18"/>',
+  trash: '<path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13"/>',
+  spark: '<path d="M12 3c.6 4.6 2.4 6.4 7 7-4.6.6-6.4 2.4-7 7-.6-4.6-2.4-6.4-7-7 4.6-.6 6.4-2.4 7-7z"/>',
+  hex: '<path d="M12 3 20 7.5v9L12 21l-8-4.5v-9z"/><path d="M12 12 20 7.5M12 12v9M12 12 4 7.5"/>',
+  tokens: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M9.5 9.5c0-1 1-1.5 2.5-1.5s2.5.6 2.5 1.6-1 1.4-2.5 1.7-2.5.7-2.5 1.7 1 1.6 2.5 1.6 2.5-.5 2.5-1.5"/>',
+  tools: '<path d="M14.5 6.5a4 4 0 0 0 4.9 4.9L11 19a2.1 2.1 0 0 1-3-3l7.4-7.4a4 4 0 0 1 .1-2.1z"/>',
+  buddy: '<circle cx="12" cy="12" r="8.5"/><path d="M9 10v.01M15 10v.01M9 14.5c1.6 1.4 4.4 1.4 6 0"/>',
+};
+const body = paths[name];
+---
+<svg
+  class:list={['icon', className]}
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.75"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden={title ? undefined : 'true'}
+  role={title ? 'img' : undefined}
+  focusable="false"
+>
+  {title && <title>{title}</title>}
+  <g set:html={body} />
+</svg>
+
+<style>
+  .icon { flex-shrink: 0; display: inline-block; vertical-align: middle; }
+</style>

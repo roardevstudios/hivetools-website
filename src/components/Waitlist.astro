@@ -1,8 +1,9 @@
 ---
+import Icon from './Icon.astro';
 import { DISCORD, X_URL, SITE_URL, SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY } from '../lib/site';
 interface Props { plan?: 'hive_starter' | 'hive_plus' | 'hive_max' | 'tokens_plus' | 'token_max'; compact?: boolean; cta?: string; source?: string }
 const { plan, compact = false, cta = 'Join the waitlist', source = 'site' } = Astro.props;
-const shareText = 'Hive is a Windows AI workspace: cited research, an AI crew, and PC control that always asks first. Joining the waitlist 🐝';
+const shareText = 'Hive is a Windows AI workspace: cited research, an AI crew, and PC control that always asks first. Joining the waitlist.';
 const shareUrl = `${SITE_URL}/?ref=share`;
 ---
 <div class="waitlist" data-plan={plan ?? ''} data-source={source} data-url={SUPABASE_URL} data-key={SUPABASE_PUBLISHABLE_KEY}>
@@ -23,9 +24,9 @@ const shareUrl = `${SITE_URL}/?ref=share`;
     <div class="wl-success-card">
       <button type="button" class="wl-close" aria-label="Close confirmation">×</button>
       <div class="wl-celebration" aria-hidden="true">
-        <span class="wl-spark wl-spark-one">✦</span>
-        <span class="wl-spark wl-spark-two">✧</span>
-        <span class="wl-spark wl-spark-three">✦</span>
+        <span class="wl-spark wl-spark-one"><Icon name="spark" size={18} /></span>
+        <span class="wl-spark wl-spark-two"><Icon name="spark" size={24} /></span>
+        <span class="wl-spark wl-spark-three"><Icon name="spark" size={14} /></span>
         <div class="wl-mascot-wrap"><img class="wl-mascot" src="/hive-buddy-float.webp" width="112" height="112" alt="" /></div>
         <span class="wl-check"><svg viewBox="0 0 32 32" fill="none"><path d="m7 16.5 6 6L25.5 10" /></svg></span>
       </div>

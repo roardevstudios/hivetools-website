@@ -1,5 +1,6 @@
 ---
 import type { DocSection } from '../content/docs';
+import Icon from './Icon.astro';
 
 interface Props {
   section: DocSection;
@@ -20,7 +21,7 @@ const { section, previous, next } = Astro.props;
   </header>
   <div class="docs-prose" set:html={section.content} />
   {(previous || next) && <nav class="docs-prev-next" aria-label="Section navigation">
-    {previous ? <a href={`#${previous.id}`} aria-label={`Previous section: ${previous.title}`}><span aria-hidden="true">←</span><span><small>Previous</small><strong>{previous.title}</strong></span></a> : <span></span>}
-    {next ? <a class="docs-next" href={`#${next.id}`} aria-label={`Next section: ${next.title}`}><span><small>Next</small><strong>{next.title}</strong></span><span aria-hidden="true">→</span></a> : <span></span>}
+    {previous ? <a href={`#${previous.id}`} aria-label={`Previous section: ${previous.title}`}><span aria-hidden="true"><Icon name="arrow-left" size={18} /></span><span><small>Previous</small><strong>{previous.title}</strong></span></a> : <span></span>}
+    {next ? <a class="docs-next" href={`#${next.id}`} aria-label={`Next section: ${next.title}`}><span><small>Next</small><strong>{next.title}</strong></span><span aria-hidden="true"><Icon name="arrow-right" size={18} /></span></a> : <span></span>}
   </nav>}
 </section>

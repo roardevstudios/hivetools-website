@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
 import Waitlist from '../components/Waitlist.astro';
 import { planCatalog, type PlanId } from '../lib/plans';
 
@@ -19,7 +20,7 @@ const planIds = planCatalog.plans.map((plan) => plan.id as PlanId);
         <span class="w-fit rounded-full border border-honey/30 bg-honey/10 px-2.5 py-0.5 text-xs text-honey-2">{plan.id === 'free' ? 'Free plan' : 'Monthly plan'}</span>
         <h2 class="mt-4 text-2xl font-semibold">{plan.name}</h2><p class="mt-2 text-sm text-dim">{plan.description}</p>
         <p class="mt-6"><span class="font-display text-4xl font-bold text-text">{price(plan.price)}</span> <span class="text-dim">{plan.period}</span></p>
-        <ul class="mt-6 flex-1 space-y-2.5 text-sm">{planCatalog.features.filter((feature) => planIds.indexOf(plan.id as PlanId) >= planIds.indexOf((feature.from ?? 'free') as PlanId)).map((feature) => <li class="flex gap-2.5"><span class="text-honey">✓</span><span>{feature.values[planIds.indexOf(plan.id as PlanId)]} · {feature.label}</span></li>)}</ul>
+        <ul class="mt-6 flex-1 space-y-2.5 text-sm">{planCatalog.features.filter((feature) => planIds.indexOf(plan.id as PlanId) >= planIds.indexOf((feature.from ?? 'free') as PlanId)).map((feature) => <li class="flex gap-2.5"><span class="mt-0.5 text-honey"><Icon name="check" size={16} /></span><span>{feature.values[planIds.indexOf(plan.id as PlanId)]} · {feature.label}</span></li>)}</ul>
         {plan.id === 'free' ? <p class="mt-8 text-center text-xs text-dim">No subscription · no checkout required</p> : <p class="mt-8 text-center text-sm text-soft">Checkout is not open yet.</p>}
       </article>)}
     </div>

@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
 
 const stats = [['157', 'Hive app checks', 'Automated checks passed across application suites'], ['116', 'Feature & scenario', 'Search, citations, app flows, boundaries and scenarios'], ['31', 'Node feature tests', 'Chat history, skills, voice playback and app logic'], ['10', 'Adversarial checks', 'Rapid input, lifecycle cleanup and layout boundaries']];
 const apps = ['Hive', 'Grok Bot', 'ChatGPT Dots', 'OpenMausBot'];
@@ -94,7 +95,7 @@ const faq = [
     <h2 class="text-2xl font-semibold" data-reveal>Sources</h2>
     <p class="mt-2 text-sm text-dim" data-reveal>Competitor features are based on public docs, snapshot checked October 2, 2026.</p>
     <ul class="mt-6 grid gap-2 sm:grid-cols-2">
-      {sources.map(([a, t, href]) => <li><a href={href} target="_blank" rel="noopener noreferrer" class="flex min-h-12 items-center justify-between rounded-2xl border border-line px-4 py-3 text-sm transition hover:border-honey/40"><span><span class="text-text">{a}</span> <span class="text-dim">· {t}</span></span><span class="text-honey-2">↗</span></a></li>)}
+      {sources.map(([a, t, href]) => <li><a href={href} target="_blank" rel="noopener noreferrer" class="flex min-h-12 items-center justify-between rounded-2xl border border-line px-4 py-3 text-sm transition hover:border-honey/40"><span><span class="text-text">{a}</span> <span class="text-dim">· {t}</span></span><span class="text-honey-2"><Icon name="arrow-up-right" size={18} /></span></a></li>)}
     </ul>
   </section>
 </Base>

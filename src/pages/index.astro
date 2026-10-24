@@ -3,12 +3,15 @@ import Base from '../layouts/Base.astro';
 import SectionHead from '../components/SectionHead.astro';
 import DemoChat from '../components/DemoChat.astro';
 import Waitlist from '../components/Waitlist.astro';
+import Icon, { type IconName } from '../components/Icon.astro';
 import { DISCORD, SUPPORT_EMAIL, X_URL } from '../lib/site';
 import { planCatalog, type PlanId } from '../lib/plans';
 
 const chapters = [[0, 'Intro'], [4, 'Meet Hive'], [7.7, 'PC action'], [13.3, 'Cited research'], [18, 'Agent crew'], [23, 'Approvals'], [28.3, 'Voice'], [32.3, 'Code work'], [36.7, 'Night watch'], [40.7, 'Research, create, act'], [44.3, 'Features'], [47.8, 'Hive']] as const;
 const levelNames: Record<PlanId, string> = { free: 'Free', starter: 'Starter', plus: 'Plus', max: 'Max' };
+const featureIcons: Record<string, IconName> = { tokens: 'tokens', voice: 'mic', research: 'research', pc: 'pc', swarm: 'bot', buddy: 'buddy', cloud: 'cloud', background: 'bolt', models: 'spark', tools: 'tools', chat: 'chat' };
 const featureCards = planCatalog.features.map((feature) => ({
+  icon: featureIcons[feature.id] ?? 'spark',
   title: feature.home,
   plan: levelNames[feature.from ?? 'free'],
   description: feature.id === 'tokens' ? '25,000 chat tokens per day on Hive Free.'
@@ -41,7 +44,7 @@ const faq = [
         <ul class="hero-in mt-7 flex flex-wrap justify-center gap-2 lg:justify-start" aria-label="Core capabilities">
           <li class="chip">Cited research</li><li class="chip">Agent crew</li><li class="chip">PC actions with approval</li><li class="chip">Voice</li>
         </ul>
-        <div class="hero-in mt-8 flex flex-col items-center lg:items-start"><a class="btn btn-primary" href="#notify">Email me when v0.0.1 is ready</a><div class="mt-4 flex gap-4 text-sm"><a href="#tour" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">Watch the tour ↓</a><a href={DISCORD} target="_blank" rel="noopener noreferrer" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">Discord ↗</a><a href={X_URL} target="_blank" rel="noopener noreferrer" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">X ↗</a></div></div>
+        <div class="hero-in mt-8 flex flex-col items-center lg:items-start"><a class="btn btn-primary" href="#notify">Email me when v0.0.1 is ready</a><div class="mt-4 flex gap-4 text-sm"><a href="#tour" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">Watch the tour <Icon name="arrow-down" size={14} /></a><a href={DISCORD} target="_blank" rel="noopener noreferrer" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">Discord <Icon name="arrow-up-right" size={14} /></a><a href={X_URL} target="_blank" rel="noopener noreferrer" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">X <Icon name="arrow-up-right" size={14} /></a></div></div>
       </div>
       <div class="hero-in relative mx-auto w-64 sm:w-80 lg:w-full lg:max-w-sm" aria-hidden="true"><div class="absolute inset-8 rounded-full bg-honey/30 blur-3xl"></div><img src="/hive-buddy-float.webp" alt="" width="330" height="330" class="animate-float relative w-full drop-shadow-[0_30px_60px_rgba(240,138,36,.35)]" fetchpriority="high" /></div>
     </div>
@@ -59,16 +62,16 @@ const faq = [
 
   <section id="features" class="wrap py-24">
     <SectionHead eyebrow="What you get" title="Everything in one window." lead="What each plan includes. These are planned features and may change before checkout opens." />
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{featureCards.map((feature, i) => <article data-reveal style={`--i:${i % 3}`} class="card glass lift p-6"><div class="flex items-center justify-between"><span class="eyebrow">{feature.plan}</span><span class="card-index">{String(i + 1).padStart(2, '0')}</span></div><h3 class="mt-4 text-lg font-semibold">{feature.title}</h3><p class="mt-2 text-sm leading-relaxed text-dim">{feature.description}</p></article>)}</div>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{featureCards.map((feature, i) => <article data-reveal style={`--i:${i % 3}`} class="card glass lift p-6"><div class="flex items-center justify-between"><span class="grid size-11 place-items-center rounded-xl border border-honey/25 bg-honey/10 text-honey-2"><Icon name={feature.icon} size={22} /></span><span class="eyebrow">{feature.plan}</span></div><h3 class="mt-5 text-lg font-semibold">{feature.title}</h3><p class="mt-2 text-sm leading-relaxed text-dim">{feature.description}</p></article>)}</div>
   </section>
 
   <section id="hive-design" class="wrap pb-16"><div class="glass relative overflow-hidden p-8 sm:p-12" data-reveal><div aria-hidden="true" class="absolute -right-16 -top-24 size-64 rounded-full bg-honey/15 blur-3xl"></div><div class="relative max-w-3xl"><span class="eyebrow">Coming to the Hive app</span><h2 class="h-section mt-4">Meet Hive Design.</h2><p class="lead mt-5">A new creative space is on the way. Hive Design is coming to the Hive app.</p></div></div></section>
 
   <section id="safety" class="wrap py-24"><SectionHead eyebrow="Your PC, your call" title="What we can and can’t promise." lead="Permission, data handling, and who builds Hive." />
     <div class="grid gap-4 md:grid-cols-3">
-      <article class="glass p-6"><h3 class="text-lg font-semibold">Permission</h3><p class="mt-2 text-sm leading-relaxed text-dim">Every PC action asks for Allow or Deny. Destructive commands are blocked before they reach the screen. Actions are logged locally.</p></article>
-      <article class="glass p-6"><h3 class="text-lg font-semibold">Where data lives</h3><p class="mt-2 text-sm leading-relaxed text-dim">Chats and the Mission Board stay on your device; this site does not run prompts. Account and usage counters are handled by Supabase. Model requests go to the provider selected in the app.</p></article>
-      <article class="glass p-6"><h3 class="text-lg font-semibold">Who makes Hive</h3><p class="mt-2 text-sm leading-relaxed text-dim">Apis is an independent studio. Contact <a class="text-honey-2 underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> or join our <a class="text-honey-2 underline" href={DISCORD} target="_blank" rel="noopener noreferrer">Discord</a>.</p></article>
+      <article class="glass p-6"><span class="grid size-11 place-items-center rounded-xl border border-honey/25 bg-honey/10 text-honey-2"><Icon name="shield" size={22} /></span><h3 class="mt-5 text-lg font-semibold">Permission</h3><p class="mt-2 text-sm leading-relaxed text-dim">Every PC action asks for Allow or Deny. Destructive commands are blocked before they reach the screen. Actions are logged locally.</p></article>
+      <article class="glass p-6"><span class="grid size-11 place-items-center rounded-xl border border-honey/25 bg-honey/10 text-honey-2"><Icon name="lock" size={22} /></span><h3 class="mt-5 text-lg font-semibold">Where data lives</h3><p class="mt-2 text-sm leading-relaxed text-dim">Chats and the Mission Board stay on your device; this site does not run prompts. Account and usage counters are handled by Supabase. Model requests go to the provider selected in the app.</p></article>
+      <article class="glass p-6"><span class="grid size-11 place-items-center rounded-xl border border-honey/25 bg-honey/10 text-honey-2"><Icon name="hex" size={22} /></span><h3 class="mt-5 text-lg font-semibold">Who makes Hive</h3><p class="mt-2 text-sm leading-relaxed text-dim">Apis is an independent studio. Contact <a class="text-honey-2 underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> or join our <a class="text-honey-2 underline" href={DISCORD} target="_blank" rel="noopener noreferrer">Discord</a>.</p></article>
     </div>
   </section>
 

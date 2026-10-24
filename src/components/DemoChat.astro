@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 // Scripted preview of the Hive app. Nothing here touches the visitor's PC.
 const scenarios = [
   { id: 'research', label: 'Research' },
@@ -21,7 +22,7 @@ const scenarios = [
   <div id="demo-log" class="flex h-[380px] flex-col gap-3 overflow-y-auto p-4 sm:h-[420px] sm:p-6" aria-live="polite"></div>
   <div class="flex items-center gap-2 border-t border-line p-3">
     <div id="demo-input" class="min-h-11 flex-1 truncate rounded-xl border border-line bg-panel-2 px-4 py-2.5 text-sm text-dim">Ask Hive anything…</div>
-    <span class="grid size-11 place-items-center rounded-xl bg-honey text-ink" aria-hidden="true">↑</span>
+    <span class="grid size-11 place-items-center rounded-xl bg-honey text-ink" aria-hidden="true"><Icon name="arrow-up" size={20} /></span>
   </div>
   <p class="border-t border-line px-4 py-2.5 text-center text-xs text-dim">A scripted preview. Nothing here touches your PC.</p>
 </div>
