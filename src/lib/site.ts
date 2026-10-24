@@ -10,7 +10,7 @@ export const NAV = [
 ];
 export const X_URL = 'https://x.com/RoarDEV2014';
 export const SITE_URL = 'https://hivetools.pro';
-export const RELEASE_STATUS = 'The public beta installer was removed. We’ll explain what changed when v0.0.1 is posted.';
+export const RELEASE_STATUS = 'The old beta installer has been removed. Get the v0.0.1 email for updates.';
 export const NOTIFY_URL = '/#notify';
 
 // Public Supabase project + publishable key (safe to ship; access is enforced by RLS).

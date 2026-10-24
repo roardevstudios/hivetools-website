@@ -49,7 +49,6 @@ const canonical = new URL(canonicalPath, SITE_URL).toString();
     {!bare && <Nav />}
     <main id="main" class="relative"><ReleaseStatus /><slot /></main>
     {!bare && <Footer />}
-    <script src="/hive-language.js" defer is:inline></script>
     <script>
       // Scroll reveal
       const io = new IntersectionObserver((entries) => {

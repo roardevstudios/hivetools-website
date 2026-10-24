@@ -31,13 +31,13 @@ const faq = [
 ];
 ---
 <Base title="Hive — research, agents, and PC control in one AI workspace">
-  <section class="relative overflow-hidden pt-32 pb-20 sm:pt-40">
+  <section class="relative overflow-hidden pt-36 pb-16 sm:pt-44">
     <div aria-hidden="true" class="absolute left-1/2 top-0 -z-10 h-[420px] w-[700px] -translate-x-1/2 rounded-full opacity-60 blur-3xl md:h-[620px] md:w-[1100px]" style="background: radial-gradient(closest-side, rgb(240 138 36 / .35), transparent), radial-gradient(closest-side at 80% 40%, rgb(29 155 240 / .12), transparent);"></div>
     <div class="wrap grid items-center gap-12 lg:grid-cols-[1.15fr_.85fr]">
       <div class="text-center lg:text-left">
-        <span class="hero-in inline-flex items-center gap-2 rounded-full border border-line bg-panel/70 px-3 py-1.5 text-xs text-soft backdrop-blur"><span class="live-dot"></span> Hive v0.0.1 · release details to come</span>
-        <h1 class="mt-6 text-[2.75rem] font-bold leading-[1] sm:text-6xl lg:text-7xl" id="hero-title"><span class="word">Your</span> <span class="word">ideas,</span> <span class="word">meet</span><br class="hidden sm:block" /><span class="word text-gradient">your</span> <span class="word text-gradient">AI</span> <span class="word text-gradient">crew.</span></h1>
-        <p class="hero-in lead mx-auto mt-6 max-w-xl lg:mx-0">Cited research, an agent crew, and PC actions that ask first. Those are planned Starter and Plus features. Hive v0.0.1 is not ready to download.</p>
+        <span class="hero-in inline-flex items-center gap-2 rounded-full border border-line bg-panel/70 px-3 py-1.5 text-xs text-soft backdrop-blur"><span class="live-dot"></span> Hive v0.0.1 · coming soon</span>
+        <h1 class="mt-6 text-[2.75rem] font-bold leading-[1.02] sm:text-6xl lg:text-7xl" id="hero-title"><span class="word">One</span> <span class="word">AI</span> <span class="word">workspace</span><br class="hidden sm:block" /><span class="word text-gradient">for</span> <span class="word text-gradient">research</span> <span class="word text-gradient">and</span> <span class="word text-gradient">your PC.</span></h1>
+        <p class="hero-in lead mx-auto mt-6 max-w-xl lg:mx-0">Hive finds sourced answers, works with a team of AI agents, and asks before it touches your computer. v0.0.1 is not ready to download yet.</p>
         <ul class="hero-in mt-7 flex flex-wrap justify-center gap-2 lg:justify-start" aria-label="Core capabilities">
           <li class="chip">Cited research</li><li class="chip">Agent crew</li><li class="chip">PC actions with approval</li><li class="chip">Voice</li>
         </ul>
@@ -58,7 +58,7 @@ const faq = [
   <section id="demo-section" class="wrap py-16"><div class="grid items-center gap-12 lg:grid-cols-2"><div><SectionHead eyebrow="Scripted preview" title="A little work, handled together." lead="Watch a preview of the app. This demonstration does not submit prompts or control your PC." /></div><DemoChat /></div></section>
 
   <section id="features" class="wrap py-24">
-    <SectionHead eyebrow="Planned plan features" title="One window. Every job." lead="The same plan catalog powers this overview and the pricing comparison. Features are planned and subject to change before checkout opens." />
+    <SectionHead eyebrow="What you get" title="Everything in one window." lead="What each plan includes. These are planned features and may change before checkout opens." />
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{featureCards.map((feature, i) => <article data-reveal style={`--i:${i % 3}`} class="card glass lift p-6"><div class="flex items-center justify-between"><span class="eyebrow">{feature.plan}</span><span class="card-index">{String(i + 1).padStart(2, '0')}</span></div><h3 class="mt-4 text-lg font-semibold">{feature.title}</h3><p class="mt-2 text-sm leading-relaxed text-dim">{feature.description}</p></article>)}</div>
   </section>
 
