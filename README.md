@@ -12,17 +12,20 @@ npm run build     # outputs site/ (the files you upload)
 npm run preview   # serve the built site
 ```
 
-## Deploy (Spaceship / Apache)
+## Deploy (Vercel)
 
-**The `site/` folder is the ready-to-upload website.** It is rebuilt and committed with every change.
+Production is the Vercel project `apis-ai/hivetools`, which serves `hivetools.pro`. Settings live in `vercel.json`:
+build with `npm run build`, serve `site/`, clean URLs, `www` → apex redirect, security headers, and cache rules.
 
-1. Upload the **contents** of `site/` to the Spaceship web root (`public_html`). It includes `.htaccess`, so enable "show hidden files" in the File Manager / FTP client.
-2. After editing anything in `src/` or `public/`, run `npm run build` to refresh `site/`, then commit it.
-3. Copy the large media that is not kept in git from the
-   [Original website backup](https://github.com/roardevstudios/hivetools-website/releases/tag/source-backup-2026-10-10) release into `videos/` on the server:
-   `hive-launch-v4.mp4` (homepage tour). The changelog lists only the upcoming v0.0.1 release.
+```bash
+vercel deploy --prod --scope apis-ai    # from this folder, after `vercel link`
+```
 
-Pages build as `name.html` (`build.format: 'file'`), so the existing `.htaccess` clean-URL rules (`/pricing` → `pricing.html`) keep working.
+`site/` is the committed build output. Rebuild it with `npm run build` after editing `src/` or `public/`, then commit it.
+The homepage tour video (`public/videos/hive-motion-design.mp4`) ships in the repo.
+
+Pages build as `name.html` (`build.format: 'file'`) and Vercel's `cleanUrls` maps `/pricing` to `pricing.html`.
+The old Apache `.htaccess` files are kept for reference only and are not used on Vercel.
 
 ## Layout
 
@@ -35,7 +38,7 @@ Pages build as `name.html` (`build.format: 'file'`), so the existing `.htaccess`
 | `src/styles/global.css` | Design tokens (`@theme`) and shared components |
 | `src/content/docs.html` | Docs body (edit text here) |
 | `src/content/app/*.html`, `src/styles/app/` | Account page markup + scripts and their styles, carried over from the previous site so sign-in flows are unchanged |
-| `public/` | Served as-is: images, `.htaccess`, `hive-language.js` + `hive-languages.json` (EN/DE/ZH switcher), installer script |
+| `public/` | Served as-is: images, videos, `hive-language.js` + `hive-languages.json` (language switcher), auth helper |
 | `server/` | **Not deployed.** Supabase schema (`supabase-setup.sql`) and the `send-claim-receipt` Edge Function |
 | `scripts/` | One-off helpers used to port content from the previous site |
 
