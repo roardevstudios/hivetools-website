@@ -10,7 +10,7 @@ import { planCatalog, type PlanId } from '../lib/plans';
 const chapters = [[0, 'Intro'], [4, 'Meet Hive'], [7.7, 'PC action'], [13.3, 'Cited research'], [18, 'Agent crew'], [23, 'Approvals'], [28.3, 'Voice'], [32.3, 'Code work'], [36.7, 'Night watch'], [40.7, 'Research, create, act'], [44.3, 'Features'], [47.8, 'Hive']] as const;
 const levelNames: Record<PlanId, string> = { free: 'Free', starter: 'Starter', plus: 'Plus', max: 'Max' };
 const featureIcons: Record<string, IconName> = { tokens: 'tokens', voice: 'mic', research: 'research', pc: 'pc', swarm: 'bot', buddy: 'buddy', cloud: 'cloud', background: 'bolt', models: 'spark', tools: 'tools', chat: 'chat' };
-const featureCards = planCatalog.features.map((feature) => ({
+const featureCards = [...planCatalog.features.map((feature) => ({
   icon: featureIcons[feature.id] ?? 'spark',
   title: feature.home,
   plan: levelNames[feature.from ?? 'free'],
@@ -25,7 +25,17 @@ const featureCards = planCatalog.features.map((feature) => ({
     : feature.id === 'models' ? 'Standard models are planned for Free through Plus; Max adds the fastest models and top priority.'
     : feature.id === 'tools' ? 'Standard agent tools are planned from Starter.'
     : 'Core chat workspace is planned across all plans.',
-}));
+})), {
+  icon: 'connectors' as IconName,
+  title: 'Connectors for your tools',
+  plan: 'Planned',
+  description: 'Google, Slack, GitHub, and Linear connectors are planned. Supported actions and availability will be shared as they take shape.',
+}, {
+  icon: 'cloud-pc' as IconName,
+  title: 'Instabox Cloud PC',
+  plan: 'Planned',
+  description: 'A future Instabox Cloud PC integration is planned to let Hive work with a remote computer. Scope, access, and availability details will follow.',
+}];
 const faq = [
   ['Is Hive available to download?', 'The public beta installer was removed. We’ll explain what changed when v0.0.1 is posted.'],
   ['What does Hive Free include?', 'The planned Free tier includes 25,000 chat tokens per day, 5 voice sessions per day, standard models, and core chat.'],
@@ -61,25 +71,8 @@ const faq = [
   <section id="demo-section" class="wrap py-16"><div class="grid items-center gap-12 lg:grid-cols-2"><div><SectionHead eyebrow="Scripted preview" title="A little work, handled together." lead="Watch a preview of the app. This demonstration does not submit prompts or control your PC." /></div><DemoChat /></div></section>
 
   <section id="features" class="wrap py-24">
-    <SectionHead eyebrow="What you get" title="Everything in one window." lead="What each plan includes. These are planned features and may change before checkout opens." />
+    <SectionHead eyebrow="What you get" title="Everything in one window." lead="Planned Hive features, including future integrations. Availability details may change before release." />
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{featureCards.map((feature, i) => <article data-reveal style={`--i:${i % 3}`} class="card glass lift p-6"><div class="flex items-center justify-between"><span class="grid size-11 place-items-center rounded-xl border border-honey/25 bg-honey/10 text-honey-2"><Icon name={feature.icon} size={22} /></span><span class="eyebrow">{feature.plan}</span></div><h3 class="mt-5 text-lg font-semibold">{feature.title}</h3><p class="mt-2 text-sm leading-relaxed text-dim">{feature.description}</p></article>)}</div>
-  </section>
-
-  <section id="roadmap" class="wrap pb-24">
-    <SectionHead eyebrow="On the roadmap" title="Hive will connect beyond your desktop." lead="Planned integrations for bringing your tools and remote computing into future Hive workflows." />
-    <div class="grid gap-4 md:grid-cols-2">
-      <article class="glass lift p-6 sm:p-8" data-reveal>
-        <div class="flex items-center justify-between gap-4"><span class="grid size-11 place-items-center rounded-xl border border-honey/25 bg-honey/10 text-honey-2"><Icon name="connectors" size={22} /></span><span class="eyebrow">Planned integration</span></div>
-        <h3 class="mt-5 text-xl font-semibold">Connect your tools</h3>
-        <p class="mt-2 text-sm leading-relaxed text-dim">Google, Slack, GitHub, and Linear connectors are planned to bring the services you use into Hive. Supported actions and availability will be shared as the integrations take shape.</p>
-      </article>
-      <article class="glass lift p-6 sm:p-8" data-reveal>
-        <div class="flex items-center justify-between gap-4"><span class="grid size-11 place-items-center rounded-xl border border-honey/25 bg-honey/10 text-honey-2"><Icon name="cloud-pc" size={22} /></span><span class="eyebrow">Future integration</span></div>
-        <h3 class="mt-5 text-xl font-semibold">Instabox Cloud PC</h3>
-        <p class="mt-2 text-sm leading-relaxed text-dim">A future Instabox Cloud PC integration is planned to let Hive work with a remote computer. Scope, access, and availability details will follow as development progresses.</p>
-      </article>
-    </div>
-    <p class="mt-4 text-xs text-dim">These integrations are planned and are not available yet.</p>
   </section>
 
   <section id="hive-design" class="wrap pb-16"><div class="glass relative overflow-hidden p-8 sm:p-12" data-reveal><div aria-hidden="true" class="absolute -right-16 -top-24 size-64 rounded-full bg-honey/15 blur-3xl"></div><div class="relative max-w-3xl"><span class="eyebrow">Coming to the Hive app</span><h2 class="h-section mt-4">Meet Hive Design.</h2><p class="lead mt-5">A new creative space is on the way. Hive Design is coming to the Hive app.</p></div></div></section>
