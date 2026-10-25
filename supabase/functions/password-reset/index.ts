@@ -88,9 +88,17 @@ Deno.serve(async (request) => {
     }
 
     const linkData = await linkResponse.json();
-    const recoveryCode = linkData?.email_otp ?? linkData?.properties?.email_otp;
+    const recoveryCode = linkData?.email_otp
+      ?? linkData?.properties?.email_otp
+      ?? linkData?.data?.email_otp
+      ?? linkData?.data?.properties?.email_otp;
     if (typeof recoveryCode !== 'string' || !/^\d{6}$/.test(recoveryCode)) {
-      console.error('password-reset Auth response did not contain a recovery OTP');
+      console.error('password-reset Auth response shape:', {
+        topLevelKeys: Object.keys(linkData || {}),
+        propertiesKeys: Object.keys(linkData?.properties || {}),
+        dataKeys: Object.keys(linkData?.data || {}),
+        nestedPropertiesKeys: Object.keys(linkData?.data?.properties || {}),
+      });
       return genericSuccess(origin);
     }
 
