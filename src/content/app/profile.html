@@ -32,6 +32,34 @@
       <div class="tile"><div class="k">Tokens used</div><div class="v dim" id="pf-quota">—</div></div>
     </div>
 
+    <section aria-labelledby="pf-security-title" style="margin:22px 0;padding:18px;border:1px solid var(--line,#30343b);border-radius:14px;background:rgba(255,255,255,.02);">
+      <h2 id="pf-security-title" style="margin:0 0 6px;font-size:18px;">Account security</h2>
+      <p style="margin:0 0 14px;color:var(--text-dim);line-height:1.55;font-size:13px;">Change your password with your current password, or request a one-time recovery code by email.</p>
+      <form id="pf-password-form" style="display:grid;gap:9px;max-width:440px;">
+        <label for="pf-current-password">Current password</label>
+        <input id="pf-current-password" type="password" autocomplete="current-password" required />
+        <label for="pf-new-password">New password</label>
+        <input id="pf-new-password" type="password" autocomplete="new-password" minlength="8" required />
+        <label for="pf-confirm-password">Confirm new password</label>
+        <input id="pf-confirm-password" type="password" autocomplete="new-password" minlength="8" required />
+        <div class="btns"><button class="btn primary" id="pf-password-save" type="submit">Change password</button></div>
+      </form>
+      <div id="pf-recovery-panel" hidden style="margin-top:16px;padding-top:16px;border-top:1px solid var(--line,#30343b);">
+        <p style="margin:0 0 12px;color:var(--text-dim);font-size:13px;">We’ll send a one-time code to <strong id="pf-recovery-email"></strong>.</p>
+        <button class="btn ghost" id="pf-recovery-send" type="button">Email me a recovery code</button>
+        <form id="pf-recovery-form" hidden style="gap:9px;max-width:440px;margin-top:14px;">
+          <label for="pf-recovery-code">Email code</label>
+          <input id="pf-recovery-code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required />
+          <label for="pf-recovery-new-password">New password</label>
+          <input id="pf-recovery-new-password" type="password" autocomplete="new-password" minlength="8" required />
+          <label for="pf-recovery-confirm-password">Confirm new password</label>
+          <input id="pf-recovery-confirm-password" type="password" autocomplete="new-password" minlength="8" required />
+          <div class="btns"><button class="btn primary" id="pf-recovery-submit" type="submit">Verify code and reset password</button></div>
+        </form>
+      </div>
+      <p id="pf-password-msg" role="status" aria-live="polite" style="min-height:18px;margin:10px 0 0;color:var(--text-dim);font-size:13px;"></p>
+    </section>
+
     <section id="pf-api-card" style="margin:22px 0;padding:18px;border:1px solid var(--line,#30343b);border-radius:14px;background:rgba(255,255,255,.02);">
       <h2 style="margin:0 0 6px;font-size:18px;">Hive API keys</h2>
       <p style="margin:0 0 14px;color:var(--text-dim);line-height:1.55;font-size:13px;">Use a key in Hive or an OpenAI-compatible client. API requests draw from the same token allowance as Hive chat.</p>
@@ -85,6 +113,14 @@
 
   function show(id, on) { var el = document.getElementById(id); if (el) el.style.display = on ? 'block' : 'none'; }
   function apiMsg(text) { var el = document.getElementById('pf-api-msg'); if (el) el.textContent = text || ''; }
+  function passwordMsg(text) { var el = document.getElementById('pf-password-msg'); if (el) el.textContent = text || ''; }
+  function setBusy(button, busy, label) {
+    if (!button) return;
+    button.disabled = busy;
+    if (!button.dataset.readyLabel) button.dataset.readyLabel = button.textContent;
+    button.textContent = busy ? label : button.dataset.readyLabel;
+  }
+  function matchingPasswords(first, second) { return first === second && first.length >= 8; }
   function hex(bytes) { return Array.from(new Uint8Array(bytes)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join(''); }
   async function sha256(value) { return hex(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value))); }
 
@@ -150,6 +186,77 @@
 
     document.getElementById('pf-email').textContent = user.email || '';
     document.getElementById('pf-av').textContent = ((user.email || '?').charAt(0) || '?').toUpperCase();
+    document.getElementById('pf-recovery-email').textContent = user.email || 'your account email';
+
+    document.getElementById('pf-password-form').addEventListener('submit', async function (event) {
+      event.preventDefault();
+      var button = document.getElementById('pf-password-save');
+      var oldPassword = document.getElementById('pf-current-password').value;
+      var newPassword = document.getElementById('pf-new-password').value;
+      var confirmation = document.getElementById('pf-confirm-password').value;
+      if (!matchingPasswords(newPassword, confirmation)) { passwordMsg('Use at least 8 characters and make both new passwords match.'); return; }
+      setBusy(button, true, 'Changing password…');
+      passwordMsg('Verifying your current password…');
+      try {
+        var verified = await SB.auth.signInWithPassword({ email: user.email, password: oldPassword });
+        if (verified.error) throw new Error('The current password did not match. You can request an email recovery code below.');
+        var changed = await SB.auth.updateUser({ password: newPassword });
+        if (changed.error) throw changed.error;
+        document.getElementById('pf-password-form').reset();
+        passwordMsg('Password changed successfully.');
+      } catch (error) {
+        passwordMsg(error.message || 'Could not change the password. Please try again.');
+      } finally { setBusy(button, false); }
+    });
+
+    document.getElementById('pf-recovery-send').addEventListener('click', async function () {
+      var button = this;
+      if (!user.email) { passwordMsg('This account has no email address for recovery.'); return; }
+      setBusy(button, true, 'Sending code…');
+      passwordMsg('Requesting a recovery code…');
+      try {
+        var response = await fetch('https://nqkmnmwbmikbgopwkvse.supabase.co/functions/v1/password-reset', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'apikey': 'sb_publishable_p5TvTFyNO0-kS5yUQSkRXw_GBSsHec4' },
+          body: JSON.stringify({ email: user.email })
+        });
+        if (!response.ok) throw new Error('The code could not be sent right now. Please try again in a minute.');
+        document.getElementById('pf-recovery-form').hidden = false;
+        document.getElementById('pf-recovery-form').style.display = 'grid';
+        passwordMsg('If this account can receive recovery mail, a code is on its way. Check your inbox and spam folder.');
+      } catch (error) {
+        passwordMsg(error.message || 'The code could not be sent. Please try again.');
+      } finally { setBusy(button, false); }
+    });
+
+    document.getElementById('pf-recovery-form').addEventListener('submit', async function (event) {
+      event.preventDefault();
+      var button = document.getElementById('pf-recovery-submit');
+      var newPassword = document.getElementById('pf-recovery-new-password').value;
+      var confirmation = document.getElementById('pf-recovery-confirm-password').value;
+      if (!matchingPasswords(newPassword, confirmation)) { passwordMsg('Use at least 8 characters and make both new passwords match.'); return; }
+      setBusy(button, true, 'Verifying code…');
+      passwordMsg('Checking your recovery code…');
+      try {
+        var recovered = await SB.auth.verifyOtp({
+          email: user.email,
+          token: document.getElementById('pf-recovery-code').value.trim(),
+          type: 'recovery'
+        });
+        if (recovered.error) throw new Error('That code is invalid or expired. Request a new one and try again.');
+        var changed = await SB.auth.updateUser({ password: newPassword });
+        if (changed.error) throw changed.error;
+        document.getElementById('pf-password-form').reset();
+        document.getElementById('pf-recovery-form').reset();
+        document.getElementById('pf-recovery-form').hidden = true;
+        document.getElementById('pf-recovery-form').style.display = 'none';
+        document.getElementById('pf-recovery-panel').hidden = true;
+        passwordMsg('Password reset successfully.');
+      } catch (error) {
+        passwordMsg(error.message || 'Could not reset the password. Request a new code and try again.');
+      } finally { setBusy(button, false); }
+    });
+    document.getElementById('pf-recovery-panel').hidden = false;
 
     var profile = null;
     try {
