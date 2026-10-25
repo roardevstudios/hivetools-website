@@ -38,7 +38,7 @@ export const docGroups: DocGroup[] = [
         id: 'workspace-ui', title: 'Workspace', plan: 'Planned',
         summary: 'The desktop app is designed to keep chats and project context together.',
         content: `<h3>Local work</h3>
-          <p>Chats and the Mission Board stay on the device. This website does not run prompts. The homepage demo is a scripted preview and does not access Hive services, files, or your PC.</p>`,
+          <p>Chats stay on the device. This website does not run prompts. The homepage demo is a scripted preview and does not access Hive services, files, or your PC.</p>`,
       },
       {
         id: 'chat', title: 'Chat & search', plan: 'Free',
@@ -88,7 +88,7 @@ export const docGroups: DocGroup[] = [
         id: 'cloud', title: 'HiveBox', plan: 'Plus',
         summary: 'HiveBox cloud disk is planned for Plus; background tasks are planned for Max.',
         content: `<h3>Plan availability</h3>
-          <p>HiveBox cloud disk is planned for Plus. HiveBox background tasks are planned for Max. The Mission Board stays on the device when it ships.</p>`,
+          <p>HiveBox cloud disk is planned for Plus. HiveBox background tasks are planned for Max.</p>`,
       },
     ],
   },
@@ -143,7 +143,7 @@ export const docGroups: DocGroup[] = [
         summary: 'Answers about supported platform, availability, and account data.',
         content: `<details class="docs-faq"><summary>Windows only?</summary><p>Windows 10/11 is the planned platform. The click and type engine is Windows-native. It is not available while v0.0.1 is unposted.</p></details>
           <details class="docs-faq"><summary>Is Hive free?</summary><p>Hive Free is planned with its published daily limits. Paid plans are monthly, but checkout is not open and the public installer is not posted.</p></details>
-          <details class="docs-faq"><summary>Where is my data?</summary><p>Chats and the Mission Board stay on the device. This site does not run prompts. Account sign-in and profile details are handled on this website.</p></details>
+          <details class="docs-faq"><summary>Where is my data?</summary><p>Chats stay on the device. This site does not run prompts. Account sign-in and profile details are handled on this website.</p></details>
           <details class="docs-faq"><summary>Where is Buddy?</summary><p>Buddy is planned for Plus. It is not on this website. In the desktop app, Buddy is meant to hide when Hive hides and return when Hive is shown.</p></details>`,
       },
       {

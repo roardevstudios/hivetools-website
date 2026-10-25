@@ -30,7 +30,7 @@ const faq = [
   ['Is Hive available to download?', 'The public beta installer was removed. We’ll explain what changed when v0.0.1 is posted.'],
   ['What does Hive Free include?', 'The planned Free tier includes 25,000 chat tokens per day, 5 voice sessions per day, standard models, and core chat.'],
   ['Are paid plans one-time purchases?', 'No. Starter, Plus, and Max are planned monthly subscriptions. Checkout is not open yet.'],
-  ['Where do chats and prompts go?', 'Chats and the Mission Board stay on your device. This website does not run prompts. Model requests are sent to the provider selected in the app.'],
+  ['Where do chats and prompts go?', 'Chats stay on your device. This website does not run prompts. Model requests are sent to the provider selected in the app.'],
 ];
 ---
 <Base title="Hive — research, agents, and PC control in one AI workspace">
@@ -70,7 +70,7 @@ const faq = [
   <section id="safety" class="wrap py-24"><SectionHead eyebrow="Your PC, your call" title="What we can and can’t promise." lead="Permission, data handling, and who builds Hive." />
     <div class="grid gap-4 md:grid-cols-3">
       <article class="glass p-6"><span class="grid size-11 place-items-center rounded-xl border border-honey/25 bg-honey/10 text-honey-2"><Icon name="shield" size={22} /></span><h3 class="mt-5 text-lg font-semibold">Permission</h3><p class="mt-2 text-sm leading-relaxed text-dim">Every PC action asks for Allow or Deny. Destructive commands are blocked before they reach the screen. Actions are logged locally.</p></article>
-      <article class="glass p-6"><span class="grid size-11 place-items-center rounded-xl border border-honey/25 bg-honey/10 text-honey-2"><Icon name="lock" size={22} /></span><h3 class="mt-5 text-lg font-semibold">Where data lives</h3><p class="mt-2 text-sm leading-relaxed text-dim">Chats and the Mission Board stay on your device; this site does not run prompts. Account and usage counters are handled by Supabase. Model requests go to the provider selected in the app.</p></article>
+      <article class="glass p-6"><span class="grid size-11 place-items-center rounded-xl border border-honey/25 bg-honey/10 text-honey-2"><Icon name="lock" size={22} /></span><h3 class="mt-5 text-lg font-semibold">Where data lives</h3><p class="mt-2 text-sm leading-relaxed text-dim">Chats stay on your device; this site does not run prompts. Account and usage counters are handled by Supabase. Model requests go to the provider selected in the app.</p></article>
       <article class="glass p-6"><span class="grid size-11 place-items-center rounded-xl border border-honey/25 bg-honey/10 text-honey-2"><Icon name="hex" size={22} /></span><h3 class="mt-5 text-lg font-semibold">Who makes Hive</h3><p class="mt-2 text-sm leading-relaxed text-dim">Apis is an independent studio. Contact <a class="text-honey-2 underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> or join our <a class="text-honey-2 underline" href={DISCORD} target="_blank" rel="noopener noreferrer">Discord</a>.</p></article>
     </div>
   </section>
