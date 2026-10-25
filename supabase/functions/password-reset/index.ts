@@ -34,6 +34,7 @@ function genericSuccess(origin: string | null) {
 
 Deno.serve(async (request) => {
   const origin = request.headers.get('origin');
+  let stage = 'validate request';
   if (request.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders(origin) });
   if (request.method !== 'POST') return response({ error: 'Method not allowed.' }, 405, origin);
   if (!origin || !ALLOWED_ORIGINS.has(origin)) return response({ error: 'Origin not allowed.' }, 403, origin);
@@ -46,6 +47,7 @@ Deno.serve(async (request) => {
       return response({ error: 'Enter a valid account email.' }, 400, origin);
     }
 
+    stage = 'load server credentials';
     const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
     const gmailUser = Deno.env.get('GMAIL_USER')?.trim().toLowerCase();
     const gmailPassword = Deno.env.get('GMAIL_APP_PASSWORD')?.replace(/\s+/g, '');
@@ -63,8 +65,14 @@ Deno.serve(async (request) => {
       },
       body: JSON.stringify({ p_email_hash: await sha256(email) }),
     });
-    if (!rateLimitResponse.ok || await rateLimitResponse.json() !== true) return genericSuccess(origin);
+    stage = 'check rate limit';
+    if (!rateLimitResponse.ok) {
+      console.error('password-reset rate limit service returned HTTP', rateLimitResponse.status);
+      return genericSuccess(origin);
+    }
+    if (await rateLimitResponse.json() !== true) return genericSuccess(origin);
 
+    stage = 'generate recovery code';
     const linkResponse = await fetch(`${PROJECT_URL}/auth/v1/admin/generate_link`, {
       method: 'POST',
       headers: {
@@ -74,12 +82,19 @@ Deno.serve(async (request) => {
       },
       body: JSON.stringify({ type: 'recovery', email }),
     });
-    if (!linkResponse.ok) return genericSuccess(origin);
+    if (!linkResponse.ok) {
+      console.error('password-reset Auth generate_link returned HTTP', linkResponse.status);
+      return genericSuccess(origin);
+    }
 
     const linkData = await linkResponse.json();
-    const recoveryCode = linkData?.properties?.email_otp;
-    if (typeof recoveryCode !== 'string' || !/^\d{6}$/.test(recoveryCode)) return genericSuccess(origin);
+    const recoveryCode = linkData?.email_otp ?? linkData?.properties?.email_otp;
+    if (typeof recoveryCode !== 'string' || !/^\d{6}$/.test(recoveryCode)) {
+      console.error('password-reset Auth response did not contain a recovery OTP');
+      return genericSuccess(origin);
+    }
 
+    stage = 'send recovery email';
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
@@ -95,12 +110,13 @@ Deno.serve(async (request) => {
         text: `Your Hive password recovery code is ${recoveryCode}.\n\nEnter this code in your Hive account settings to choose a new password. It expires soon and can only be used once. If you did not request this, you can ignore this email.`,
         html: `<main style="max-width:560px;margin:0 auto;font:16px/1.6 Arial,sans-serif;color:#202124"><p>We received a request to reset your Hive password.</p><p style="margin:24px 0;padding:16px;text-align:center;border-radius:12px;background:#f4f4f4;font-size:30px;font-weight:700;letter-spacing:8px">${recoveryCode}</p><p>Enter this code in your signed-in Hive account settings to choose a new password. It expires soon and can only be used once.</p><p>If you did not request this, you can ignore this email. Your password will not change unless the code is verified.</p><p>— The Hive team</p></main>`,
       });
+      console.log('password-reset recovery email accepted by Gmail SMTP');
     } finally {
       transporter.close();
     }
     return genericSuccess(origin);
   } catch (error) {
-    console.error('password-reset request failed:', error instanceof Error ? error.name : 'unknown error');
+    console.error('password-reset failed at stage:', stage, error instanceof Error ? error.name : 'unknown error');
     return genericSuccess(origin);
   }
 });
