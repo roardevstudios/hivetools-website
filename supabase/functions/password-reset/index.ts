@@ -92,12 +92,15 @@ Deno.serve(async (request) => {
       ?? linkData?.properties?.email_otp
       ?? linkData?.data?.email_otp
       ?? linkData?.data?.properties?.email_otp;
-    if (typeof recoveryCode !== 'string' || !/^\d{6}$/.test(recoveryCode)) {
+    if (typeof recoveryCode !== 'string' || !/^\d{4,12}$/.test(recoveryCode)) {
       console.error('password-reset Auth response shape:', {
         topLevelKeys: Object.keys(linkData || {}),
         propertiesKeys: Object.keys(linkData?.properties || {}),
         dataKeys: Object.keys(linkData?.data || {}),
         nestedPropertiesKeys: Object.keys(linkData?.data?.properties || {}),
+        emailOtpType: typeof linkData?.email_otp,
+        emailOtpLength: typeof linkData?.email_otp === 'string' ? linkData.email_otp.length : null,
+        emailOtpIsNumeric: typeof linkData?.email_otp === 'string' && /^\d+$/.test(linkData.email_otp),
       });
       return genericSuccess(origin);
     }

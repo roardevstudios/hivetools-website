@@ -50,7 +50,7 @@
         <button class="btn ghost" id="pf-recovery-send" type="button">Email me a recovery code</button>
         <form id="pf-recovery-form" hidden style="gap:9px;max-width:440px;margin-top:14px;">
           <label for="pf-recovery-code">Email code</label>
-          <input id="pf-recovery-code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required />
+          <input id="pf-recovery-code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{4,12}" maxlength="12" required />
           <label for="pf-recovery-new-password">New password</label>
           <input id="pf-recovery-new-password" type="password" autocomplete="new-password" minlength="8" required />
           <label for="pf-recovery-confirm-password">Confirm new password</label>
