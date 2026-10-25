@@ -13,6 +13,7 @@
         </div>
       </div>
 
+      <div id="auth-entry">
       <button class="btn google block" id="google-btn" type="button">
         <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.5 12.3c0-.9-.1-1.5-.3-2.3H12v4.5h6.5c-.1 1.1-.8 2.7-2.4 3.8l-.1.1 3.5 2.7.2.1c2.2-2 3.8-5 3.8-8.9z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 7.9-2.9l-3.8-2.9c-1 .7-2.4 1.2-4.1 1.2-3.2 0-5.9-2.1-6.8-5l-.1.1-3.7 2.9v.1C3.5 21.4 7.5 24 12 24z"/><path fill="#FBBC05" d="M5.2 14.4c-.2-.7-.4-1.5-.4-2.4s.1-1.7.4-2.4l-.1-.1-3.6-2.8-.1.1C.5 8.7 0 10.3 0 12s.5 3.3 1.4 4.7l3.8-2.3z"/><path fill="#EA4335" d="M12 4.7c1.8 0 3 .8 3.7 1.4l3.3-3.2C17.9 1.1 15.2 0 12 0 7.5 0 3.5 2.6 1.4 6.7l3.8 2.9c1-2.9 3.7-4.9 6.8-4.9z"/></svg>
         Continue with Google
@@ -30,9 +31,30 @@
         <input id="au-email" type="email" autocomplete="username" placeholder="you@example.com" required />
         <label for="au-pass">Password</label>
         <input id="au-pass" type="password" autocomplete="current-password" placeholder="••••••••" required />
+        <button class="auth-text-link" id="auth-forgot-password" type="button">Forgot password?</button>
 
         <button class="btn primary block" id="email-submit" type="submit" style="margin-top:20px;">Sign in</button>
       </form>
+      </div>
+
+      <section id="auth-recovery" class="auth-recovery" hidden aria-labelledby="auth-recovery-title">
+        <h2 id="auth-recovery-title" tabindex="-1">Reset your password</h2>
+        <p class="auth-recovery-copy">Enter the email address on your Hive account. We’ll email you a one-time code.</p>
+        <label for="auth-recovery-email">Email</label>
+        <input id="auth-recovery-email" type="email" autocomplete="email" placeholder="you@example.com" required />
+        <button class="btn primary block" id="auth-recovery-send" type="button">Email me a code</button>
+        <p id="auth-recovery-hint" class="auth-recovery-hint">The email can take a few minutes. If you don’t see it, check your spam or junk folder.</p>
+        <form id="auth-recovery-form" hidden>
+          <label for="auth-recovery-code">Email code</label>
+          <input id="auth-recovery-code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{4,12}" maxlength="12" required />
+          <label for="auth-recovery-new-password">New password</label>
+          <input id="auth-recovery-new-password" type="password" autocomplete="new-password" minlength="8" required />
+          <label for="auth-recovery-confirm-password">Confirm new password</label>
+          <input id="auth-recovery-confirm-password" type="password" autocomplete="new-password" minlength="8" required />
+          <button class="btn primary block" id="auth-recovery-submit" type="submit">Verify code and change password</button>
+        </form>
+        <button class="auth-text-link auth-back-link" id="auth-back-to-signin" type="button">Back to sign in</button>
+      </section>
       <p id="auth-msg" role="status" aria-live="polite"></p>
       <p id="desktop-handoff" role="status" aria-live="polite" hidden>
         Signing in to the Hive app… If it doesn’t open, <a id="desktop-app-link" href="#">click here to open Hive</a>.
@@ -56,6 +78,11 @@
   var sub = document.getElementById('auth-sub');
   var submit = document.getElementById('email-submit');
   var msgBox = document.getElementById('auth-msg');
+  var entry = document.getElementById('auth-entry');
+  var recovery = document.getElementById('auth-recovery');
+  var forgotPassword = document.getElementById('auth-forgot-password');
+  var recoveryEmail = document.getElementById('auth-recovery-email');
+  var recoveryForm = document.getElementById('auth-recovery-form');
 
   function msg(text, cls) {
     msgBox.textContent = text || '';
@@ -75,11 +102,87 @@
     title.textContent = value === 'in' ? 'Welcome back' : 'Create your account';
     sub.textContent = value === 'in' ? 'Sign in to manage your Hive account.' : 'Create an account for Hive release and plan updates.';
     submit.textContent = value === 'in' ? 'Sign in' : 'Create account';
+    forgotPassword.hidden = value !== 'in';
     if (!keepMessage) msg('');
   }
   tabIn.addEventListener('click', function () { setMode('in'); });
   tabUp.addEventListener('click', function () { setMode('up'); });
   setMode(query.get('mode') === 'signup' ? 'up' : 'in');
+
+  forgotPassword.addEventListener('click', function () {
+    recoveryEmail.value = document.getElementById('au-email').value.trim();
+    entry.hidden = true;
+    recovery.hidden = false;
+    document.getElementById('auth-recovery-title').focus();
+    msg('');
+  });
+  document.getElementById('auth-back-to-signin').addEventListener('click', function () {
+    recovery.hidden = true;
+    entry.hidden = false;
+    msg('');
+  });
+  document.getElementById('auth-recovery-send').addEventListener('click', async function () {
+    var button = this;
+    var email = recoveryEmail.value.trim();
+    if (!email) { msg('Enter the email address for your Hive account.', 'err'); recoveryEmail.focus(); return; }
+    if (!recoveryEmail.checkValidity()) { recoveryEmail.reportValidity(); return; }
+    if (!SB) { msg('Password recovery is offline right now.', 'err'); return; }
+    button.disabled = true;
+    button.textContent = 'Sending code…';
+    msg('Requesting a recovery code…');
+    try {
+      var response = await fetch('https://nqkmnmwbmikbgopwkvse.supabase.co/functions/v1/password-reset', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'apikey': 'sb_publishable_p5TvTFyNO0-kS5yUQSkRXw_GBSsHec4' },
+        body: JSON.stringify({ email: email })
+      });
+      if (!response.ok) throw new Error('The code could not be sent right now. Please try again in a minute.');
+      recoveryForm.hidden = false;
+      msg('If this account can receive recovery mail, a code is on its way. Check your inbox and spam or junk folder.', 'ok');
+    } catch (err) {
+      msg(err.message || 'The code could not be sent. Please try again.', 'err');
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Resend code';
+    }
+  });
+  recoveryForm.addEventListener('submit', async function (event) {
+    event.preventDefault();
+    var button = document.getElementById('auth-recovery-submit');
+    var newPassword = document.getElementById('auth-recovery-new-password').value;
+    var confirmPassword = document.getElementById('auth-recovery-confirm-password').value;
+    if (newPassword.length < 8 || newPassword !== confirmPassword) {
+      msg('Use at least 8 characters and make both new passwords match.', 'err');
+      return;
+    }
+    if (!SB) { msg('Password recovery is offline right now.', 'err'); return; }
+    button.disabled = true;
+    button.textContent = 'Verifying code…';
+    msg('Checking your recovery code…');
+    try {
+      var recovered = await SB.auth.verifyOtp({
+        email: recoveryEmail.value.trim(),
+        token: document.getElementById('auth-recovery-code').value.trim(),
+        type: 'recovery'
+      });
+      if (recovered.error) throw new Error('That code is invalid or expired. Request a new one and try again.');
+      var changed = await SB.auth.updateUser({ password: newPassword });
+      if (changed.error) throw changed.error;
+      msg('Password changed. You’re signed in…', 'ok');
+      var session = recovered.data && recovered.data.session;
+      if (!session) {
+        var current = await SB.auth.getSession();
+        session = current.data && current.data.session;
+      }
+      if (session && window.hiveFinishDesktopLogin && window.hiveFinishDesktopLogin(session)) return;
+      window.location.href = nextUrl();
+    } catch (err) {
+      msg(err.message || 'Could not reset the password. Request a new code and try again.', 'err');
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Verify code and change password';
+    }
+  });
 
   document.querySelectorAll('a[href]').forEach(function (link) {
     link.addEventListener('click', function (event) {

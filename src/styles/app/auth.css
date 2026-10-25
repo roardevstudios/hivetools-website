@@ -30,6 +30,22 @@
 
   .tabs { margin-bottom: 20px; }
 
+  .auth-text-link {
+    display: block; width: fit-content; margin: 8px 0 0 auto; padding: 2px 0;
+    border: 0; background: none; color: var(--orange, #f08a24);
+    font: inherit; font-size: 12.5px; cursor: pointer;
+  }
+  .auth-text-link:hover { text-decoration: underline; }
+  .auth-text-link:focus-visible { outline: 2px solid var(--orange, #f08a24); outline-offset: 3px; border-radius: 3px; }
+  .auth-recovery h2 { font-size: 1.25rem; letter-spacing: -.02em; margin: 0 0 8px; }
+  .auth-recovery-copy, .auth-recovery-hint { color: var(--dim); font-size: 13px; line-height: 1.55; }
+  .auth-recovery-copy { margin: 0 0 18px; }
+  .auth-recovery-hint { margin: 10px 0 16px; }
+  #auth-recovery-send { margin-top: 14px; }
+  #auth-recovery-form { display: grid; gap: 9px; margin-top: 14px; }
+  #auth-recovery-submit { margin-top: 8px; }
+  .auth-back-link { margin: 18px auto 0; }
+
   #auth-msg { font-size: 13.5px; color: var(--dim); margin-top: 14px; min-height: 20px; text-align: center; line-height: 1.55; }
   #auth-msg.ok { color: var(--green); }
   #auth-msg.err { color: var(--red); }
