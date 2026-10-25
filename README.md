@@ -46,4 +46,5 @@ The old Apache `.htaccess` files are kept for reference only and are not used on
 
 - Motion respects `prefers-reduced-motion`; content is visible without JavaScript.
 - The Supabase key in the account pages is the public *publishable* key. Data safety depends on the row-level security policies in `server/supabase-setup.sql`. Never put a service-role key or Gmail app password in this repo; set them with `supabase secrets set`.
+- Stable releases published in `Hive-AI-APP/Hive-Public-Hive` trigger `.github/workflows/release-email.yml`. It calls the `github-release-email` Supabase Edge Function using GitHub Actions OIDC; only subscribers with recorded release-email consent are included. The function uses the existing Supabase `SUPABASE_SERVICE_ROLE_KEY`, `GMAIL_USER`, and `GMAIL_APP_PASSWORD` secrets and records delivery state in `release_email_deliveries`. A manual workflow run is a recipient-count dry run and sends no email.
 - The language switcher translates by matching exact English strings in `public/hive-languages.json`; add entries there for new copy.
