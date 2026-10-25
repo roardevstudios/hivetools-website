@@ -9,8 +9,8 @@ import { planCatalog, type PlanId } from '../lib/plans';
 
 const chapters = [[0, 'Intro'], [4, 'Meet Hive'], [7.7, 'PC action'], [13.3, 'Cited research'], [18, 'Agent crew'], [23, 'Approvals'], [28.3, 'Voice'], [32.3, 'Code work'], [36.7, 'Night watch'], [40.7, 'Research, create, act'], [44.3, 'Features'], [47.8, 'Hive']] as const;
 const levelNames: Record<PlanId, string> = { free: 'Free', starter: 'Starter', plus: 'Plus', max: 'Max' };
-const featureIcons: Record<string, IconName> = { tokens: 'tokens', voice: 'mic', research: 'research', pc: 'pc', swarm: 'bot', buddy: 'buddy', cloud: 'cloud', background: 'bolt', models: 'spark', tools: 'tools', chat: 'chat' };
-const featureCards = [...planCatalog.features.map((feature) => ({
+const featureIcons: Record<string, IconName> = { tokens: 'tokens', voice: 'mic', research: 'research', pc: 'pc', swarm: 'bot', buddy: 'buddy', models: 'spark', tools: 'tools', chat: 'chat' };
+const featureCards = [...planCatalog.features.filter((feature) => !['cloud', 'background'].includes(feature.id)).map((feature) => ({
   icon: featureIcons[feature.id] ?? 'spark',
   title: feature.home,
   plan: levelNames[feature.from ?? 'free'],
@@ -20,8 +20,6 @@ const featureCards = [...planCatalog.features.map((feature) => ({
     : feature.id === 'pc' ? 'PC actions require an Allow or Deny decision; destructive commands are blocked.'
     : feature.id === 'swarm' ? 'Scout, Hive, and Pulse work together. Critic reviews the answer. Sentry watches tool calls.'
     : feature.id === 'buddy' ? 'Buddy and the desktop notch are planned from Plus.'
-    : feature.id === 'cloud' ? 'HiveBox cloud disk is planned from Plus.'
-    : feature.id === 'background' ? 'HiveBox background tasks are planned for Max.'
     : feature.id === 'models' ? 'Standard models are planned for Free through Plus; Max adds the fastest models and top priority.'
     : feature.id === 'tools' ? 'Standard agent tools are planned from Starter.'
     : 'Core chat workspace is planned across all plans.',
