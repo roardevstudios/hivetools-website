@@ -28,19 +28,14 @@ function escapeHtml(value: string) {
 
 async function getRecipients(serviceKey: string) {
   const headers = { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` };
-  const [profilesResponse, waitlistResponse] = await Promise.all([
-    fetch(`${PROJECT_URL}/rest/v1/profiles?select=email&notify=eq.true&release_updates_opted_in_at=not.is.null&email=not.is.null&limit=1000`, { headers }),
-    fetch(`${PROJECT_URL}/rest/v1/waitlist_emails?select=email&release_updates_opted_in_at=not.is.null&limit=1000`, { headers }),
-  ]);
-  if (!profilesResponse.ok || !waitlistResponse.ok) {
-    throw new Error('Could not load opted-in release email recipients.');
-  }
-  const [profiles, waitlist] = await Promise.all([
-    profilesResponse.json(),
-    waitlistResponse.json(),
-  ]);
+  const recipientsResponse = await fetch(
+    `${PROJECT_URL}/rest/v1/release_email_recipients?select=email&limit=1000`,
+    { headers },
+  );
+  if (!recipientsResponse.ok) throw new Error('Could not load opted-in release email recipients.');
+  const rows = await recipientsResponse.json();
   const recipients = new Set<string>();
-  for (const row of [...profiles, ...waitlist]) {
+  for (const row of rows) {
     if (typeof row.email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(row.email)) {
       recipients.add(row.email.trim().toLowerCase());
     }
