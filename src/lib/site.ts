@@ -12,6 +12,7 @@ export const X_URL = 'https://x.com/RoarDEV2014';
 export const SITE_URL = 'https://hivetools.pro';
 export const RELEASE_STATUS = 'Hive Design and connectors are live. Instabox Cloud PC is on the roadmap.';
 export const DOWNLOAD_URL = '/download';
+export const EARLY_ACCESS_URL = 'https://discord.com/channels/1545887872391839896/1552691183182938162';
 
 // Public Supabase project + publishable key (safe to ship; access is enforced by RLS).
 export const SUPABASE_URL = 'https://nqkmnmwbmikbgopwkvse.supabase.co';
