@@ -118,7 +118,7 @@ begin
     raise exception 'Admins only.';
   end if;
   if v_code = '' then
-    v_code := 'HIVE-' || upper(substr(encode(gen_random_bytes(5), 'hex'), 1, 10));
+    v_code := 'HIVE-' || upper(substr(replace(gen_random_uuid()::text, '-', ''), 1, 10));
   end if;
   insert into public.early_access_codes (code, note, max_uses)
   values (v_code, nullif(trim(coalesce(p_note, '')), ''), greatest(coalesce(p_max_uses, 1), 1));
