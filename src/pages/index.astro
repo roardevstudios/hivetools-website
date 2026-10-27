@@ -2,7 +2,6 @@
 import Base from '../layouts/Base.astro';
 import SectionHead from '../components/SectionHead.astro';
 import DemoChat from '../components/DemoChat.astro';
-import Waitlist from '../components/Waitlist.astro';
 import Icon, { type IconName } from '../components/Icon.astro';
 import { DISCORD, SUPPORT_EMAIL, X_URL } from '../lib/site';
 import { planCatalog, type PlanId } from '../lib/plans';
@@ -46,13 +45,13 @@ const faq = [
     <div aria-hidden="true" class="absolute left-1/2 top-0 -z-10 h-[420px] w-[700px] -translate-x-1/2 rounded-full opacity-60 blur-3xl md:h-[620px] md:w-[1100px]" style="background: radial-gradient(closest-side, rgb(240 138 36 / .35), transparent), radial-gradient(closest-side at 80% 40%, rgb(29 155 240 / .12), transparent);"></div>
     <div class="wrap grid items-center gap-12 lg:grid-cols-[1.15fr_.85fr]">
       <div class="text-center lg:text-left">
-        <span class="hero-in inline-flex items-center gap-2 rounded-full border border-line bg-panel/70 px-3 py-1.5 text-xs text-soft backdrop-blur"><span class="live-dot"></span> Hive v0.0.1 · coming soon</span>
+        <span class="hero-in inline-flex items-center gap-2 rounded-full border border-line bg-panel/70 px-3 py-1.5 text-xs text-soft backdrop-blur"><span class="live-dot"></span> Hive v0.0.1 · Windows installer</span>
         <h1 class="mt-6 text-[2.75rem] font-bold leading-[1.02] sm:text-6xl lg:text-7xl" id="hero-title"><span class="word">One</span> <span class="word">AI</span> <span class="word">workspace</span><br class="hidden sm:block" /><span class="word text-gradient">for</span> <span class="word text-gradient">research</span> <span class="word text-gradient">and</span> <span class="word text-gradient">your PC.</span></h1>
-        <p class="hero-in lead mx-auto mt-6 max-w-xl lg:mx-0">Hive finds sourced answers, works with a team of AI agents, and asks before it touches your computer. v0.0.1 is not ready to download yet.</p>
+        <p class="hero-in lead mx-auto mt-6 max-w-xl lg:mx-0">Hive finds sourced answers, works with a team of AI agents, and asks before it touches your computer. Free tier, no card needed.</p>
         <ul class="hero-in mt-7 flex flex-wrap justify-center gap-2 lg:justify-start" aria-label="Core capabilities">
           <li class="chip">Cited research</li><li class="chip">Agent crew</li><li class="chip">PC actions with approval</li><li class="chip">Voice</li>
         </ul>
-        <div class="hero-in mt-8 flex flex-col items-center lg:items-start"><a class="btn btn-primary" href="#notify">Email me when v0.0.1 is ready</a><div class="mt-4 flex gap-4 text-sm"><a href="#tour" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">Watch the tour <Icon name="arrow-down" size={14} /></a><a href={DISCORD} target="_blank" rel="noopener noreferrer" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">Discord <Icon name="arrow-up-right" size={14} /></a><a href={X_URL} target="_blank" rel="noopener noreferrer" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">X <Icon name="arrow-up-right" size={14} /></a></div></div>
+        <div class="hero-in mt-8 flex flex-col items-center lg:items-start"><a class="btn btn-primary" href="/download">Download for Windows</a><div class="mt-4 flex gap-4 text-sm"><a href="#tour" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">Watch the tour <Icon name="arrow-down" size={14} /></a><a href={DISCORD} target="_blank" rel="noopener noreferrer" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">Discord <Icon name="arrow-up-right" size={14} /></a><a href={X_URL} target="_blank" rel="noopener noreferrer" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">X <Icon name="arrow-up-right" size={14} /></a></div></div>
       </div>
       <div class="hero-in relative mx-auto w-64 sm:w-80 lg:w-full lg:max-w-sm" aria-hidden="true"><div class="absolute inset-8 rounded-full bg-honey/30 blur-3xl"></div><img src="/hive-buddy-float.webp" alt="" width="330" height="330" class="animate-float relative w-full drop-shadow-[0_30px_60px_rgba(240,138,36,.35)]" fetchpriority="high" /></div>
     </div>
@@ -83,7 +82,6 @@ const faq = [
     </div>
   </section>
 
-  <section id="notify" class="wrap py-16"><div class="glass p-8 sm:p-12" data-reveal><SectionHead eyebrow="Release email" title="Get the v0.0.1 update." lead="We’ll email you when release details are posted." center /><div class="mx-auto mt-7 flex justify-center"><Waitlist source="home-notify" cta="Email me when v0.0.1 is ready" compact /></div></div></section>
 
   <section id="faq" class="wrap py-16"><SectionHead eyebrow="Good to know" title="Hive, clearly explained." lead="A few quick answers about release status, plans, and data." /><div class="divide-y divide-line rounded-3xl border border-line bg-panel/50">{faq.map(([q, a]) => <details class="faq group px-6" data-reveal><summary class="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-4 font-medium text-text">{q}<span class="grid size-8 shrink-0 place-items-center rounded-full border border-line text-honey-2 transition duration-300 group-open:rotate-45">+</span></summary><p class="pb-5 text-dim">{a}</p></details>)}</div></section>
 

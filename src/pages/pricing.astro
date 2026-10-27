@@ -2,7 +2,6 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
-import Waitlist from '../components/Waitlist.astro';
 import { planCatalog, planIndex, DISCORD_URL, type PlanId } from '../lib/plans';
 
 const price = (value: number) => `€${value.toFixed(2)}`;
@@ -25,7 +24,7 @@ const includedFeatures = (planId: PlanId) =>
 ---
 <Base title="Hive — plans and pricing" description="Hive Free, Starter, Student and Max. Planned monthly plans from €2.49 to €22.99. Checkout is not open yet.">
   <PageHero eyebrow="Plans and pricing" title='Hive plans, <span class="text-gradient">clearly compared.</span>' lead="Four planned tiers: Free, Starter, Student and Max. Features and prices may change before release.">
-    <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><a class="btn btn-primary" href="#plans">Compare plans</a><a class="btn btn-ghost" href="#notify">Get release email</a></div>
+    <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><a class="btn btn-primary" href="#plans">Compare plans</a><a class="btn btn-ghost" href="/download">Download for Windows</a></div>
   </PageHero>
 
   <section id="plans" class="wrap">
@@ -110,11 +109,4 @@ const includedFeatures = (planId: PlanId) =>
     </div>
   </section>
 
-  <section id="notify" class="wrap pb-20">
-    <div class="glass mx-auto max-w-4xl p-8 sm:p-12" data-reveal>
-      <h2 class="h-section text-center">Get the v0.0.1 release email.</h2>
-      <p class="lead mx-auto mt-4 max-w-2xl text-center">We’ll let you know when release information is posted. Follow the build on Discord or X.</p>
-      <div class="mx-auto mt-7 flex justify-center"><Waitlist source="pricing-notify" cta="Email me when v0.0.1 is ready" compact /></div>
-    </div>
-  </section>
 </Base>
