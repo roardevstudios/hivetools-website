@@ -25,8 +25,8 @@ const featureCards = [...planCatalog.features.filter((feature) => !['cloud', 'ba
 })), {
   icon: 'connectors' as IconName,
   title: 'Connectors for your tools',
-  plan: 'Planned',
-  description: 'Google, Slack, GitHub, and Linear connectors are planned. Supported actions and availability will be shared as they take shape.',
+  plan: 'Live',
+  description: 'Google, Slack, GitHub, and Linear connectors are live.',
 }, {
   icon: 'cloud-pc' as IconName,
   title: 'Instabox Cloud PC',
@@ -72,7 +72,7 @@ const faq = [
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{featureCards.map((feature, i) => <article data-reveal style={`--i:${i % 3}`} class="card glass lift p-6"><div class="flex items-center justify-between"><span class="grid size-11 place-items-center rounded-xl border border-honey/25 bg-honey/10 text-honey-2"><Icon name={feature.icon} size={22} /></span><span class="eyebrow">{feature.plan}</span></div><h3 class="mt-5 text-lg font-semibold">{feature.title}</h3><p class="mt-2 text-sm leading-relaxed text-dim">{feature.description}</p></article>)}</div>
   </section>
 
-  <section id="hive-design" class="wrap pb-16"><div class="glass relative overflow-hidden p-8 sm:p-12" data-reveal><div aria-hidden="true" class="absolute -right-16 -top-24 size-64 rounded-full bg-honey/15 blur-3xl"></div><div class="relative max-w-3xl"><span class="eyebrow">Coming to the Hive app</span><h2 class="h-section mt-4">Meet Hive Design.</h2><p class="lead mt-5">A new creative space is on the way. Hive Design is coming to the Hive app.</p></div></div></section>
+  <section id="hive-design" class="wrap pb-16"><div class="glass relative overflow-hidden p-8 sm:p-12" data-reveal><div aria-hidden="true" class="absolute -right-16 -top-24 size-64 rounded-full bg-honey/15 blur-3xl"></div><div class="relative max-w-3xl"><span class="eyebrow">Live in the Hive app</span><h2 class="h-section mt-4">Meet Hive Design.</h2><p class="lead mt-5">A creative space for your work. Hive Design is live in the Hive app.</p></div></div></section>
 
   <section id="safety" class="wrap py-24"><SectionHead eyebrow="Your PC, your call" title="What we can and can’t promise." lead="Permission, data handling, and who builds Hive." />
     <div class="grid gap-4 md:grid-cols-3">
