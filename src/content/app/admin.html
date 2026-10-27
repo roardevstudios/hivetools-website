@@ -171,6 +171,28 @@
         </details>
       </section>
 
+      <section class="sec">
+        <h2>Early access</h2>
+        <p class="hint" style="margin-bottom:12px;">Grant early access by account email, or create invite codes. Members see the installer on /download.</p>
+        <div class="row-actions" style="margin-top:0;">
+          <input id="ea-grant-email" type="email" placeholder="user@example.com" style="max-width:280px;width:auto;flex:1;" aria-label="Account email" />
+          <button class="primary" id="ea-grant-btn" type="button">Grant access</button>
+        </div>
+        <p id="ea-grant-msg" class="msg-line"></p>
+        <div class="row-actions" style="margin-top:14px;">
+          <input id="ea-code-new" placeholder="Code (blank = auto)" style="max-width:220px;width:auto;flex:1;" aria-label="New code" />
+          <input id="ea-code-note" placeholder="Note" style="max-width:200px;width:auto;flex:1;" aria-label="Code note" />
+          <input id="ea-code-max" type="number" min="1" value="1" style="max-width:90px;width:auto;" aria-label="Max uses" />
+          <button class="btn ghost" id="ea-code-btn" type="button">Create code</button>
+        </div>
+        <p id="ea-code-msg" class="msg-line"></p>
+        <h3 class="hint">Codes</h3>
+        <div class="row-list" id="ea-codes"></div>
+        <h3 class="hint" style="margin-top:12px;">Members</h3>
+        <div class="row-list" id="ea-members"></div>
+        <p id="ea-msg" class="msg-line"></p>
+      </section>
+
       <!-- ── Audit log ── -->
       <section class="sec">
         <details class="block">
@@ -260,7 +282,7 @@
     var content = document.getElementById('admin-content');
     if (gate) gate.style.display = 'none';
     if (content) content.style.display = 'block';
-     await Promise.all([loadStats(), loadUsage(), loadClaims()]);
+     await Promise.all([loadStats(), loadUsage(), loadClaims(), loadEarlyAccess()]);
     await loadUsers();
   }
 
@@ -590,7 +612,85 @@
   }
    document.getElementById('claims-refresh').addEventListener('click', loadClaims);
 
-   /* ═══════════════════════════ Scroll helpers ═══════════════════════ */
+   /* ═══════════════════════════ Early access ═══════════════════════ */
+  async function loadEarlyAccess() {
+    if (!SB || !HIVE_USER) return;
+    var membersEl = document.getElementById('ea-members');
+    var codesEl = document.getElementById('ea-codes');
+    try {
+      var m = await SB.rpc('admin_list_early_access');
+      if (m.error) { msg('ea-msg', 'Error: ' + m.error.message); return; }
+      var members = m.data || [];
+      membersEl.innerHTML = members.length ? members.map(function (g) {
+        return '<div class="row"><div class="who"><b>' + esc(g.email || g.user_id) + '</b>'
+          + '<span>' + esc(g.source) + ' · ' + esc(new Date(g.granted_at).toLocaleString()) + '</span></div>'
+          + '<div class="acts"><button class="btn ghost" type="button" data-revoke="' + esc(g.user_id) + '">Revoke</button></div></div>';
+      }).join('') : '<p style="color:var(--dim);text-align:center;padding:12px;">No members yet.</p>';
+      var c = await SB.rpc('admin_list_early_access_codes');
+      if (c.error) { msg('ea-msg', 'Error: ' + c.error.message); return; }
+      var codes = c.data || [];
+      codesEl.innerHTML = codes.length ? codes.map(function (k) {
+        return '<div class="row"><div class="who"><b style="font-family:monospace;">' + esc(k.code) + '</b>'
+          + '<span>' + esc(k.note || 'no note') + ' · used ' + k.uses + ' / ' + k.max_uses + ' · ' + (k.active ? 'active' : 'disabled') + '</span></div>'
+          + '<div class="acts"><button class="btn ghost" type="button" data-code="' + esc(k.code) + '" data-active="' + (!k.active) + '">' + (k.active ? 'Disable' : 'Enable') + '</button></div></div>';
+      }).join('') : '<p style="color:var(--dim);text-align:center;padding:12px;">No codes yet.</p>';
+      msg('ea-msg', 'Loaded ' + members.length + ' member' + (members.length === 1 ? '' : 's') + ', ' + codes.length + ' code' + (codes.length === 1 ? '' : 's') + '.');
+    } catch (e) { msg('ea-msg', e.message || 'Error.'); }
+  }
+
+  document.getElementById('ea-grant-btn').addEventListener('click', async function () {
+    var email = document.getElementById('ea-grant-email').value.trim();
+    if (!email) { msg('ea-grant-msg', 'Enter an email.'); return; }
+    setButtonBusy(this, true, 'Granting…');
+    try {
+      var r = await SB.rpc('admin_grant_early_access', { p_email: email });
+      if (r.error) { msg('ea-grant-msg', 'Error: ' + r.error.message); return; }
+      msg('ea-grant-msg', 'OK — ' + email + ' has early access.');
+      document.getElementById('ea-grant-email').value = '';
+      audit('Early access granted to ' + email + '.');
+      await loadEarlyAccess();
+    } catch (e) { msg('ea-grant-msg', e.message || 'Error.'); }
+    finally { setButtonBusy(this, false); }
+  });
+
+  document.getElementById('ea-code-btn').addEventListener('click', async function () {
+    var code = document.getElementById('ea-code-new').value.trim();
+    var note = document.getElementById('ea-code-note').value.trim();
+    var max = Math.max(1, Number(document.getElementById('ea-code-max').value) || 1);
+    setButtonBusy(this, true, 'Creating…');
+    try {
+      var r = await SB.rpc('admin_create_early_access_code', { p_code: code, p_note: note, p_max_uses: max });
+      if (r.error) { msg('ea-code-msg', 'Error: ' + r.error.message); return; }
+      msg('ea-code-msg', 'OK — code ' + r.data + ' created (' + max + ' use' + (max === 1 ? '' : 's') + ').');
+      document.getElementById('ea-code-new').value = '';
+      document.getElementById('ea-code-note').value = '';
+      audit('Early access code created: ' + r.data + '.');
+      await loadEarlyAccess();
+    } catch (e) { msg('ea-code-msg', e.message || 'Error.'); }
+    finally { setButtonBusy(this, false); }
+  });
+
+  document.getElementById('ea-members').addEventListener('click', async function (event) {
+    var button = event.target.closest('[data-revoke]');
+    if (!button) return;
+    if (!confirm('Revoke early access for this account?')) return;
+    var r = await SB.rpc('admin_revoke_early_access', { p_user_id: button.dataset.revoke });
+    if (r.error) { msg('ea-msg', 'Revoke failed: ' + r.error.message); return; }
+    audit('Early access revoked for ' + button.dataset.revoke + '.');
+    await loadEarlyAccess();
+  });
+
+  document.getElementById('ea-codes').addEventListener('click', async function (event) {
+    var button = event.target.closest('[data-code]');
+    if (!button) return;
+    var active = button.dataset.active === 'true';
+    var r = await SB.rpc('admin_set_early_access_code_active', { p_code: button.dataset.code, p_active: active });
+    if (r.error) { msg('ea-msg', 'Update failed: ' + r.error.message); return; }
+    audit('Code ' + button.dataset.code + (active ? ' enabled.' : ' disabled.'));
+    await loadEarlyAccess();
+  });
+
+  /* ═══════════════════════════ Scroll helpers ═══════════════════════ */
   var prog = document.getElementById('progress-bar');
   var toTop = document.getElementById('to-top');
   if (prog && toTop) {

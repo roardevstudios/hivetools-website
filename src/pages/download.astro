@@ -2,19 +2,35 @@
 import Base from '../layouts/Base.astro';
 import { DISCORD } from '../lib/site';
 ---
-<Base title="Download Hive v0.0.1" description="Download the Hive v0.0.1 Windows installer. Free tier, no card needed.">
+<Base title="Download Hive v0.0.1" description="Hive v0.0.1 is in early access. Use an invite code or open a Discord ticket to get the Windows installer.">
   <section class="wrap grid min-h-[85dvh] place-items-center pt-28 pb-10">
     <div class="glass relative max-w-2xl overflow-hidden p-8 text-center sm:p-12" data-reveal>
       <div aria-hidden="true" class="absolute -top-24 left-1/2 size-72 -translate-x-1/2 rounded-full bg-honey/20 blur-3xl"></div>
       <div aria-hidden="true" class="relative mx-auto grid size-16 place-items-center rounded-2xl border border-honey/40 bg-honey/10 font-display text-2xl text-honey-2">01</div>
       <span class="eyebrow relative mt-6">Early access</span>
       <h1 class="relative mt-4 text-3xl font-bold sm:text-5xl">Get early access to Hive v0.0.1</h1>
-      <p class="lead relative mt-5">Hive is in early access. Open a ticket on Discord. Our team replies with the Windows installer.</p>
-      <div class="relative mx-auto mt-8 flex max-w-lg flex-col items-center gap-3">
-        <a class="btn btn-primary w-full justify-center" href="https://discord.com/channels/1545887872391839896/1552691183182938162" target="_blank" rel="noopener noreferrer">Open a ticket on Discord</a>
-        <a class="btn btn-ghost w-full justify-center" href="https://github.com/Hive-AI-APP/Hive-Public-Hive/releases/download/v0.0.1/Hive-v0.0.1.exe" rel="noopener noreferrer">Installer for Windows (127 MB)</a>
+      <p class="lead relative mt-5">Hive is in early access. Sign in, then enter your invite code. No code? Open a ticket on Discord.</p>
+
+      <!-- Signed-in members with a grant see the installer here. -->
+      <div id="dl-installer" class="relative mx-auto mt-8 hidden max-w-lg flex-col items-center gap-3">
+        <a class="btn btn-primary w-full justify-center" href="https://github.com/Hive-AI-APP/Hive-Public-Hive/releases/download/v0.0.1/Hive-v0.0.1.exe" rel="noopener noreferrer">Download Hive for Windows (127 MB)</a>
         <a class="text-sm text-dim underline" href="https://github.com/Hive-AI-APP/Hive-Public-Hive/releases/tag/v0.0.1" target="_blank" rel="noopener noreferrer">Release notes on GitHub</a>
       </div>
+
+      <!-- Everyone else: sign in and redeem a code. -->
+      <div id="dl-gate" class="relative mx-auto mt-8 flex max-w-lg flex-col items-center gap-3">
+        <div id="dl-signed-out" class="hidden w-full">
+          <a class="btn btn-primary w-full justify-center" href="/auth?next=/download">Sign in to redeem a code</a>
+        </div>
+        <form id="dl-redeem" class="hidden w-full flex-col gap-3" autocomplete="off">
+          <label for="ea-code" class="self-start text-sm font-medium text-text">Invite code</label>
+          <input id="ea-code" name="code" type="text" maxlength="40" placeholder="HIVE-XXXXXXXXXX" class="w-full rounded-xl border border-line bg-panel-2/70 px-4 py-3 text-center font-mono tracking-widest text-text" required />
+          <button id="ea-redeem" type="submit" class="btn btn-primary w-full justify-center">Redeem code</button>
+          <p id="ea-msg" role="status" class="min-h-5 text-sm text-dim"></p>
+        </form>
+        <a class="btn btn-ghost w-full justify-center" href={DISCORD} target="_blank" rel="noopener noreferrer">No code? Open a ticket on Discord</a>
+      </div>
+
       <div class="relative mt-6 rounded-2xl border border-line bg-panel-2/70 p-4 text-left text-sm text-dim">
         <strong class="text-text">Before you install</strong><br />Windows may warn about an unknown publisher. Hive Design and connectors are live. Paid plans and checkout are not open yet. Buddy is coming soon.
       </div>
@@ -25,3 +41,52 @@ import { DISCORD } from '../lib/site';
     </div>
   </section>
 </Base>
+
+<script>
+  // Early access gate. Uses the shared client from hive-auth.js (window.hiveSupabase).
+  const $ = (id: string) => document.getElementById(id) as HTMLElement | null;
+  const show = (el: HTMLElement | null, on: boolean) => { if (el) el.classList.toggle('hidden', !on); };
+  const say = (text: string, ok = false) => {
+    const el = $('ea-msg');
+    if (!el) return;
+    el.textContent = text;
+    el.style.color = ok ? '#10B981' : '';
+  };
+
+  async function refresh() {
+    const SB = (window as any).hiveSupabase;
+    if (!SB) return;
+    const { data } = await SB.auth.getSession();
+    if (!data || !data.session) {
+      show($('dl-signed-out'), true);
+      show($('dl-redeem'), false);
+      show($('dl-installer'), false);
+      return;
+    }
+    const granted = await SB.rpc('has_early_access');
+    const allowed = granted.data === true;
+    show($('dl-signed-out'), false);
+    show($('dl-installer'), allowed);
+    show($('dl-redeem'), !allowed);
+    show($('dl-gate'), !allowed);
+    if (allowed) $('dl-installer')?.classList.add('flex');
+  }
+
+  $('dl-redeem')?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const SB = (window as any).hiveSupabase;
+    const input = $('ea-code') as HTMLInputElement | null;
+    const button = $('ea-redeem') as HTMLButtonElement | null;
+    if (!SB || !input || !button) return;
+    button.disabled = true;
+    say('Checking code…');
+    const r = await SB.rpc('redeem_early_access_code', { p_code: input.value });
+    button.disabled = false;
+    if (r.error) { say(r.error.message || 'Code not accepted.'); return; }
+    say('Code accepted. Your installer is below.', true);
+    await refresh();
+  });
+
+  document.addEventListener('DOMContentLoaded', () => { void refresh(); });
+  window.setTimeout(() => { void refresh(); }, 600);
+</script>
