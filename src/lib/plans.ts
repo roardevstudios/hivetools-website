@@ -16,7 +16,7 @@ export const planCatalog = {
     { id: 'pc', label: 'PC actions with Allow / Deny', values: ['—', 'Included', 'Included', 'Included'], home: 'PC actions with Allow / Deny', from: 'starter' as PlanId },
     { id: 'tools', label: 'Standard agent tools', values: ['—', 'Included', 'Included', 'Included'], home: 'Standard agent tools', from: 'starter' as PlanId },
     { id: 'swarm', label: 'Agent swarm routing', values: ['—', 'Standard', 'Priority', 'Top priority'], home: 'Agent swarm routing', from: 'starter' as PlanId },
-    { id: 'buddy', label: 'Buddy + desktop notch', values: ['—', '—', 'Included', 'Included'], home: 'Buddy and desktop notch', from: 'plus' as PlanId },
+    { id: 'buddy', label: 'Buddy + desktop notch (coming soon)', values: ['—', '—', 'Included', 'Included'], home: 'Buddy and desktop notch', from: 'plus' as PlanId },
     { id: 'cloud', label: 'HiveBox cloud disk', values: ['—', '—', 'Included', 'Included'], home: 'HiveBox cloud disk', from: 'plus' as PlanId },
     { id: 'background', label: 'HiveBox background tasks', values: ['—', '—', '—', 'Included'], home: 'HiveBox background tasks', from: 'max' as PlanId },
   ] satisfies { id: string; label: string; values: string[]; home: string; from?: PlanId }[],
