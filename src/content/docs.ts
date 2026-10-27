@@ -25,7 +25,7 @@ export const docGroups: DocGroup[] = [
       },
       {
         id: 'get-hive', title: 'Download & Install', plan: 'Planned',
-        summary: 'The v0.0.1 installer is not posted; release updates are on the changelog.',
+        summary: 'The Hive v0.0.1 installer is on the download page.',
         content: `<h3>Release status</h3>
           <p>There is no public installer download at this time. Hive v0.0.1 has no posted release date. Check the <a href="/changelog">changelog</a> for updates.</p>`,
       },
@@ -142,7 +142,7 @@ export const docGroups: DocGroup[] = [
         id: 'faq', title: 'FAQ',
         summary: 'Answers about supported platform, availability, and account data.',
         content: `<details class="docs-faq"><summary>Windows only?</summary><p>Windows 10/11 is the planned platform. The click and type engine is Windows-native. It is not available while v0.0.1 is unposted.</p></details>
-          <details class="docs-faq"><summary>Is Hive free?</summary><p>Hive Free is planned with its published daily limits. Paid plans are monthly, but checkout is not open and the public installer is not posted.</p></details>
+          <details class="docs-faq"><summary>Is Hive free?</summary><p>Hive Free is planned with its published daily limits. Paid plans are monthly, but checkout is not open and the Windows installer is on the download page.</p></details>
           <details class="docs-faq"><summary>Where is my data?</summary><p>Chats stay on the device. This site does not run prompts. Account sign-in and profile details are handled on this website.</p></details>
           <details class="docs-faq"><summary>Where is Buddy?</summary><p>Buddy is planned for Max. It is not on this website. In the desktop app, Buddy is meant to hide when Hive hides and return when Hive is shown.</p></details>`,
       },
@@ -164,10 +164,10 @@ export const docGroups: DocGroup[] = [
         summary: 'How Hive handles account, usage, and local app data.',
         content: `<p><i>Last updated: October 2026.</i> Hive ("we", "Apis") makes the Hive desktop app and the hivetools.pro website.</p>
           <h3>What we collect</h3>
-          <ul><li><b>Account data:</b> your email and account profile information when you sign up.</li><li><b>Release email:</b> your email address and opt-in time when you check the release-update box on the website or in your profile.</li><li><b>Purchase data:</b> Checkout is not open yet; no Hive purchases can currently be made through this site.</li><li><b>Usage data:</b> token and voice-session counters, so your daily quota is enforced on our side rather than only on your machine.</li><li><b>Local data stays local:</b> your chats, settings and transcripts live on your machine, not on our servers. They are <b>not</b> synced between your devices.</li></ul>
+          <ul><li><b>Account data:</b> your email and account profile information when you sign up.</li><li><b>Purchase data:</b> Checkout is not open yet; no Hive purchases can currently be made through this site.</li><li><b>Usage data:</b> token and voice-session counters, so your daily quota is enforced on our side rather than only on your machine.</li><li><b>Local data stays local:</b> your chats, settings and transcripts live on your machine, not on our servers. They are <b>not</b> synced between your devices.</li></ul>
           <h3>How we use it</h3><p>To run your account, enforce quotas, provide product information, and improve Hive. We do not sell your data and we do not show ads.</p>
-          <h3>Sharing</h3><p>We use Supabase for account hosting, authentication and database services, and Google when you choose Google sign-in. Release updates are sent through Google Gmail from apis.new.world@gmail.com. Model requests are sent to the provider selected in the app. <!-- TODO: Name the model providers used by the released app and confirm provider-specific privacy disclosures before publication. --> Payment processing is not active while checkout is closed.</p>
-          <h3>Your rights</h3><p>Turn off release updates in your Hive profile, or email <a href="mailto:apis.new.world@gmail.com?subject=Unsubscribe%20Hive%20release%20updates">apis.new.world@gmail.com</a> to unsubscribe. You can also ask for a copy, correction or deletion of your data at that address. Deleting your account removes your profile, quota and subscription rows; PayPal keeps its own transaction records.</p>
+          <h3>Sharing</h3><p>We use Supabase for account hosting, authentication and database services, and Google when you choose Google sign-in. Model requests are sent to the provider selected in the app. <!-- TODO: Name the model providers used by the released app and confirm provider-specific privacy disclosures before publication. --> Payment processing is not active while checkout is closed.</p>
+          <h3>Your rights</h3><p>Email <a href="mailto:apis.new.world@gmail.com">apis.new.world@gmail.com</a> to ask for a copy, correction or deletion of your data at that address. Deleting your account removes your profile, quota and subscription rows; PayPal keeps its own transaction records.</p>
           <h3>Retention</h3><p>We keep account and purchase records while your account exists and up to 3 years after, for fraud prevention and accounting. Anonymized usage stats may be kept longer.</p>`,
       },
       {

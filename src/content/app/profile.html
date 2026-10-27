@@ -11,7 +11,7 @@
       <a class="btn primary" href="/auth?next=/profile">Sign in</a>
       <a class="btn ghost" href="/auth?mode=signup&next=/profile">Create account</a>
     </div>
-    <p class="gate-note">The public beta installer was removed. We’ll explain what changed when v0.0.1 is posted.</p>
+    <p class="gate-note">Sign in to manage your Hive account on this site.</p>
   </div>
 
   <div class="card" id="pf-card" style="display:none;">
@@ -83,10 +83,6 @@
 
      <label for="pf-display">Display name</label>
      <input id="pf-display" type="text" placeholder="Your name" maxlength="40" />
-     <label for="pf-notify" style="display:flex;align-items:center;gap:9px;margin:16px 0 4px;color:var(--text-dim);font-size:13px;cursor:pointer;">
-       <input id="pf-notify" type="checkbox" />
-       Email me about release updates
-     </label>
      <div class="btns">
       <button class="btn primary" id="pf-save" type="button">Save name</button>
     </div>
@@ -267,7 +263,6 @@
     var name = (profile && profile.display_name) || (user.email || '').split('@')[0];
     document.getElementById('pf-name').textContent = name;
      document.getElementById('pf-display').value = (profile && profile.display_name) || '';
-     document.getElementById('pf-notify').checked = Boolean(profile && profile.release_updates_opted_in_at && profile.notify !== false);
     var emailKey = (user.email || '').trim().toLowerCase();
     var isAdmin = Boolean((profile && (profile.is_admin === true || profile.is_admin === 'true')) || ['samkomedved@gmail.com', 'samkomedved319@gmail.com'].indexOf(emailKey) >= 0);
     show('pf-admin-btn', isAdmin);
@@ -337,14 +332,11 @@
 
     document.getElementById('pf-save').addEventListener('click', async function () {
        var v = document.getElementById('pf-display').value.trim();
-       var notify = document.getElementById('pf-notify').checked;
        try {
          var r = await SB.from('profiles').upsert({
            id: user.id,
            email: user.email,
            display_name: v || null,
-           notify: notify,
-           release_updates_opted_in_at: notify ? new Date().toISOString() : null
          }, { onConflict: 'id' });
         if (r.error) { msg('Error: ' + r.error.message); return; }
         document.getElementById('pf-name').textContent = v || name;
