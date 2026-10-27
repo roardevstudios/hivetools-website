@@ -1,4 +1,4 @@
-export type DocPlan = 'Free' | 'Starter' | 'Plus' | 'Max' | 'All plans' | 'Planned';
+export type DocPlan = 'Free' | 'Starter' | 'Student' | 'Max' | 'All plans' | 'Planned';
 
 export interface DocSection {
   id: string;
@@ -49,16 +49,16 @@ export const docGroups: DocGroup[] = [
           <p>Cited web research is planned from Starter. Research would return sources for you to inspect; it does not run on this website.</p>`,
       },
       {
-        id: 'buddy', title: 'Buddy', plan: 'Plus',
-        summary: 'Buddy is a planned Plus desktop companion.',
+        id: 'buddy', title: 'Buddy', plan: 'Max',
+        summary: 'Buddy is a planned Max desktop companion.',
         content: `<h3>Buddy in the app</h3>
-          <p>Buddy is planned for Plus. It is not available while v0.0.1 is unposted. In the desktop app, Buddy is meant to hide when Hive hides and return when Hive is shown.</p>`,
+          <p>Buddy is planned for Max. It is not available while v0.0.1 is unposted. In the desktop app, Buddy is meant to hide when Hive hides and return when Hive is shown.</p>`,
       },
       {
-        id: 'notch', title: 'Notch & hotkeys', plan: 'Plus',
-        summary: 'The Buddy notch is a planned Plus desktop shortcut.',
+        id: 'notch', title: 'Notch & hotkeys', plan: 'Max',
+        summary: 'The Buddy notch is a planned Max desktop shortcut.',
         content: `<h3>Open the notch</h3>
-          <p>In the planned desktop app, <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd> opens Buddy’s notch. The notch is part of Plus and is not a control on this website.</p>`,
+          <p>In the planned desktop app, <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd> opens Buddy’s notch. The notch is part of Max and is not a control on this website.</p>`,
       },
       {
         id: 'pc', title: 'PC control', plan: 'Starter',
@@ -82,13 +82,13 @@ export const docGroups: DocGroup[] = [
         id: 'modes', title: 'Modes', plan: 'Planned',
         summary: 'Model access and request priority depend on the selected plan.',
         content: `<h3>Plan access</h3>
-          <p>Standard models are planned for Hive Free, Starter, and Plus. Max is planned to include the fastest models and top priority. Model availability and plan details may change before checkout opens.</p>`,
+          <p>Standard models are planned for Hive Free, Starter, and Student. Max is planned to include the fastest models and top priority. Model availability and plan details may change before checkout opens.</p>`,
       },
       {
-        id: 'cloud', title: 'HiveBox', plan: 'Plus',
-        summary: 'HiveBox cloud disk is planned for Plus; background tasks are planned for Max.',
+        id: 'cloud', title: 'HiveBox', plan: 'Max',
+        summary: 'HiveBox cloud disk and background tasks are planned for Max.',
         content: `<h3>Plan availability</h3>
-          <p>HiveBox cloud disk is planned for Plus. HiveBox background tasks are planned for Max.</p>`,
+          <p>HiveBox cloud disk and background tasks are planned for Max.</p>`,
       },
     ],
   },
@@ -124,7 +124,7 @@ export const docGroups: DocGroup[] = [
               <thead><tr><th scope="col">Shortcut</th><th scope="col">Planned action</th></tr></thead>
               <tbody>
                 <tr><th scope="row"><kbd>Ctrl</kbd> + <kbd>K</kbd></th><td>Open the command palette.</td></tr>
-                <tr><th scope="row"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd></th><td>Open Buddy’s notch (Plus).</td></tr>
+                <tr><th scope="row"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd></th><td>Open Buddy’s notch (Max).</td></tr>
                 <tr><th scope="row"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>H</kbd></th><td>Show or hide the Hive window.</td></tr>
                 <tr><th scope="row"><kbd>Enter</kbd></th><td>Send a message.</td></tr>
                 <tr><th scope="row"><kbd>Shift</kbd> + <kbd>Enter</kbd></th><td>Insert a newline.</td></tr>
@@ -144,7 +144,7 @@ export const docGroups: DocGroup[] = [
         content: `<details class="docs-faq"><summary>Windows only?</summary><p>Windows 10/11 is the planned platform. The click and type engine is Windows-native. It is not available while v0.0.1 is unposted.</p></details>
           <details class="docs-faq"><summary>Is Hive free?</summary><p>Hive Free is planned with its published daily limits. Paid plans are monthly, but checkout is not open and the public installer is not posted.</p></details>
           <details class="docs-faq"><summary>Where is my data?</summary><p>Chats stay on the device. This site does not run prompts. Account sign-in and profile details are handled on this website.</p></details>
-          <details class="docs-faq"><summary>Where is Buddy?</summary><p>Buddy is planned for Plus. It is not on this website. In the desktop app, Buddy is meant to hide when Hive hides and return when Hive is shown.</p></details>`,
+          <details class="docs-faq"><summary>Where is Buddy?</summary><p>Buddy is planned for Max. It is not on this website. In the desktop app, Buddy is meant to hide when Hive hides and return when Hive is shown.</p></details>`,
       },
       {
         id: 'security', title: 'Security',
