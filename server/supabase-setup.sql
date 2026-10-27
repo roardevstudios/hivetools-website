@@ -241,7 +241,7 @@ create table if not exists public.usage_quotas (
   user_id uuid primary key references auth.users(id) on delete cascade,
   email text,
   used bigint not null default 0,
-  token_limit bigint not null default 50000,
+  token_limit bigint not null default 25000,
   bonus bigint not null default 0,
   started_at timestamptz,
   reset_at timestamptz,
