@@ -8,7 +8,7 @@ import { DISCORD, SUPPORT_EMAIL, X_URL } from '../lib/site';
 import { planCatalog, type PlanId } from '../lib/plans';
 
 const chapters = [[0, 'Intro'], [4, 'Meet Hive'], [7.7, 'PC action'], [13.3, 'Cited research'], [18, 'Agent crew'], [23, 'Approvals'], [28.3, 'Voice'], [32.3, 'Code work'], [36.7, 'Night watch'], [40.7, 'Research, create, act'], [44.3, 'Features'], [47.8, 'Hive']] as const;
-const levelNames: Record<PlanId, string> = { starter: 'Starter', student: 'Student', max: 'Max' };
+const levelNames: Record<PlanId, string> = { free: 'Free', starter: 'Starter', student: 'Student', max: 'Max' };
 const featureIcons: Record<string, IconName> = { tokens: 'tokens', voice: 'mic', research: 'research', pc: 'pc', swarm: 'bot', buddy: 'buddy', models: 'spark', tools: 'tools', chat: 'chat' };
 const featureCards = [...planCatalog.features.filter((feature) => !['cloud', 'background'].includes(feature.id)).map((feature) => ({
   icon: featureIcons[feature.id] ?? 'spark',
