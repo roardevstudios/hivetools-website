@@ -61,25 +61,6 @@
       <p id="pf-password-msg" role="status" aria-live="polite" style="min-height:18px;margin:10px 0 0;color:var(--text-dim);font-size:13px;"></p>
     </section>
 
-    <section id="pf-api-card" style="margin:22px 0;padding:18px;border:1px solid var(--line,#30343b);border-radius:14px;background:rgba(255,255,255,.02);">
-      <h2 style="margin:0 0 6px;font-size:18px;">Hive API keys</h2>
-      <p style="margin:0 0 14px;color:var(--text-dim);line-height:1.55;font-size:13px;">Use a key in Hive or an OpenAI-compatible client. API requests draw from the same token allowance as Hive chat.</p>
-      <p style="margin:0 0 14px;color:var(--text-dim);line-height:1.55;font-size:12px;">OpenAI-compatible base URL: <code>https://hive-cloud-computer.samkomedved319.workers.dev/v1</code><br />Model ID: <code>hive-core</code></p>
-      <div id="pf-api-locked" style="display:none;color:var(--text-dim);font-size:13px;">API keys are available with an active Hive Pro or Max plan. Existing Unlock entitlements remain supported; Unlimited is owner-only.</div>
-      <div id="pf-api-tools" style="display:none;">
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <input id="pf-api-name" type="text" maxlength="60" value="Hive desktop" aria-label="API key name" placeholder="Key name" style="flex:1;min-width:180px;" />
-          <button class="btn primary" id="pf-api-create" type="button">Create API key</button>
-        </div>
-        <div id="pf-api-reveal" style="display:none;margin-top:12px;padding:12px;border-radius:10px;background:rgba(240,138,36,.08);border:1px solid rgba(240,138,36,.28);">
-          <b style="display:block;margin-bottom:6px;font-size:12px;">Copy this key now. It will only be shown once.</b>
-          <code id="pf-api-secret" style="display:block;overflow-wrap:anywhere;user-select:all;font-size:12px;"></code>
-          <button class="btn ghost" id="pf-api-copy" type="button" style="margin-top:8px;">Copy key</button>
-        </div>
-        <p id="pf-api-msg" role="status" style="min-height:18px;margin:8px 0;color:var(--text-dim);font-size:12px;"></p>
-        <div id="pf-api-list" style="display:grid;gap:8px;"></div>
-      </div>
-    </section>
 
 
      <label for="pf-display">Display name</label>
@@ -109,7 +90,6 @@
   function esc(s) { return String(s == null ? '' : s); }
 
   function show(id, on) { var el = document.getElementById(id); if (el) el.style.display = on ? 'block' : 'none'; }
-  function apiMsg(text) { var el = document.getElementById('pf-api-msg'); if (el) el.textContent = text || ''; }
   function passwordMsg(text) { var el = document.getElementById('pf-password-msg'); if (el) el.textContent = text || ''; }
   function setBusy(button, busy, label) {
     if (!button) return;
@@ -120,41 +100,6 @@
   function matchingPasswords(first, second) { return first === second && first.length >= 8; }
   function hex(bytes) { return Array.from(new Uint8Array(bytes)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join(''); }
   async function sha256(value) { return hex(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value))); }
-
-  async function refreshApiKeys() {
-    var result = await SB.rpc('list_hive_api_keys');
-    if (result.error) { apiMsg('Could not load API keys. Refresh and try again.'); return; }
-    var list = document.getElementById('pf-api-list');
-    list.replaceChildren();
-    (result.data || []).forEach(function (key) {
-      var row = document.createElement('div');
-      row.style.cssText = 'display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px;border:1px solid var(--line,#30343b);border-radius:10px;';
-      var details = document.createElement('div');
-      var title = document.createElement('b');
-      title.textContent = key.name + ' · ' + key.key_prefix;
-      title.style.cssText = 'display:block;font-size:12px;';
-      var meta = document.createElement('span');
-      meta.textContent = key.revoked_at ? 'Revoked' : ('Created ' + new Date(key.created_at).toLocaleDateString() + (key.last_used_at ? ' · Used ' + new Date(key.last_used_at).toLocaleDateString() : ' · Not used yet'));
-      meta.style.cssText = 'display:block;margin-top:3px;color:var(--text-dim);font-size:11px;';
-      details.append(title, meta);
-      row.append(details);
-      if (!key.revoked_at) {
-        var revoke = document.createElement('button');
-        revoke.type = 'button';
-        revoke.className = 'btn danger';
-        revoke.textContent = 'Revoke';
-        revoke.addEventListener('click', async function () {
-          if (!window.confirm('Revoke this Hive API key? Apps using it will stop working.')) return;
-          var revoked = await SB.rpc('revoke_hive_api_key', { p_key_id: key.id });
-          if (revoked.error) { apiMsg('Could not revoke this key.'); return; }
-          apiMsg('API key revoked.');
-          await refreshApiKeys();
-        });
-        row.append(revoke);
-      }
-      list.append(row);
-    });
-  }
 
   /* Never redirect away: render the signed-out state in place instead, so the page
      always works — including on a static host with no /auth route. */
@@ -284,45 +229,8 @@
       if (sub.data) {
         document.getElementById('pf-plan').textContent =
           ({ starter: 'Hive Free', plus: 'Hive Pro', pro: 'Hive Pro', max: 'Hive Max', unlock: 'Hive Unlock' }[sub.data.plan] || 'Hive plan') + ' (active)';
-        apiPlan = ({ plus: 'pro', pro: 'pro', max: 'max', unlock: 'unlock' }[sub.data.plan] || apiPlan);
       }
     } catch (e) {}
-
-    if (isAdmin) apiPlan = 'unlimited';
-    var apiEligible = ['unlock', 'tokens_plus', 'token_max', 'pro', 'max', 'unlimited'].indexOf(apiPlan) >= 0;
-    show('pf-api-locked', !apiEligible);
-    show('pf-api-tools', apiEligible);
-    if (apiEligible) {
-      await refreshApiKeys();
-      document.getElementById('pf-api-create').addEventListener('click', async function () {
-        var button = this;
-        button.disabled = true;
-        apiMsg('Creating key…');
-        try {
-          var random = new Uint8Array(32);
-          crypto.getRandomValues(random);
-          var secret = 'hive_live_' + hex(random);
-          var prefix = secret.slice(0, 18);
-          var keyHash = await sha256(secret);
-          var created = await SB.rpc('create_hive_api_key', {
-            p_key_hash: keyHash,
-            p_key_prefix: prefix,
-            p_name: document.getElementById('pf-api-name').value.trim() || 'Hive API key'
-          });
-          if (created.error) { apiMsg(created.error.message || 'Could not create API key.'); return; }
-          document.getElementById('pf-api-secret').textContent = secret;
-          show('pf-api-reveal', true);
-          apiMsg('Key created. Save it in Hive → Settings → Models.');
-          await refreshApiKeys();
-        } catch (e) {
-          apiMsg('Could not create a key. Check your connection and try again.');
-        } finally { button.disabled = false; }
-      });
-      document.getElementById('pf-api-copy').addEventListener('click', async function () {
-        try { await navigator.clipboard.writeText(document.getElementById('pf-api-secret').textContent || ''); apiMsg('API key copied.'); }
-        catch (e) { apiMsg('Select and copy the displayed key manually.'); }
-      });
-    }
 
     try {
       var q = await SB.from('usage_quotas').select('used,token_limit').eq('user_id', user.id).maybeSingle();
