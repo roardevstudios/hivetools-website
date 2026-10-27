@@ -82,7 +82,7 @@ export const docGroups: DocGroup[] = [
         id: 'modes', title: 'Modes', plan: 'Planned',
         summary: 'Model access and request priority depend on the selected plan.',
         content: `<h3>Plan access</h3>
-          <p>Standard models are planned for Hive Free, Starter, and Student. Max is planned to include the fastest models and top priority. Model availability and plan details may change before checkout opens.</p>`,
+          <p>Hive Free uses Bonsai. Starter and Student use Qwen. Max uses Nemotron with top priority. Model availability and plan details may change before checkout opens.</p>`,
       },
       {
         id: 'cloud', title: 'HiveBox', plan: 'Max',

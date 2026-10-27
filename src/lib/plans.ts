@@ -12,7 +12,7 @@ export const planCatalog = {
   features: [
     { id: 'tokens', label: 'Chat tokens / day', values: ['25,000', '50,000', '50,000', '2,000,000'], home: 'Chat tokens per day' },
     { id: 'voice', label: 'Voice sessions / day', values: ['5', '25', '25', 'Unlimited'], home: 'Daily voice session allowance' },
-    { id: 'models', label: 'Model access', values: ['Standard', 'Standard', 'Standard', 'Fastest models · top priority'], home: 'Model access and request priority' },
+    { id: 'models', label: 'Model access', values: ['Bonsai', 'Qwen', 'Qwen', 'Nemotron · top priority'], home: 'Model access and request priority' },
     { id: 'chat', label: 'Core chat workspace', values: ['Included', 'Included', 'Included', 'Included'], home: 'Core chat workspace' },
     { id: 'research', label: 'Cited web research', values: ['—', 'Included', 'Included', 'Included'], home: 'Cited web research', from: 'starter' as PlanId },
     { id: 'pc', label: 'PC actions with Allow / Deny', values: ['—', 'Included', 'Included', 'Included'], home: 'PC actions with Allow / Deny', from: 'starter' as PlanId },
