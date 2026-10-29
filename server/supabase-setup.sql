@@ -28,8 +28,6 @@ create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   email text,
   display_name text,
-  status text not null default 'approved'
-    check (status in ('pending', 'approved', 'denied', 'suspended')),
   use_case text,
   referral_source text,
   profession text,
@@ -99,7 +97,7 @@ set search_path = public
 as $$
   select count(*)::bigint
   from public.profiles
-  where status = 'approved';
+  ;
 $$;
 revoke all on function public.public_profile_count() from public;
 grant execute on function public.public_profile_count() to anon, authenticated;
@@ -492,6 +490,3 @@ alter table public.profiles add column if not exists referral_source text;
 alter table public.profiles add column if not exists profession text;
 alter table public.profiles add column if not exists ui_mode text;
 alter table public.profiles add column if not exists assistant_prefs text;
-alter table public.profiles drop constraint if exists profiles_status_check;
-alter table public.profiles add constraint profiles_status_check
-  check (status in ('pending', 'approved', 'denied', 'suspended'));
