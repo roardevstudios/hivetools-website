@@ -1,4 +1,4 @@
-export type DocPlan = 'Free' | 'Starter' | 'Student' | 'Max' | 'All plans' | 'Planned';
+export type DocPlan = 'Free' | 'Pro' | 'Max' | 'All plans' | 'Planned';
 
 export interface DocSection {
   id: string;
@@ -46,7 +46,7 @@ export const docGroups: DocGroup[] = [
         content: `<h3>Hive Free limits</h3>
           <p>Hive Free is planned to include 25,000 chat tokens per day, 5 voice sessions per day, standard models, and core chat. Limits are daily plan allowances.</p>
           <h3>Cited research</h3>
-          <p>Cited web research is planned from Starter. Research would return sources for you to inspect; it does not run on this website.</p>`,
+          <p>Cited web research is planned from Pro. Research would return sources for you to inspect; it does not run on this website.</p>`,
       },
       {
         id: 'buddy', title: 'Buddy', plan: 'Max',
@@ -61,16 +61,16 @@ export const docGroups: DocGroup[] = [
           <p>In the planned desktop app, <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd> opens Buddy’s notch. The notch is part of Max and is not a control on this website.</p>`,
       },
       {
-        id: 'pc', title: 'PC control', plan: 'Starter',
-        summary: 'Starter PC actions ask for Allow or Deny before they run.',
+        id: 'pc', title: 'PC control', plan: 'Pro',
+        summary: 'Pro PC actions ask for Allow or Deny before they run.',
         content: `<h3>Approval flow</h3>
-          <p>PC actions are planned for Starter. The desktop app presents an Allow/Deny decision before an action runs. Destructive commands are blocked before they reach that prompt, and actions are logged locally.</p>`,
+          <p>PC actions are planned for Pro. The desktop app presents an Allow/Deny decision before an action runs. Destructive commands are blocked before they reach that prompt, and actions are logged locally.</p>`,
       },
       {
-        id: 'swarm', title: 'Swarm & bots', plan: 'Starter',
-        summary: 'Standard agent swarm routing starts with Starter.',
+        id: 'swarm', title: 'Swarm & bots', plan: 'Pro',
+        summary: 'Standard agent swarm routing starts with Pro.',
         content: `<h3>Agent roster</h3>
-          <p>Scout, Hive, and Pulse work together. Critic reviews the answer. Sentry watches tool calls. Standard swarm routing is planned from Starter; higher tiers include priority routing.</p>`,
+          <p>Scout, Hive, and Pulse work together. Critic reviews the answer. Sentry watches tool calls. Standard swarm routing is planned from Pro; higher tiers include priority routing.</p>`,
       },
       {
         id: 'palette', title: 'Command palette', plan: 'Planned',
@@ -82,7 +82,7 @@ export const docGroups: DocGroup[] = [
         id: 'modes', title: 'Modes', plan: 'Planned',
         summary: 'Model access and request priority depend on the selected plan.',
         content: `<h3>Plan access</h3>
-          <p>Hive Free uses Bonsai. Starter and Student use Qwen. Max uses Nemotron with top priority. Model availability and plan details may change before checkout opens.</p>`,
+          <p>Hive Free uses Bonsai. Pro uses Qwen. Max uses Nemotron with top priority. Model availability and plan details may change before checkout opens.</p>`,
       },
       {
         id: 'cloud', title: 'HiveBox', plan: 'Max',

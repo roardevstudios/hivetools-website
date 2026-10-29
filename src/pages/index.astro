@@ -7,7 +7,7 @@ import { DISCORD, SUPPORT_EMAIL, X_URL } from '../lib/site';
 import { planCatalog, type PlanId } from '../lib/plans';
 
 const chapters = [[0, 'Intro'], [4, 'Meet Hive'], [7.7, 'PC action'], [13.3, 'Cited research'], [18, 'Agent crew'], [23, 'Approvals'], [28.3, 'Voice'], [32.3, 'Code work'], [36.7, 'Night watch'], [40.7, 'Research, create, act'], [44.3, 'Features'], [47.8, 'Hive']] as const;
-const levelNames: Record<PlanId, string> = { free: 'Free', starter: 'Starter', student: 'Student', max: 'Max' };
+const levelNames: Record<PlanId, string> = { free: 'Free', pro: 'Pro', max: 'Max' };
 const featureIcons: Record<string, IconName> = { tokens: 'tokens', voice: 'mic', research: 'research', pc: 'pc', swarm: 'bot', buddy: 'buddy', models: 'spark', tools: 'tools', chat: 'chat' };
 const featureCards = [...planCatalog.features.filter((feature) => !['cloud', 'background'].includes(feature.id)).map((feature) => ({
   icon: featureIcons[feature.id] ?? 'spark',
@@ -15,12 +15,12 @@ const featureCards = [...planCatalog.features.filter((feature) => !['cloud', 'ba
   plan: levelNames[feature.from ?? 'free'],
   description: feature.id === 'tokens' ? '25,000 chat tokens per day on Hive Free.'
     : feature.id === 'voice' ? `${feature.values[0]} voice sessions per day on Hive Free.`
-    : feature.id === 'research' ? 'Cited web research is planned from Starter.'
+    : feature.id === 'research' ? 'Cited web research is planned from Pro.'
     : feature.id === 'pc' ? 'PC actions require an Allow or Deny decision; destructive commands are blocked.'
     : feature.id === 'swarm' ? 'Scout, Hive, and Pulse work together. Critic reviews the answer. Sentry watches tool calls.'
     : feature.id === 'buddy' ? 'Buddy and the desktop notch are planned from Max.'
-    : feature.id === 'models' ? 'Qwen is planned for Starter and Student; Max runs Nemotron with top priority.'
-    : feature.id === 'tools' ? 'Standard agent tools are planned from Starter.'
+    : feature.id === 'models' ? 'Qwen is planned for Pro; Max runs Nemotron with top priority.'
+    : feature.id === 'tools' ? 'Standard agent tools are planned from Pro.'
     : 'Core chat workspace is planned across all plans.',
 })), {
   icon: 'connectors' as IconName,
@@ -36,7 +36,7 @@ const featureCards = [...planCatalog.features.filter((feature) => !['cloud', 'ba
 const faq = [
   ['Is Hive available to download?', 'Yes. Download the Windows installer from the download page.'],
   ['What does Hive Free include?', 'The planned Free tier includes 25,000 chat tokens per day, 5 voice sessions per day, standard models, and core chat.'],
-  ['Are paid plans one-time purchases?', 'No. Starter, Student, and Max are planned monthly subscriptions. Checkout is not open yet.'],
+  ['Are paid plans one-time purchases?', 'No. Pro and Max are planned monthly subscriptions. Checkout is not open yet.'],
   ['Where do chats and prompts go?', 'Chats stay on your device. This website does not run prompts. Model requests are sent to the provider selected in the app.'],
 ];
 ---

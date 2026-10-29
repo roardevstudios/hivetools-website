@@ -4,12 +4,12 @@ import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
 
 const cases = [
-  ['Research', 'research', 'Get oriented on a topic', 'Planned from Starter: ask Hive to compare options, gather current information, and return an answer with sources you can inspect. This does not run on this website.', 'Compare these options and show me the sources.'],
+  ['Research', 'research', 'Get oriented on a topic', 'Planned from Pro: ask Hive to compare options, gather current information, and return an answer with sources you can inspect. This does not run on this website.', 'Compare these options and show me the sources.'],
   ['Planning', 'plan', 'Turn an idea into a plan', 'Shape an idea into practical next steps with Hive’s AI crew. Scout, Hive, and Pulse work together. Critic reviews the answer. Sentry watches tool calls.', 'Make a two-week launch plan for a small beta.'],
   ['Collaboration', 'chat', 'Bring the crew into one chat', 'Planned agent hand-offs bring research, a second opinion, and a review into one conversation. Scout, Hive, and Pulse work together. Critic reviews the answer. Sentry watches tool calls.', 'Ask Scout to find examples, then have Critic review the plan.'],
-  ['PC control', 'pc', 'Ask for a desktop action', 'Planned from Starter. The app shows the action and waits for Allow. This page cannot do it.', 'Open Notepad and draft a checklist for me.'],
+  ['PC control', 'pc', 'Ask for a desktop action', 'Planned from Pro. The app shows the action and waits for Allow. This page cannot do it.', 'Open Notepad and draft a checklist for me.'],
   ['Deep work', 'folder', 'Keep project work together', 'Bring project context into your Hive conversations and keep your work focused.', 'Review this project brief and list the open decisions.'],
-  ['Quick help', 'bolt', 'Get help without breaking focus', 'Buddy and the notch are planned for Max. Voice on Starter is a small daily allowance of 5 sessions, not this whole workflow.', 'Summarize this and give me the next step.'],
+  ['Quick help', 'bolt', 'Get help without breaking focus', 'Buddy and the notch are planned for Max. Voice on Pro is a small daily allowance of 5 sessions, not this whole workflow.', 'Summarize this and give me the next step.'],
 ];
 const tips = [
   ['Say what success looks like', 'Share the outcome you want, not only the action you imagine taking.'],
@@ -26,7 +26,7 @@ const tips = [
   </PageHero>
 
   <section class="wrap">
-    <p class="mb-6 rounded-xl border border-honey/30 bg-honey/10 px-4 py-3 text-sm text-honey-2">These are planned workflows, not a downloadable build. Research and PC actions are Starter. Buddy, the notch, and HiveBox are Max. Nothing here runs on this website.</p>
+    <p class="mb-6 rounded-xl border border-honey/30 bg-honey/10 px-4 py-3 text-sm text-honey-2">These are planned workflows, not a downloadable build. Research and PC actions are Pro. Buddy, the notch, and HiveBox are Max. Nothing here runs on this website.</p>
     <div class="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0 lg:grid-cols-3">
       {cases.map(([tag, icon, t, d, q], i) => (
         <article class="glass group flex w-[85%] shrink-0 snap-center flex-col p-6 transition duration-500 hover:-translate-y-1 hover:border-honey/40 md:w-auto" data-reveal style={`--i:${i % 3}`}>

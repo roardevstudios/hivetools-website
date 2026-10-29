@@ -9,21 +9,19 @@ const price = (value: number) => `€${value.toFixed(2)}`;
 // Each plan gets its own accent so the cards read as separate tiers.
 const accent: Record<PlanId, string> = {
   free: '#94a3b8',
-  starter: '#38bdf8',
-  student: '#34d399',
+  pro: '#38bdf8',
   max: '#F5B63B',
 };
 const tagline: Record<PlanId, string> = {
   free: 'Start here',
-  starter: 'For daily work',
-  student: 'For students',
+  pro: 'For daily work',
   max: 'Most capacity',
 };
 const includedFeatures = (planId: PlanId) =>
   planCatalog.features.filter((feature) => planIndex(planId) >= planIndex((feature.from ?? 'free') as PlanId));
 ---
-<Base title="Hive — plans and pricing" description="Hive Free, Starter, Student and Max. Planned monthly plans from €2.49 to €22.99. Checkout is not open yet.">
-  <PageHero eyebrow="Plans and pricing" title='Hive plans, <span class="text-gradient">clearly compared.</span>' lead="Four planned tiers: Free, Starter, Student and Max. Features and prices may change before release.">
+<Base title="Hive — plans and pricing" description="Hive Free, Pro and Max. Planned monthly plans from €2.49 to €22.99. Checkout is not open yet.">
+  <PageHero eyebrow="Plans and pricing" title='Hive plans, <span class="text-gradient">clearly compared.</span>' lead="Three planned tiers: Free, Pro and Max. Features and prices may change before release.">
     <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><a class="btn btn-primary" href="#plans">Compare plans</a><a class="btn btn-ghost" href="/download">Download for Windows</a></div>
   </PageHero>
 
@@ -55,17 +53,7 @@ const includedFeatures = (planId: PlanId) =>
               ))}
             </ul>
 
-            {id === 'student' && (
-              <div class="mt-6 rounded-2xl border p-4 text-sm leading-relaxed text-soft" style={`border-color:color-mix(in srgb, ${accent[id]} 30%, transparent);background:color-mix(in srgb, ${accent[id]} 6%, transparent)`}>
-                <p class="font-medium text-text">How to get Student</p>
-                <ol class="mt-2 list-decimal space-y-1 pl-5">
-                  <li>Sign up and use your school email.</li>
-                  <li>Contact support on our <a class="underline" href={DISCORD_URL} target="_blank" rel="noopener">Discord server</a> with your school email.</li>
-                  <li>Support confirms your student status and activates the plan.</li>
-                </ol>
-              </div>
-            )}
-
+            
             <p class="mt-7 text-center text-xs text-dim">
               {id === 'free' ? 'No subscription · no checkout required' : 'Checkout is not open yet.'}
             </p>

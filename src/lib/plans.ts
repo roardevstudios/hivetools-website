@@ -1,12 +1,11 @@
-export type PlanId = 'free' | 'starter' | 'student' | 'max';
+export type PlanId = 'free' | 'pro' | 'max';
 
 export const DISCORD_URL = 'https://discord.gg/jN3MxRqvsV';
 
 export const planCatalog = {
   plans: [
     { id: 'free', name: 'Hive Free', price: 0, period: '', description: 'A daily allowance for everyday AI work.' },
-    { id: 'starter', name: 'Hive Starter', price: 4.99, period: '/ month', description: 'The essentials for everyday AI work.' },
-    { id: 'student', name: 'Hive Student', price: 2.49, period: '/ month', description: 'Starter for students. Verify your school email to unlock it.' },
+    { id: 'pro', name: 'Hive Pro', price: 4.99, period: '/ month', description: 'The essentials for everyday AI work.' },
     { id: 'max', name: 'Hive Max', price: 22.99, period: '/ month', description: 'Maximum planned capacity for demanding workflows.' },
   ] satisfies { id: PlanId; name: string; price: number; period: string; description: string }[],
   features: [
@@ -14,11 +13,10 @@ export const planCatalog = {
     { id: 'voice', label: 'Voice sessions / day', values: ['5', '25', '25', 'Unlimited'], home: 'Daily voice session allowance' },
     { id: 'models', label: 'Model access', values: ['Bonsai', 'Qwen', 'Qwen', 'Nemotron · top priority'], home: 'Model access and request priority' },
     { id: 'chat', label: 'Core chat workspace', values: ['Included', 'Included', 'Included', 'Included'], home: 'Core chat workspace' },
-    { id: 'research', label: 'Cited web research', values: ['—', 'Included', 'Included', 'Included'], home: 'Cited web research', from: 'starter' as PlanId },
-    { id: 'pc', label: 'PC actions with Allow / Deny', values: ['—', 'Included', 'Included', 'Included'], home: 'PC actions with Allow / Deny', from: 'starter' as PlanId },
-    { id: 'tools', label: 'Standard agent tools', values: ['—', 'Included', 'Included', 'Included'], home: 'Standard agent tools', from: 'starter' as PlanId },
-    { id: 'swarm', label: 'Agent swarm routing', values: ['—', 'Standard', 'Standard', 'Top priority'], home: 'Agent swarm routing', from: 'starter' as PlanId },
-    { id: 'student', label: 'Student: 2 months free after school email check (contact support on Discord)', values: ['—', '—', 'Included', '—'], home: 'Student plan with school email check', from: 'student' as PlanId },
+    { id: 'research', label: 'Cited web research', values: ['—', 'Included', 'Included', 'Included'], home: 'Cited web research', from: 'pro' as PlanId },
+    { id: 'pc', label: 'PC actions with Allow / Deny', values: ['—', 'Included', 'Included', 'Included'], home: 'PC actions with Allow / Deny', from: 'pro' as PlanId },
+    { id: 'tools', label: 'Standard agent tools', values: ['—', 'Included', 'Included', 'Included'], home: 'Standard agent tools', from: 'pro' as PlanId },
+    { id: 'swarm', label: 'Agent swarm routing', values: ['—', 'Standard', 'Standard', 'Top priority'], home: 'Agent swarm routing', from: 'pro' as PlanId },
     { id: 'support', label: 'Priority support', values: ['—', '—', '—', 'Included'], home: 'Priority support', from: 'max' as PlanId },
     { id: 'buddy', label: 'Buddy + desktop notch (coming soon)', values: ['—', '—', '—', 'Included'], home: 'Buddy and desktop notch', from: 'max' as PlanId },
     { id: 'cloud', label: 'HiveBox cloud disk', values: ['—', '—', '—', 'Included'], home: 'HiveBox cloud disk', from: 'max' as PlanId },

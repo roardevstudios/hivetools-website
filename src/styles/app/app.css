@@ -210,12 +210,15 @@ p { text-wrap: pretty; }
 .btn.danger::after { display: none; }
 
 /* google */
-.btn.google {
+.btn.google,
+.btn.github {
   --btn-bg: var(--surface-2); --btn-fg: var(--text);
   border-color: var(--line-2);
 }
-.btn.google:hover { background: var(--surface-3); border-color: var(--orange-35); }
-.btn.google::after { display: none; }
+.btn.google:hover,
+.btn.github:hover { background: var(--surface-3); border-color: var(--orange-35); }
+.btn.google::after,
+.btn.github::after { display: none; }
 
 .btn.disabled,
 .btn[aria-disabled="true"] {

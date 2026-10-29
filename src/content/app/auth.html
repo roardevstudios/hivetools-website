@@ -9,7 +9,7 @@
         <span style="flex-shrink: 0; line-height: 0; margin-top: 2px; color: var(--orange, #f08a24);" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg></span>
         <div>
           <strong style="color: #F2C14E; font-weight: 600; display: block; margin-bottom: 3px;">Hive release download</strong>
-          <span>Signing in only manages your Hive account on this site. It will not open a desktop app. Google shows <strong style="color: var(--text); font-weight: 600;">hivetools.pro</strong> so you know it's really us — we only read your name and email address, never your Gmail, contacts or files.</span>
+          <span>Signing in only manages your Hive account on this site. It will not open a desktop app. Google and GitHub show <strong style="color: var(--text); font-weight: 600;">hivetools.pro</strong> so you know it's really us — Hive only uses your name and email address for your account.</span>
         </div>
       </div>
 
@@ -17,6 +17,11 @@
       <button class="btn google block" id="google-btn" type="button">
         <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.5 12.3c0-.9-.1-1.5-.3-2.3H12v4.5h6.5c-.1 1.1-.8 2.7-2.4 3.8l-.1.1 3.5 2.7.2.1c2.2-2 3.8-5 3.8-8.9z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 7.9-2.9l-3.8-2.9c-1 .7-2.4 1.2-4.1 1.2-3.2 0-5.9-2.1-6.8-5l-.1.1-3.7 2.9v.1C3.5 21.4 7.5 24 12 24z"/><path fill="#FBBC05" d="M5.2 14.4c-.2-.7-.4-1.5-.4-2.4s.1-1.7.4-2.4l-.1-.1-3.6-2.8-.1.1C.5 8.7 0 10.3 0 12s.5 3.3 1.4 4.7l3.8-2.3z"/><path fill="#EA4335" d="M12 4.7c1.8 0 3 .8 3.7 1.4l3.3-3.2C17.9 1.1 15.2 0 12 0 7.5 0 3.5 2.6 1.4 6.7l3.8 2.9c1-2.9 3.7-4.9 6.8-4.9z"/></svg>
         Continue with Google
+      </button>
+
+      <button class="btn github block" id="github-btn" type="button" style="margin-top:10px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.55.1.76-.24.76-.53v-2.06c-3.1.67-3.76-1.32-3.76-1.32-.5-1.3-1.24-1.65-1.24-1.65-1.01-.69.08-.68.08-.68 1.12.08 1.7 1.15 1.7 1.15.99 1.7 2.6 1.21 3.23.93.1-.72.39-1.21.71-1.49-2.48-.28-5.09-1.24-5.09-5.53 0-1.22.44-2.22 1.15-3-.12-.28-.5-1.42.11-2.96 0 0 .94-.3 3.05 1.15a10.6 10.6 0 0 1 5.55 0c2.11-1.45 3.04-1.15 3.04-1.15.61 1.54.23 2.68.12 2.96.71.78 1.14 1.78 1.14 3.01 0 4.3-2.61 5.24-5.1 5.52.4.35.76 1.03.76 2.08V22c0 .29.2.63.77.52A11.1 11.1 0 0 0 12 .9Z"/></svg>
+        Continue with GitHub
       </button>
 
       <div class="divider">or with email</div>
@@ -208,6 +213,23 @@
     } catch (err) {
       authPending = false;
       msg(err.message || 'Could not open Google sign-in.', 'err');
+    }
+  });
+
+  document.getElementById('github-btn').addEventListener('click', async function () {
+    if (!SB) { msg('Sign-in is offline right now.', 'err'); return; }
+    authPending = true;
+    msg('Opening GitHub…');
+    try {
+      try { if (query.get('next')) sessionStorage.setItem('hive_auth_next', query.get('next')); } catch (e) {}
+      if (query.get('desktop') === '1' && query.get('proto') === '2') {
+        try { sessionStorage.setItem('hive_desktop_login', '1'); } catch (e) {}
+      }
+      var result = await SB.auth.signInWithOAuth({ provider: 'github', options: { redirectTo: 'https://hivetools.pro/auth?mode=oauth' } });
+      if (result.error) { authPending = false; msg(result.error.message, 'err'); }
+    } catch (err) {
+      authPending = false;
+      msg(err.message || 'Could not open GitHub sign-in.', 'err');
     }
   });
 
