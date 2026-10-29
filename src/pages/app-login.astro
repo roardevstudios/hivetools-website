@@ -1,0 +1,77 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Sign in to the Hive app" description="Enter the 6-digit code shown in the Hive app to sign it in.">
+  <section class="wrap grid min-h-[80dvh] place-items-center pt-28 pb-10">
+    <div class="glass relative w-full max-w-md p-8 text-center sm:p-10" data-reveal>
+      <span class="eyebrow">Hive app</span>
+      <h1 class="mt-4 text-3xl font-bold">Sign in to the app</h1>
+      <p class="lead mt-4">Open the Hive app, copy the 6-digit code it shows, enter it here, then click Sign in.</p>
+
+      <form id="al-form" class="mt-8 flex flex-col items-center gap-4" autocomplete="off">
+        <input id="al-code" name="code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="000000"
+          aria-label="6-digit code from the app" required
+          class="w-full max-w-xs rounded-xl border border-line bg-panel-2/70 px-4 py-4 text-center font-mono text-3xl tracking-[.4em] text-text" />
+        <button id="al-submit" type="submit" class="btn btn-primary w-full max-w-xs justify-center">Sign in</button>
+        <p id="al-msg" role="status" class="min-h-6 text-sm text-dim"></p>
+      </form>
+
+      <div id="al-signed-out" class="mt-6 hidden">
+        <p class="text-sm text-dim">Sign in to this website first.</p>
+        <a class="btn btn-ghost mt-3" href="/auth?next=/app-login">Sign in to the website</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Website side of the app pairing. The signed-in session is handed to the app
+  // through a short-lived request row; the app then signs itself in.
+  const $ = (id: string) => document.getElementById(id) as HTMLElement | null;
+  const say = (text: string, ok = false) => {
+    const el = $('al-msg');
+    if (!el) return;
+    el.textContent = text;
+    el.style.color = ok ? '#10B981' : '';
+  };
+
+  async function init() {
+    const SB = (window as any).hiveSupabase;
+    if (!SB) return;
+    const { data } = await SB.auth.getSession();
+    if (!data || !data.session) {
+      $('al-signed-out')?.classList.remove('hidden');
+      ($('al-submit') as HTMLButtonElement | null)!.disabled = true;
+    }
+    const params = new URLSearchParams(window.location.search);
+    const pre = params.get('code');
+    const field = $('al-code') as HTMLInputElement | null;
+    if (pre && field && /^[0-9]{6}$/.test(pre)) field.value = pre;
+  }
+
+  $('al-form')?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const SB = (window as any).hiveSupabase;
+    const input = $('al-code') as HTMLInputElement | null;
+    const button = $('al-submit') as HTMLButtonElement | null;
+    if (!SB || !input || !button) return;
+    const code = input.value.trim();
+    if (!/^[0-9]{6}$/.test(code)) { say('Enter the 6-digit code from the app.'); return; }
+    const { data } = await SB.auth.getSession();
+    if (!data || !data.session) { say('Sign in to this website first.'); return; }
+    button.disabled = true;
+    say('Signing in the app…');
+    const r = await SB.rpc('app_login_approve', {
+      p_code: code,
+      p_access_token: data.session.access_token,
+      p_refresh_token: data.session.refresh_token,
+    });
+    button.disabled = false;
+    if (r.error) { say(r.error.message || 'Could not sign in the app.'); return; }
+    say('Done. The Hive app is signing in now. You can close this page.', true);
+    // Opens the desktop app when the hive:// protocol is registered.
+    window.location.href = 'hive://login?code=' + code;
+  });
+
+  void init();
+</script>
