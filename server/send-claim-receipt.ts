@@ -1,11 +1,11 @@
-// Supabase Edge Function: send claim receipt emails FROM apis.new.world@gmail.com
+// Supabase Edge Function: send claim receipt emails FROM hive.by.apis@gmail.com
 // via Gmail SMTP (nodemailer + an App Password — NOT your normal password).
 //
 // Setup (one time):
 //   1. Google Account > Security > enable 2-Step Verification.
 //   2. Google Account > Security > App passwords > create one for "Mail"
 //      (16 letters, e.g. abcd efgh ijkl mnop). Keep it private.
-//   3. supabase secrets set GMAIL_USER=apis.new.world@gmail.com GMAIL_APP_PASSWORD=xxxx
+//   3. supabase secrets set GMAIL_USER=hive.by.apis@gmail.com GMAIL_APP_PASSWORD=xxxx
 //   4. supabase functions deploy send-claim-receipt
 //   5. Supabase Dashboard > Database > Webhooks: on INSERT into
 //      public.claim_notifications -> this function.
@@ -15,8 +15,8 @@
 import { serve } from 'https://deno.land/std@0.177.0/http/server.ts';
 import nodemailer from 'npm:nodemailer@6.9.14';
 
-const FROM = 'Hive <apis.new.world@gmail.com>';
-const SUPPORT = 'apis.new.world@gmail.com';
+const FROM = 'Hive <hive.by.apis@gmail.com>';
+const SUPPORT = 'hive.by.apis@gmail.com';
 
 serve(async (req) => {
   try {

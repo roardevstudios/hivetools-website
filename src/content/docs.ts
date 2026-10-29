@@ -151,7 +151,7 @@ export const docGroups: DocGroup[] = [
         summary: 'Keep account credentials private and review desktop actions before approval.',
         content: `<h3>Account safety</h3>
           <p>Hive uses Supabase for sign-in and account storage. Your browser keeps the active session locally so you stay signed in across Hive pages; you can sign out from your profile at any time.</p>
-          <ul><li>Use a unique password and do not share your sign-in session.</li><li>Sign out on shared or public computers after using your account.</li><li>Contact <a href="mailto:apis.new.world@gmail.com">apis.new.world@gmail.com</a> if you see unexpected account activity.</li></ul>
+          <ul><li>Use a unique password and do not share your sign-in session.</li><li>Sign out on shared or public computers after using your account.</li><li>Contact <a href="mailto:hive.by.apis@gmail.com">hive.by.apis@gmail.com</a> if you see unexpected account activity.</li></ul>
           <p>For password recovery, use <strong>Forgot password?</strong> on the <a href="/auth">sign-in page</a>.</p>`,
       },
     ],
@@ -167,7 +167,7 @@ export const docGroups: DocGroup[] = [
           <ul><li><b>Account data:</b> your email and account profile information when you sign up.</li><li><b>Purchase data:</b> Checkout is not open yet; no Hive purchases can currently be made through this site.</li><li><b>Usage data:</b> token and voice-session counters, so your daily quota is enforced on our side rather than only on your machine.</li><li><b>Local data stays local:</b> your chats, settings and transcripts live on your machine, not on our servers. They are <b>not</b> synced between your devices.</li></ul>
           <h3>How we use it</h3><p>To run your account, enforce quotas, provide product information, and improve Hive. We do not sell your data and we do not show ads.</p>
           <h3>Sharing</h3><p>We use Supabase for account hosting, authentication and database services, and Google when you choose Google sign-in. Model requests are sent to the provider selected in the app. <!-- TODO: Name the model providers used by the released app and confirm provider-specific privacy disclosures before publication. --> Payment processing is not active while checkout is closed.</p>
-          <h3>Your rights</h3><p>Email <a href="mailto:apis.new.world@gmail.com">apis.new.world@gmail.com</a> to ask for a copy, correction or deletion of your data at that address. Deleting your account removes your profile, quota and subscription rows; PayPal keeps its own transaction records.</p>
+          <h3>Your rights</h3><p>Email <a href="mailto:hive.by.apis@gmail.com">hive.by.apis@gmail.com</a> to ask for a copy, correction or deletion of your data at that address. Deleting your account removes your profile, quota and subscription rows; PayPal keeps its own transaction records.</p>
           <h3>Retention</h3><p>We keep account and purchase records while your account exists and up to 3 years after, for fraud prevention and accounting. Anonymized usage stats may be kept longer.</p>`,
       },
       {
@@ -180,7 +180,7 @@ export const docGroups: DocGroup[] = [
           <h3>Availability</h3><p>Hive is a preview (Windows 10/11). Features may change, break or move between plans. We aim for reliability but give no uptime guarantees.</p>
           <h3>Refunds</h3><p>Checkout is not open yet. Purchase, cancellation and refund terms will be published before paid plans are offered.</p>
           <h3>Liability</h3><p>Hive is provided "as is". To the maximum extent allowed by law, we are not liable for indirect damages or for actions the app takes with your approval.</p>
-          <h3>Contact</h3><p>Questions about these terms: <a href="mailto:apis.new.world@gmail.com">apis.new.world@gmail.com</a>.</p>`,
+          <h3>Contact</h3><p>Questions about these terms: <a href="mailto:hive.by.apis@gmail.com">hive.by.apis@gmail.com</a>.</p>`,
       },
     ],
   },

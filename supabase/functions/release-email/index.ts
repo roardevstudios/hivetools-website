@@ -1,8 +1,8 @@
 import nodemailer from 'npm:nodemailer@6.9.14';
 
 const PROJECT_URL = 'https://nqkmnmwbmikbgopwkvse.supabase.co';
-const FROM_EMAIL = 'apis.new.world@gmail.com';
-const SUPPORT_EMAIL = 'apis.new.world@gmail.com';
+const FROM_EMAIL = 'hive.by.apis@gmail.com';
+const SUPPORT_EMAIL = 'hive.by.apis@gmail.com';
 const ALLOWED_ORIGIN = 'https://hivetools.pro';
 const MAX_RECIPIENTS_PER_SEND = 450;
 

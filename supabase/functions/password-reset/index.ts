@@ -1,7 +1,7 @@
 import nodemailer from 'npm:nodemailer@6.9.14';
 
 const PROJECT_URL = 'https://nqkmnmwbmikbgopwkvse.supabase.co';
-const FROM_EMAIL = 'apis.new.world@gmail.com';
+const FROM_EMAIL = 'hive.by.apis@gmail.com';
 const ALLOWED_ORIGINS = new Set([
   'https://hivetools.pro',
   'https://hivetools-5lrhddnfo-apis-ai.vercel.app',
