@@ -1,5 +1,5 @@
 ---
-import { NAV, DISCORD, EARLY_ACCESS_URL } from '../lib/site';
+import { NAV, DISCORD, DOWNLOAD_URL } from '../lib/site';
 const path = Astro.url.pathname.replace(/\.html$/, '');
 ---
 <header id="site-nav" class="fixed inset-x-0 top-0 z-50 px-3 pt-3 transition-all duration-500">
@@ -14,7 +14,7 @@ const path = Astro.url.pathname.replace(/\.html$/, '');
     </div>
     <div class="nav-actions col-start-3 flex items-center justify-self-end gap-2">
       <a id="nav-auth-link" href="/auth" class="hidden shrink-0 whitespace-nowrap text-sm text-dim hover:text-text sm:inline">Sign in</a>
-      <a href={EARLY_ACCESS_URL} target="_blank" rel="noopener noreferrer" class="btn btn-primary hidden shrink-0 whitespace-nowrap !min-h-9 !px-3 sm:inline-flex">Get early access</a>
+      <a href={DOWNLOAD_URL} class="btn btn-primary hidden shrink-0 whitespace-nowrap !min-h-9 !px-3 sm:inline-flex">Download</a>
       <button id="menu-btn" type="button" class="relative grid size-11 place-items-center rounded-xl lg:hidden" aria-label="Open menu" aria-controls="menu" aria-expanded="false">
         <span class="bar absolute h-0.5 w-5 -translate-y-1.5 rounded bg-text transition duration-300"></span>
         <span class="bar absolute h-0.5 w-5 translate-y-1.5 rounded bg-text transition duration-300"></span>
@@ -29,7 +29,7 @@ const path = Astro.url.pathname.replace(/\.html$/, '');
       <a id={l.href === '/auth' ? 'mobile-auth-link' : undefined} href={l.href} style={`--i:${i}`} class="menu-link border-b border-line py-4 font-display text-2xl font-semibold text-text">{l.label}</a>
     ))}
   </nav>
-  <div class="mt-auto grid gap-3"><a href={EARLY_ACCESS_URL} target="_blank" rel="noopener noreferrer" class="btn btn-primary w-full !min-h-13 text-base">Get early access</a><a href={DISCORD} target="_blank" rel="noopener noreferrer" class="btn btn-ghost w-full !min-h-13 text-base">Discord community</a></div>
+  <div class="mt-auto grid gap-3"><a href={DOWNLOAD_URL} class="btn btn-primary w-full !min-h-13 text-base">Download</a><a href={DISCORD} target="_blank" rel="noopener noreferrer" class="btn btn-ghost w-full !min-h-13 text-base">Discord community</a></div>
 </div>
 
 <style>

@@ -23,7 +23,6 @@
       </div>
     </div>
     <div class="meta">
-      <span class="badge pending" id="pf-status">…</span>
       <span id="pf-since">—</span>
     </div>
 
@@ -72,7 +71,6 @@
     <div class="btns">
       <a class="btn primary" href="/pricing">View monthly plans</a>
       <a class="btn ghost" href="/download">Hive v0.0.1 status</a>
-      <a class="btn ghost" id="pf-admin-btn" href="/apis-hive-admin" style="display:none;border-color:var(--orange-35);color:var(--orange-hi);">Admin panel</a>
       <a class="btn ghost" href="/docs">Docs</a>
       <button class="btn danger" id="pf-out" type="button">Sign out</button>
     </div>
@@ -210,11 +208,6 @@
      document.getElementById('pf-display').value = (profile && profile.display_name) || '';
     var emailKey = (user.email || '').trim().toLowerCase();
     var isAdmin = Boolean((profile && (profile.is_admin === true || profile.is_admin === 'true')) || ['samkomedved@gmail.com', 'samkomedved319@gmail.com'].indexOf(emailKey) >= 0);
-    show('pf-admin-btn', isAdmin);
-    var st = ((profile && profile.status) || 'approved').toLowerCase();
-    var badge = document.getElementById('pf-status');
-    badge.textContent = st;
-    badge.className = 'badge ' + (st === 'approved' ? 'approved' : (st === 'pending' ? 'pending' : st));
     document.getElementById('pf-since').textContent =
       'Member since ' + (((profile && profile.created_at) ? new Date(profile.created_at).toLocaleDateString() : 'today'));
 

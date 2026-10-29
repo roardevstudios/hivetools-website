@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /apis-hive-admin
 
 Sitemap: https://hivetools.pro/sitemap.xml
