@@ -1,0 +1,305 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Hive — Sign in</title><meta name="description" content="Hive is a desktop AI workspace for research, agents and PC control, built by Apis."><meta name="theme-color" content="#07080a"><meta property="og:title" content="Hive — Sign in"><meta property="og:description" content="Hive is a desktop AI workspace for research, agents and PC control, built by Apis."><meta property="og:image" content="https://hivetools.pro/hive-og.png"><meta property="og:type" content="website"><meta property="og:url" content="https://hivetools.pro/auth"><link rel="canonical" href="https://hivetools.pro/auth"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://hivetools.pro/hive-og.png"><meta name="twitter:site" content="@RoarDEV2014"><link rel="icon" href="/hive_symbol.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"><script>document.documentElement.classList.add('js')</script><link rel="stylesheet" href="/_astro/auth.Bh-gDS9E.css"><link rel="stylesheet" href="/_astro/Base.BRjhrNmP.css"><link rel="stylesheet" href="/_astro/AppPage.DRjVS_ZM.css"></head><body class="min-h-dvh"><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script><script src="/hive-auth.js"></script><div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 hex-bg"></div><div aria-hidden="true" id="glow" class="pointer-events-none fixed will-change-transform -z-10 size-[600px] rounded-full opacity-0 transition-opacity duration-700 md:opacity-100" style="background:radial-gradient(circle, rgb(240 138 36 / .10), transparent 65%); left:-300px; top:-300px;"></div><div aria-hidden="true" id="progress" class="will-change-transform fixed inset-x-0 top-0 z-[60] h-0.5 origin-left scale-x-0 bg-gradient-to-r from-honey-2 to-honey"></div><header id="site-nav" class="fixed inset-x-0 top-0 z-50 px-3 pt-3 transition-all duration-500" data-astro-cid-wpvy4v7s><nav class="nav mx-auto grid h-14 max-w-6xl [grid-template-columns:minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 rounded-2xl border border-transparent px-3 transition-all duration-500" aria-label="Main" data-astro-cid-wpvy4v7s><a href="/" class="flex items-center gap-2.5 font-display text-lg font-bold text-text" data-astro-cid-wpvy4v7s><img src="/hive_symbol.png" alt="" width="30" height="30" class="h-[30px] w-auto object-contain" data-astro-cid-wpvy4v7s> Hive</a><div class="col-start-2 hidden items-center justify-center gap-0 lg:flex" data-astro-cid-wpvy4v7s><a href="/#features" class="whitespace-nowrap rounded-full px-2 py-1.5 text-sm transition hover:bg-white/5 hover:text-text text-dim" data-astro-cid-wpvy4v7s>Features</a><a href="/use-cases" class="whitespace-nowrap rounded-full px-2 py-1.5 text-sm transition hover:bg-white/5 hover:text-text text-dim" data-astro-cid-wpvy4v7s>Use cases</a><a href="/docs" class="whitespace-nowrap rounded-full px-2 py-1.5 text-sm transition hover:bg-white/5 hover:text-text text-dim" data-astro-cid-wpvy4v7s>Docs</a><a href="/pricing" class="whitespace-nowrap rounded-full px-2 py-1.5 text-sm transition hover:bg-white/5 hover:text-text text-dim" data-astro-cid-wpvy4v7s>Pricing</a><a href="/changelog" class="whitespace-nowrap rounded-full px-2 py-1.5 text-sm transition hover:bg-white/5 hover:text-text text-dim" data-astro-cid-wpvy4v7s>Changelog</a></div><div class="nav-actions col-start-3 flex items-center justify-self-end gap-2" data-astro-cid-wpvy4v7s><a id="nav-auth-link" href="/auth" class="hidden shrink-0 whitespace-nowrap text-sm text-dim hover:text-text sm:inline" data-astro-cid-wpvy4v7s>Sign in</a><a href="https://discord.com/channels/1545887872391839896/1552691183182938162" target="_blank" rel="noopener noreferrer" class="btn btn-primary hidden shrink-0 whitespace-nowrap !min-h-9 !px-3 sm:inline-flex" data-astro-cid-wpvy4v7s>Get early access</a><button id="menu-btn" type="button" class="relative grid size-11 place-items-center rounded-xl lg:hidden" aria-label="Open menu" aria-controls="menu" aria-expanded="false" data-astro-cid-wpvy4v7s><span class="bar absolute h-0.5 w-5 -translate-y-1.5 rounded bg-text transition duration-300" data-astro-cid-wpvy4v7s></span><span class="bar absolute h-0.5 w-5 translate-y-1.5 rounded bg-text transition duration-300" data-astro-cid-wpvy4v7s></span></button></div></nav></header><div id="menu" class="fixed inset-0 z-40 flex flex-col bg-ink/95 px-6 pt-24 pb-10 backdrop-blur-2xl lg:hidden" hidden data-astro-cid-wpvy4v7s><nav class="flex flex-col" aria-label="Mobile" data-astro-cid-wpvy4v7s><a href="/#features" style="--i:0" class="menu-link border-b border-line py-4 font-display text-2xl font-semibold text-text" data-astro-cid-wpvy4v7s>Features</a><a href="/use-cases" style="--i:1" class="menu-link border-b border-line py-4 font-display text-2xl font-semibold text-text" data-astro-cid-wpvy4v7s>Use cases</a><a href="/docs" style="--i:2" class="menu-link border-b border-line py-4 font-display text-2xl font-semibold text-text" data-astro-cid-wpvy4v7s>Docs</a><a href="/pricing" style="--i:3" class="menu-link border-b border-line py-4 font-display text-2xl font-semibold text-text" data-astro-cid-wpvy4v7s>Pricing</a><a href="/changelog" style="--i:4" class="menu-link border-b border-line py-4 font-display text-2xl font-semibold text-text" data-astro-cid-wpvy4v7s>Changelog</a><a href="/profile" style="--i:5" class="menu-link border-b border-line py-4 font-display text-2xl font-semibold text-text" data-astro-cid-wpvy4v7s>Profile</a><a id="mobile-auth-link" href="/auth" style="--i:6" class="menu-link border-b border-line py-4 font-display text-2xl font-semibold text-text" data-astro-cid-wpvy4v7s>Sign in</a></nav><div class="mt-auto grid gap-3" data-astro-cid-wpvy4v7s><a href="https://discord.com/channels/1545887872391839896/1552691183182938162" target="_blank" rel="noopener noreferrer" class="btn btn-primary w-full !min-h-13 text-base" data-astro-cid-wpvy4v7s>Get early access</a><a href="https://discord.gg/jN3MxRqvsV" target="_blank" rel="noopener noreferrer" class="btn btn-ghost w-full !min-h-13 text-base" data-astro-cid-wpvy4v7s>Discord community</a></div></div><script type="module">var e=document.getElementById(`site-nav`),t=document.getElementById(`menu-btn`),n=document.getElementById(`menu`),r=()=>e.classList.toggle(`scrolled`,scrollY>12);addEventListener(`scroll`,r,{passive:!0}),r();var i=e=>{t.setAttribute(`aria-expanded`,String(e)),t.setAttribute(`aria-label`,e?`Close menu`:`Open menu`),document.body.style.overflow=e?`hidden`:``,e?(n.hidden=!1,requestAnimationFrame(()=>n.classList.add(`open`))):(n.classList.remove(`open`),n.hidden=!0)};t.addEventListener(`click`,()=>i(n.hidden)),n.addEventListener(`click`,e=>{e.target.closest(`a`)&&i(!1)}),addEventListener(`keydown`,e=>{e.key===`Escape`&&!n.hidden&&i(!1)});var a=e=>{let t=document.getElementById(`nav-auth-link`),n=document.getElementById(`mobile-auth-link`);t&&(t.textContent=e?`My account`:`Sign in`,t.setAttribute(`href`,e?`/profile`:`/auth`)),n&&(n.textContent=e?`My account`:`Sign in`,n.setAttribute(`href`,e?`/profile`:`/auth`))},o=window.hiveSupabase;o&&(o.auth.onAuthStateChange((e,t)=>a(!!t?.user)),o.auth.getSession().then(({data:e})=>a(!!e?.session?.user)).catch(()=>a(!1)));</script><main id="main" class="relative"><aside class="absolute inset-x-0 top-16 z-30 border-b border-honey/20 bg-ink/95 px-4 py-1.5 text-center text-xs leading-4 text-soft backdrop-blur sm:text-sm" aria-label="Release status">Hive Design and connectors are live. Instabox Cloud PC is on the roadmap.</aside><div class="app-legacy pt-32 sm:pt-36"><div class="auth-wrap">
+
+  <div class="auth-card reveal">
+    <div id="auth-box">
+      <h1 id="auth-title">Welcome back</h1>
+      <p class="sub" id="auth-sub">Sign in to manage your Hive account.</p>
+
+      <div style="margin-bottom: 14px; padding: 12px 14px; background: linear-gradient(135deg, rgba(242, 193, 78, 0.08) 0%, rgba(242, 193, 78, 0.02) 100%); border: 1px solid rgba(242, 193, 78, 0.28); border-radius: 12px; font-size: 12.5px; line-height: 1.6; color: var(--text-dim); text-align: left; display: flex; align-items: flex-start; gap: 11px;">
+        <span style="flex-shrink: 0; line-height: 0; margin-top: 2px; color: var(--orange, #f08a24);" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg></span>
+        <div>
+          <strong style="color: #F2C14E; font-weight: 600; display: block; margin-bottom: 3px;">Hive v0.0.1 download</strong>
+          <span>Signing in only manages your Hive account on this site. It will not open a desktop app. Google shows <strong style="color: var(--text); font-weight: 600;">hivetools.pro</strong> so you know it's really us — we only read your name and email address, never your Gmail, contacts or files.</span>
+        </div>
+      </div>
+
+      <div id="auth-entry">
+      <button class="btn google block" id="google-btn" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.5 12.3c0-.9-.1-1.5-.3-2.3H12v4.5h6.5c-.1 1.1-.8 2.7-2.4 3.8l-.1.1 3.5 2.7.2.1c2.2-2 3.8-5 3.8-8.9z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 7.9-2.9l-3.8-2.9c-1 .7-2.4 1.2-4.1 1.2-3.2 0-5.9-2.1-6.8-5l-.1.1-3.7 2.9v.1C3.5 21.4 7.5 24 12 24z"/><path fill="#FBBC05" d="M5.2 14.4c-.2-.7-.4-1.5-.4-2.4s.1-1.7.4-2.4l-.1-.1-3.6-2.8-.1.1C.5 8.7 0 10.3 0 12s.5 3.3 1.4 4.7l3.8-2.3z"/><path fill="#EA4335" d="M12 4.7c1.8 0 3 .8 3.7 1.4l3.3-3.2C17.9 1.1 15.2 0 12 0 7.5 0 3.5 2.6 1.4 6.7l3.8 2.9c1-2.9 3.7-4.9 6.8-4.9z"/></svg>
+        Continue with Google
+      </button>
+
+      <div class="divider">or with email</div>
+
+      <div class="tabs">
+        <button type="button" id="tab-in" class="active">Sign in</button>
+        <button type="button" id="tab-up">Create account</button>
+      </div>
+
+      <form id="email-form">
+        <label for="au-email">Email</label>
+        <input id="au-email" type="email" autocomplete="username" placeholder="you@example.com" required />
+        <label for="au-pass">Password</label>
+        <input id="au-pass" type="password" autocomplete="current-password" placeholder="••••••••" required />
+        <button class="auth-text-link" id="auth-forgot-password" type="button">Forgot password?</button>
+
+        <button class="btn primary block" id="email-submit" type="submit" style="margin-top:20px;">Sign in</button>
+      </form>
+      </div>
+
+      <section id="auth-recovery" class="auth-recovery" hidden aria-labelledby="auth-recovery-title">
+        <h2 id="auth-recovery-title" tabindex="-1">Reset your password</h2>
+        <p class="auth-recovery-copy">Enter the email address on your Hive account. We’ll email you a one-time code.</p>
+        <label for="auth-recovery-email">Email</label>
+        <input id="auth-recovery-email" type="email" autocomplete="email" placeholder="you@example.com" required />
+        <button class="btn primary block" id="auth-recovery-send" type="button">Email me a code</button>
+        <p id="auth-recovery-hint" class="auth-recovery-hint">The email can take a few minutes. If you don’t see it, check your spam or junk folder.</p>
+        <form id="auth-recovery-form" hidden>
+          <label for="auth-recovery-code">Email code</label>
+          <input id="auth-recovery-code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{4,12}" maxlength="12" required />
+          <label for="auth-recovery-new-password">New password</label>
+          <input id="auth-recovery-new-password" type="password" autocomplete="new-password" minlength="8" required />
+          <label for="auth-recovery-confirm-password">Confirm new password</label>
+          <input id="auth-recovery-confirm-password" type="password" autocomplete="new-password" minlength="8" required />
+          <button class="btn primary block" id="auth-recovery-submit" type="submit">Verify code and change password</button>
+        </form>
+        <button class="auth-text-link auth-back-link" id="auth-back-to-signin" type="button">Back to sign in</button>
+      </section>
+      <p id="auth-msg" role="status" aria-live="polite"></p>
+      <p id="desktop-handoff" role="status" aria-live="polite" hidden>
+        Signing in to the Hive app… If it doesn’t open, <a id="desktop-app-link" href="#">click here to open Hive</a>.
+      </p>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+(function () {
+  var SB = window.hiveSupabase || null;
+
+  var query = new URLSearchParams(window.location.search);
+  var mode = 'in';
+  var authPending = false;
+  var tabIn = document.getElementById('tab-in');
+  var tabUp = document.getElementById('tab-up');
+  var title = document.getElementById('auth-title');
+  var sub = document.getElementById('auth-sub');
+  var submit = document.getElementById('email-submit');
+  var msgBox = document.getElementById('auth-msg');
+  var entry = document.getElementById('auth-entry');
+  var recovery = document.getElementById('auth-recovery');
+  var forgotPassword = document.getElementById('auth-forgot-password');
+  var recoveryEmail = document.getElementById('auth-recovery-email');
+  var recoveryForm = document.getElementById('auth-recovery-form');
+
+  function msg(text, cls) {
+    msgBox.textContent = text || '';
+    msgBox.className = cls || '';
+  }
+  function nextUrl() {
+    var next = query.get('next');
+    if (!next) {
+      try { next = sessionStorage.getItem('hive_auth_next'); sessionStorage.removeItem('hive_auth_next'); } catch (e) {}
+    }
+    return next && next.charAt(0) === '/' && next.charAt(1) !== '/' ? next : '/profile';
+  }
+  function setMode(value, keepMessage) {
+    mode = value;
+    tabIn.classList.toggle('active', value === 'in');
+    tabUp.classList.toggle('active', value === 'up');
+    title.textContent = value === 'in' ? 'Welcome back' : 'Create your account';
+    sub.textContent = value === 'in' ? 'Sign in to manage your Hive account.' : 'Create an account for Hive release and plan updates.';
+    submit.textContent = value === 'in' ? 'Sign in' : 'Create account';
+    forgotPassword.hidden = value !== 'in';
+    if (!keepMessage) msg('');
+  }
+  tabIn.addEventListener('click', function () { setMode('in'); });
+  tabUp.addEventListener('click', function () { setMode('up'); });
+  setMode(query.get('mode') === 'signup' ? 'up' : 'in');
+
+  forgotPassword.addEventListener('click', function () {
+    recoveryEmail.value = document.getElementById('au-email').value.trim();
+    entry.hidden = true;
+    recovery.hidden = false;
+    document.getElementById('auth-recovery-title').focus();
+    msg('');
+  });
+  document.getElementById('auth-back-to-signin').addEventListener('click', function () {
+    recovery.hidden = true;
+    entry.hidden = false;
+    msg('');
+  });
+  document.getElementById('auth-recovery-send').addEventListener('click', async function () {
+    var button = this;
+    var email = recoveryEmail.value.trim();
+    if (!email) { msg('Enter the email address for your Hive account.', 'err'); recoveryEmail.focus(); return; }
+    if (!recoveryEmail.checkValidity()) { recoveryEmail.reportValidity(); return; }
+    if (!SB) { msg('Password recovery is offline right now.', 'err'); return; }
+    button.disabled = true;
+    button.textContent = 'Sending code…';
+    msg('Requesting a recovery code…');
+    try {
+      var response = await fetch('https://nqkmnmwbmikbgopwkvse.supabase.co/functions/v1/password-reset', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'apikey': 'sb_publishable_p5TvTFyNO0-kS5yUQSkRXw_GBSsHec4' },
+        body: JSON.stringify({ email: email })
+      });
+      if (!response.ok) throw new Error('The code could not be sent right now. Please try again in a minute.');
+      recoveryForm.hidden = false;
+      msg('If this account can receive recovery mail, a code is on its way. Check your inbox and spam or junk folder.', 'ok');
+    } catch (err) {
+      msg(err.message || 'The code could not be sent. Please try again.', 'err');
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Resend code';
+    }
+  });
+  recoveryForm.addEventListener('submit', async function (event) {
+    event.preventDefault();
+    var button = document.getElementById('auth-recovery-submit');
+    var newPassword = document.getElementById('auth-recovery-new-password').value;
+    var confirmPassword = document.getElementById('auth-recovery-confirm-password').value;
+    if (newPassword.length < 8 || newPassword !== confirmPassword) {
+      msg('Use at least 8 characters and make both new passwords match.', 'err');
+      return;
+    }
+    if (!SB) { msg('Password recovery is offline right now.', 'err'); return; }
+    button.disabled = true;
+    button.textContent = 'Verifying code…';
+    msg('Checking your recovery code…');
+    try {
+      var recovered = await SB.auth.verifyOtp({
+        email: recoveryEmail.value.trim(),
+        token: document.getElementById('auth-recovery-code').value.trim(),
+        type: 'recovery'
+      });
+      if (recovered.error) throw new Error('That code is invalid or expired. Request a new one and try again.');
+      var changed = await SB.auth.updateUser({ password: newPassword });
+      if (changed.error) throw changed.error;
+      msg('Password changed. You’re signed in…', 'ok');
+      var session = recovered.data && recovered.data.session;
+      if (!session) {
+        var current = await SB.auth.getSession();
+        session = current.data && current.data.session;
+      }
+      if (session && window.hiveFinishDesktopLogin && window.hiveFinishDesktopLogin(session)) return;
+      window.location.href = nextUrl();
+    } catch (err) {
+      msg(err.message || 'Could not reset the password. Request a new code and try again.', 'err');
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Verify code and change password';
+    }
+  });
+
+  document.querySelectorAll('a[href]').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      if (!authPending) return;
+      var href = link.getAttribute('href') || '';
+      if (!href || href.charAt(0) === '#' || link.target === '_blank' || link.hasAttribute('download')) return;
+      event.preventDefault();
+      msg('Finishing sign in…');
+    });
+  });
+
+  document.getElementById('google-btn').addEventListener('click', async function () {
+    if (!SB) { msg('Sign-in is offline right now.', 'err'); return; }
+    authPending = true;
+    msg('Opening Google…');
+    try {
+      try { if (query.get('next')) sessionStorage.setItem('hive_auth_next', query.get('next')); } catch (e) {}
+      if (query.get('desktop') === '1' && query.get('proto') === '2') {
+        try { sessionStorage.setItem('hive_desktop_login', '1'); } catch (e) {}
+      }
+      var result = await SB.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: 'https://hivetools.pro/auth?mode=oauth' } });
+      if (result.error) { authPending = false; msg(result.error.message, 'err'); }
+    } catch (err) {
+      authPending = false;
+      msg(err.message || 'Could not open Google sign-in.', 'err');
+    }
+  });
+
+  document.getElementById('email-form').addEventListener('submit', async function (event) {
+    event.preventDefault();
+    if (submit.disabled) return;
+    if (!SB) { msg('Sign-in is offline right now.', 'err'); return; }
+    var email = document.getElementById('au-email').value.trim();
+    var password = document.getElementById('au-pass').value;
+    if (!email || !password) { msg('Enter email and password.', 'err'); return; }
+    authPending = true;
+    submit.disabled = true;
+    try {
+      if (mode === 'in') {
+        msg('Signing in…');
+        var result = await SB.auth.signInWithPassword({ email: email, password: password });
+        if (result.error) throw result.error;
+        var session = result.data && result.data.session;
+        if (!session) {
+          var stored = await SB.auth.getSession();
+          session = stored.data && stored.data.session;
+        }
+        if (!session) throw new Error('Sign-in finished without saving a session. Please try again.');
+        if (window.hiveFinishDesktopLogin && window.hiveFinishDesktopLogin(session)) return;
+        window.location.href = nextUrl();
+        return;
+      }
+      if (password.length < 6) throw new Error('Password needs 6+ characters.');
+      msg('Creating account…');
+      var signup = await SB.auth.signUp({ email: email, password: password });
+      if (signup.error) throw signup.error;
+      if (!signup.data.session) {
+        authPending = false;
+        submit.disabled = false;
+        setMode('in', true);
+        msg('Your account is ready. Buddy, voice, and PC actions are not available on the website.', 'ok');
+        return;
+      }
+      if (window.hiveFinishDesktopLogin && window.hiveFinishDesktopLogin(signup.data.session)) return;
+      window.location.href = nextUrl();
+    } catch (err) {
+      authPending = false;
+      submit.disabled = false;
+      msg(err.message || (mode === 'in' ? 'Sign-in failed.' : 'Account creation failed.'), 'err');
+    }
+  });
+
+  if (query.get('mode') === 'oauth') {
+    var oauthError = query.get('error_description') || query.get('error');
+    if (oauthError) msg(oauthError, 'err');
+    else msg('Finishing sign in…');
+  }
+})();
+</script>
+
+
+<script>
+/* Hive shared chrome — scroll progress, back-to-top, scroll reveal, nav elevation.
+   Guarded so it can sit on every page without double-binding. */
+(function () {
+  if (window.__hiveChrome) return;
+  window.__hiveChrome = true;
+  var prog = document.getElementById('scroll-progress');
+  var toTop = document.getElementById('to-top');
+  var nav = document.getElementById('site-nav');
+  var ticking = false;
+  function onScroll() {
+    var h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var p = h > 0 ? (document.documentElement.scrollTop || 0) / h : 0;
+    if (prog) { prog.style.transform = 'scaleX(' + p + ')'; prog.setAttribute('aria-valuenow', Math.round(p * 100)); }
+    if (toTop) toTop.classList.toggle('show', p > 0.25);
+    if (nav) nav.classList.toggle('scrolled', (document.documentElement.scrollTop || 0) > 12);
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
+  }, { passive: true });
+  onScroll();
+  if (toTop) toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+  var els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(function (el) { el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
+</div></main><footer class="footer-glow relative mt-24 border-t border-line"><div class="wrap grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4"><div><div class="flex items-center gap-2.5 font-display text-lg font-bold text-text"><img src="/hive_symbol.png" alt="" width="26" height="26" class="h-[26px] w-auto object-contain"> Hive</div><p class="mt-3 max-w-xs text-sm text-dim">The desktop AI that does things. By <strong class="text-text">Apis</strong>.</p><a href="/download" class="btn btn-ghost mt-6 !min-h-9 !px-4 text-xs">Early access</a></div><div><h4 class="mb-3 text-xs font-semibold uppercase tracking-[.16em] text-dim">Product</h4><ul class="space-y-0.5 text-sm"><li><a href="/#features" class="-my-1 inline-flex min-h-10 items-center break-words py-2 text-soft/80 transition hover:text-honey-2">Features</a></li><li><a href="/#safety" class="-my-1 inline-flex min-h-10 items-center break-words py-2 text-soft/80 transition hover:text-honey-2">Safety</a></li><li><a href="/use-cases" class="-my-1 inline-flex min-h-10 items-center break-words py-2 text-soft/80 transition hover:text-honey-2">Use cases</a></li><li><a href="/pricing" class="-my-1 inline-flex min-h-10 items-center break-words py-2 text-soft/80 transition hover:text-honey-2">Pricing</a></li></ul></div><div><h4 class="mb-3 text-xs font-semibold uppercase tracking-[.16em] text-dim">Support</h4><ul class="space-y-0.5 text-sm"><li><a href="mailto:apis.new.world@gmail.com" class="-my-1 inline-flex min-h-10 items-center break-words py-2 text-soft/80 transition hover:text-honey-2">apis.new.world@gmail.com</a></li><li><a href="https://discord.gg/jN3MxRqvsV" class="-my-1 inline-flex min-h-10 items-center break-words py-2 text-soft/80 transition hover:text-honey-2" target="_blank" rel="noopener noreferrer">Discord community &amp; tickets</a></li><li><a href="https://x.com/RoarDEV2014" class="-my-1 inline-flex min-h-10 items-center break-words py-2 text-soft/80 transition hover:text-honey-2" target="_blank" rel="noopener noreferrer">Hive on X</a></li><li><a href="/docs" class="-my-1 inline-flex min-h-10 items-center break-words py-2 text-soft/80 transition hover:text-honey-2">Docs</a></li></ul></div><div><h4 class="mb-3 text-xs font-semibold uppercase tracking-[.16em] text-dim">Company</h4><ul class="space-y-0.5 text-sm"><li><a href="/#team" class="-my-1 inline-flex min-h-10 items-center break-words py-2 text-soft/80 transition hover:text-honey-2">About Apis</a></li><li><a href="/changelog" class="-my-1 inline-flex min-h-10 items-center break-words py-2 text-soft/80 transition hover:text-honey-2">Changelog</a></li><li><a href="/docs#privacy" class="-my-1 inline-flex min-h-10 items-center break-words py-2 text-soft/80 transition hover:text-honey-2">Privacy</a></li><li><a href="/docs#terms" class="-my-1 inline-flex min-h-10 items-center break-words py-2 text-soft/80 transition hover:text-honey-2">Terms</a></li></ul></div></div><div class="wrap flex flex-col gap-2 border-t border-line py-6 text-xs text-dim sm:flex-row sm:justify-between"><span>© 2026 Apis. All rights reserved.</span><span>Windows 10 / 11</span></div></footer><script type="module">var e=new IntersectionObserver(t=>{for(let n of t)n.isIntersecting&&(n.target.classList.add(`is-in`),e.unobserve(n.target))},{rootMargin:`0px 0px -10% 0px`});document.querySelectorAll(`[data-reveal]`).forEach(t=>e.observe(t));var t=document.getElementById(`progress`),n=document.getElementById(`glow`),r=-999,i=-999,a=!1,o=()=>{let e=document.documentElement;t.style.transform=`scaleX(${e.scrollTop/Math.max(1,e.scrollHeight-e.clientHeight)})`,n.style.transform=`translate(${r}px, ${i}px)`,a=!1},s=()=>{a||(a=!0,requestAnimationFrame(o))};addEventListener(`scroll`,s,{passive:!0}),matchMedia(`(pointer: fine)`).matches&&addEventListener(`pointermove`,e=>{r=e.clientX,i=e.clientY,s()},{passive:!0}),o();</script></body></html>
