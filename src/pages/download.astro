@@ -18,6 +18,26 @@ import PlatformDownload from '../components/PlatformDownload.astro';
       <div class="relative mt-6 rounded-2xl border border-line bg-panel-2/70 p-4 text-left text-sm text-dim">
         <strong class="text-text">Before you install</strong><br />Windows may warn about an unknown publisher. Hive Design and connectors are live. Paid plans and checkout are not open yet. Buddy is coming soon.
       </div>
+      <section class="relative mt-6 rounded-2xl border border-line bg-panel-2/70 p-5 text-left text-sm text-dim" aria-labelledby="smartscreen-title">
+        <h2 id="smartscreen-title" class="text-base font-semibold text-text">"Windows protected your PC" warning?</h2>
+        <p class="mt-2">This shows for new apps without a paid code-signing certificate. Hive is safe to run. Steps:</p>
+        <ol class="mt-4 flex flex-col gap-5">
+          <li>
+            <p><span class="font-semibold text-text">1.</span> Click <mark class="hl">More info</mark> under the message.</p>
+            <div class="smart-shot">
+              <img src="/help/smartscreen-1.png" alt="Windows SmartScreen dialog with the More info link" width="527" height="491" loading="lazy" />
+              <span class="ring" style="left:9%;top:25%;"></span>
+            </div>
+          </li>
+          <li>
+            <p><span class="font-semibold text-text">2.</span> Click <mark class="hl">Run anyway</mark>. It appears after More info.</p>
+            <div class="smart-shot">
+              <img src="/help/smartscreen-2.png" alt="SmartScreen dialog showing the Run anyway button" width="517" height="484" loading="lazy" />
+              <span class="ring" style="left:58%;top:89%;"></span>
+            </div>
+          </li>
+        </ol>
+      </section>
       <div class="relative mt-6 flex flex-col justify-center gap-3 sm:flex-row">
         <a class="btn btn-ghost" href="/changelog">Changelog</a>
         <a class="btn btn-ghost" href={DISCORD} target="_blank" rel="noopener noreferrer">Join the community</a>
@@ -25,3 +45,16 @@ import PlatformDownload from '../components/PlatformDownload.astro';
     </div>
   </section>
 </Base>
+
+<style>
+  .hl { background: rgba(242, 193, 78, .25); color: #fde68a; padding: 0 4px; border-radius: 4px; font-weight: 600; }
+  .smart-shot { position: relative; margin-top: 10px; border-radius: 10px; overflow: hidden; border: 1px solid #1f2937; }
+  .smart-shot img { display: block; width: 100%; height: auto; }
+  .ring {
+    position: absolute; width: 96px; height: 34px; transform: translate(-6%, -50%);
+    border: 3px solid #facc15; border-radius: 999px; box-shadow: 0 0 0 3px rgba(250, 204, 21, .25);
+    pointer-events: none; animation: ring-pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes ring-pulse { 0%, 100% { box-shadow: 0 0 0 3px rgba(250, 204, 21, .25); } 50% { box-shadow: 0 0 0 7px rgba(250, 204, 21, .1); } }
+  @media (prefers-reduced-motion: reduce) { .ring { animation: none; } }
+</style>
