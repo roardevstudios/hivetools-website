@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { DISCORD } from '../lib/site';
+import PlatformDownload from '../components/PlatformDownload.astro';
 ---
 <Base title="Download Hive release" description="Download Hive release for Windows. Free tier, no card needed.">
   <section class="wrap grid min-h-[85dvh] place-items-center pt-28 pb-10">
@@ -11,7 +12,7 @@ import { DISCORD } from '../lib/site';
       <h1 class="relative mt-4 text-3xl font-bold sm:text-5xl">Download Hive release</h1>
       <p class="lead relative mt-5">Free tier, no card needed. Windows 10 and 11.</p>
       <div class="relative mx-auto mt-8 flex max-w-lg flex-col items-center gap-3">
-        <a class="btn btn-primary w-full justify-center" href="https://github.com/Hive-AI-APP/Hive-Public-Hive/releases/download/v0.0.1.1/Hive-Setup.exe" rel="noopener noreferrer">Download for Windows (127 MB)</a>
+        <PlatformDownload />
         <a class="text-sm text-dim underline" href="https://github.com/Hive-AI-APP/Hive-Public-Hive/releases/tag/v0.0.1.1" target="_blank" rel="noopener noreferrer">Release notes on GitHub</a>
       </div>
       <div class="relative mt-6 rounded-2xl border border-line bg-panel-2/70 p-4 text-left text-sm text-dim">
