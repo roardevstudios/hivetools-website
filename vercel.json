@@ -71,7 +71,7 @@
   "rewrites": [
     {
       "source": "/downloads/Hive-Setup.exe",
-      "destination": "https://github.com/Hive-AI-APP/Hive-Public-Hive/releases/download/v0.0.1.1/Hive-Setup.exe"
+      "destination": "https://github.com/Hive-AI-APP/Hive-Public-Hive/releases/download/v0.0.1.1/Hive-Setup-v0.0.1.1.exe"
     }
   ]
 }
