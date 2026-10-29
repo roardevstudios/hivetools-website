@@ -25,9 +25,9 @@ export const docGroups: DocGroup[] = [
       },
       {
         id: 'get-hive', title: 'Download & Install', plan: 'Planned',
-        summary: 'The Hive v0.0.1 installer is on the download page.',
+        summary: 'The Hive release installer is on the download page.',
         content: `<h3>Release status</h3>
-          <p>There is no public installer download at this time. Hive v0.0.1 has no posted release date. Check the <a href="/changelog">changelog</a> for updates.</p>`,
+          <p>There is no public installer download at this time. Hive release has no posted release date. Check the <a href="/changelog">changelog</a> for updates.</p>`,
       },
     ],
   },
@@ -52,7 +52,7 @@ export const docGroups: DocGroup[] = [
         id: 'buddy', title: 'Buddy', plan: 'Max',
         summary: 'Buddy is a planned Max desktop companion.',
         content: `<h3>Buddy in the app</h3>
-          <p>Buddy is planned for Max. It is not available while v0.0.1 is unposted. In the desktop app, Buddy is meant to hide when Hive hides and return when Hive is shown.</p>`,
+          <p>Buddy is planned for Max. It is not available while the release is unposted. In the desktop app, Buddy is meant to hide when Hive hides and return when Hive is shown.</p>`,
       },
       {
         id: 'notch', title: 'Notch & hotkeys', plan: 'Max',
@@ -141,7 +141,7 @@ export const docGroups: DocGroup[] = [
       {
         id: 'faq', title: 'FAQ',
         summary: 'Answers about supported platform, availability, and account data.',
-        content: `<details class="docs-faq"><summary>Windows only?</summary><p>Windows 10/11 is the planned platform. The click and type engine is Windows-native. It is not available while v0.0.1 is unposted.</p></details>
+        content: `<details class="docs-faq"><summary>Windows only?</summary><p>Windows 10/11 is the planned platform. The click and type engine is Windows-native. It is not available while the release is unposted.</p></details>
           <details class="docs-faq"><summary>Is Hive free?</summary><p>Hive Free is planned with its published daily limits. Paid plans are monthly, but checkout is not open and the Windows installer is on the download page.</p></details>
           <details class="docs-faq"><summary>Where is my data?</summary><p>Chats stay on the device. This site does not run prompts. Account sign-in and profile details are handled on this website.</p></details>
           <details class="docs-faq"><summary>Where is Buddy?</summary><p>Buddy is planned for Max. It is not on this website. In the desktop app, Buddy is meant to hide when Hive hides and return when Hive is shown.</p></details>`,

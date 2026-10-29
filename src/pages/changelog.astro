@@ -3,10 +3,10 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import { DISCORD } from '../lib/site';
 
-const release = { version: 'v0.0.1', title: 'Hive v0.0.1 for Windows', date: 'Available now' };
+const release = { version: 'Release', title: 'Hive release for Windows', date: 'Available now' };
 ---
 <Base title="Hive changelog and release status" description="Hive release notes and public release status.">
-  <PageHero eyebrow="Release updates" title="Hive release notes." lead="Hive v0.0.1 is available for Windows on the download page.">
+  <PageHero eyebrow="Release updates" title="Hive release notes." lead="Hive release is available for Windows on the download page.">
     <div class="mt-8 flex flex-col gap-3 sm:flex-row">
       <a class="btn btn-primary" href={DISCORD} target="_blank" rel="noopener noreferrer">Join the community</a>
       <a class="btn btn-ghost" href="/download">Release status</a>
