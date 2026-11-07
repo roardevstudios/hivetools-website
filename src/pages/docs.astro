@@ -9,12 +9,12 @@ const related = (section: (typeof sections)[number]) => {
   return { previous: sections[index - 1], next: sections[index + 1] };
 };
 ---
-<Base title="Hive Docs — overview" description="Planned Hive app workflows, plan availability, account help, and release status.">
+<Base title="Hive Docs — overview" description="Hive v0.0.1.1 for Windows: what the installer includes, plan catalog, account help, and known limits.">
   <div class="wrap docs-page">
     <header class="docs-intro">
       <span class="eyebrow">Documentation</span>
       <h1>Hive documentation</h1>
-      <p>Hive release is not ready to download. This guide describes planned app workflows and their plan availability; the website does not run them.</p>
+      <p>Hive v0.0.1.1 is ready to download for Windows. This guide describes that installer. The website does not run prompts or control your computer.</p>
     </header>
 
     <div class="docs-mobile-bar" id="docs-mobile-bar">
@@ -52,7 +52,7 @@ const related = (section: (typeof sections)[number]) => {
       </aside>
 
       <article class="docs-article" id="docs-article">
-        <p class="docs-installer-callout">No installer is posted. This guide describes the planned Windows app.</p>
+        <p class="docs-installer-callout">The Windows installer is Hive-Setup-v0.0.1.1.exe on the <a href="/download">download page</a>. It includes chat, cited research, and PC actions with Allow or Deny. Buddy is not in this installer. Paid checkout is closed. Windows may warn about an unknown publisher because there is no code-signing certificate.</p>
         {docGroups.filter((group) => group.title !== 'Legal').map((group) => group.items.map((section) => {
           const { previous, next } = related(section);
           return <DocsSection section={section} previous={previous} next={next} />;

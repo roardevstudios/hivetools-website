@@ -15,13 +15,15 @@ const featureCards = [...planCatalog.features.filter((feature) => !['cloud', 'ba
   plan: levelNames[feature.from ?? 'free'],
   description: feature.id === 'tokens' ? '25,000 chat tokens per day on Hive Free.'
     : feature.id === 'voice' ? `${feature.values[0]} voice sessions per day on Hive Free.`
-    : feature.id === 'research' ? 'Cited web research is planned from Pro.'
-    : feature.id === 'pc' ? 'PC actions require an Allow or Deny decision; destructive commands are blocked.'
-    : feature.id === 'swarm' ? 'Scout, Hive, and Pulse work together. Critic reviews the answer. Sentry watches tool calls.'
-    : feature.id === 'buddy' ? 'Buddy and the desktop notch are planned from Max.'
-    : feature.id === 'models' ? 'Qwen is planned for Pro; Max runs Nemotron with top priority.'
-    : feature.id === 'tools' ? 'Standard agent tools are planned from Pro.'
-    : 'Core chat workspace is planned across all plans.',
+    : feature.id === 'chat' ? 'Core chat is in the Windows installer, Hive-Setup-v0.0.1.1.'
+    : feature.id === 'research' ? 'Cited web research is in this installer. It is not a future plan item.'
+    : feature.id === 'pc' ? 'PC actions in this installer ask for Allow or Deny. Destructive commands are blocked.'
+    : feature.id === 'swarm' ? 'Scout, Hive, and Pulse work together in this installer. Critic reviews the answer. Sentry watches tool calls.'
+    : feature.id === 'buddy' ? 'Buddy and the desktop notch are not in this installer.'
+    : feature.id === 'models' ? 'The plan catalog lists Qwen on Pro and Nemotron on Max. Paid checkout is closed, so this installer does not unlock those paid models.'
+    : feature.id === 'tools' ? 'Standard agent tools are in this installer, together with chat and cited research.'
+    : feature.id === 'support' ? 'Priority support is a Max catalog item. Checkout is closed, so it is not part of this installer.'
+    : feature.home,
 })), {
   icon: 'connectors' as IconName,
   title: 'Connectors for your tools',
@@ -35,25 +37,53 @@ const featureCards = [...planCatalog.features.filter((feature) => !['cloud', 'ba
 }];
 const faq = [
   ['Is Hive available to download?', 'Yes. Download the Windows installer from the download page.'],
-  ['What does Hive Free include?', 'The planned Free tier includes 25,000 chat tokens per day, 5 voice sessions per day, standard models, and core chat.'],
-  ['Are paid plans one-time purchases?', 'No. Pro and Max are planned monthly subscriptions. Checkout is not open yet.'],
+  ['What does Hive Free include?', 'The installer includes Hive Free: core chat, cited research, and PC actions with Allow or Deny. The plan catalog lists 25,000 chat tokens per day and 5 voice sessions per day. Paid checkout is closed.'],
+  ['Are paid plans one-time purchases?', 'No. Pro and Max are monthly subscriptions. Checkout is not open yet.'],
   ['Where do chats and prompts go?', 'Chats stay on your device. This website does not run prompts. Model requests are sent to the provider selected in the app.'],
 ];
 ---
 <Base title="Hive — research, agents, and PC control in one AI workspace">
   <section class="relative overflow-hidden pt-36 pb-16 sm:pt-44">
-    <div aria-hidden="true" class="absolute left-1/2 top-0 -z-10 h-[420px] w-[700px] -translate-x-1/2 rounded-full opacity-60 blur-3xl md:h-[620px] md:w-[1100px]" style="background: radial-gradient(closest-side, rgb(240 138 36 / .35), transparent), radial-gradient(closest-side at 80% 40%, rgb(29 155 240 / .12), transparent);"></div>
     <div class="wrap grid items-center gap-12 lg:grid-cols-[1.15fr_.85fr]">
       <div class="text-center lg:text-left">
         <span class="hero-in inline-flex items-center gap-2 rounded-full border border-line bg-panel/70 px-3 py-1.5 text-xs text-soft backdrop-blur"><span class="live-dot"></span> Hive release · Windows installer</span>
-        <h1 class="mt-6 text-[2.75rem] font-bold leading-[1.02] sm:text-6xl lg:text-7xl" id="hero-title"><span class="word">One</span> <span class="word">AI</span> <span class="word">workspace</span><br class="hidden sm:block" /><span class="word text-gradient">for</span> <span class="word text-gradient">research</span> <span class="word text-gradient">and</span> <span class="word text-gradient">your PC.</span></h1>
+        <h1 class="mt-6 text-[2.75rem] font-normal leading-[1.02] tracking-[-.05em] sm:text-6xl lg:text-7xl" id="hero-title"><span class="word">One</span> <span class="word">AI</span> <span class="word">workspace</span><br class="hidden sm:block" /><span class="word text-gradient">for</span> <span class="word text-gradient">research</span> <span class="word text-gradient">and</span> <span class="word text-gradient">your PC.</span></h1>
         <p class="hero-in lead mx-auto mt-6 max-w-xl lg:mx-0">Hive finds sourced answers, works with a team of AI agents, and asks before it touches your computer. Free tier, no card needed.</p>
-        <ul class="hero-in mt-7 flex flex-wrap justify-center gap-2 lg:justify-start" aria-label="Core capabilities">
-          <li class="chip">Cited research</li><li class="chip">Agent crew</li><li class="chip">PC actions with approval</li><li class="chip">Voice</li>
+        <ul class="hero-in mt-7 grid grid-cols-2 gap-x-5 gap-y-2 text-left font-mono text-[.72rem] tracking-wide text-dim sm:flex sm:flex-wrap sm:justify-center lg:justify-start" aria-label="Core capabilities">
+          <li>[+] Cited research</li><li>[+] Agent crew</li><li>[+] PC actions with approval</li><li>[+] Voice</li>
         </ul>
-        <div class="hero-in mt-8 flex flex-col items-center lg:items-start"><a class="btn btn-primary" href="/download">Download for Windows</a><div class="mt-4 flex gap-4 text-sm"><a href="#tour" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">Watch the tour <Icon name="arrow-down" size={14} /></a><a href={DISCORD} target="_blank" rel="noopener noreferrer" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">Discord <Icon name="arrow-up-right" size={14} /></a><a href={X_URL} target="_blank" rel="noopener noreferrer" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">X <Icon name="arrow-up-right" size={14} /></a></div></div>
+        <div class="hero-in mt-8 flex flex-col items-center lg:items-start"><a class="btn btn-primary" href="/download">Download for Windows</a><div class="mt-4 flex flex-wrap items-center justify-center gap-3 text-sm lg:justify-start"><a href="#tour" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">Watch the tour <Icon name="arrow-down" size={14} /></a><a href={DISCORD} target="_blank" rel="noopener noreferrer" class="discord-hero-link inline-flex min-h-10 items-center gap-2 rounded-full border border-white/25 bg-[#0a0a0a] px-4 font-medium text-white transition hover:border-white/50 hover:bg-[#171717]"><span aria-hidden="true" class="discord-nav-dot"></span>Join our Discord <Icon name="arrow-up-right" size={14} /></a><a href={X_URL} target="_blank" rel="noopener noreferrer" class="text-soft underline-offset-4 hover:text-honey-2 hover:underline">X <Icon name="arrow-up-right" size={14} /></a></div></div>
       </div>
-      <div class="hero-in relative mx-auto w-64 sm:w-80 lg:w-full lg:max-w-sm" aria-hidden="true"><div class="absolute inset-8 rounded-full bg-honey/30 blur-3xl"></div><img src="/hive-buddy-float.webp" alt="" width="330" height="330" class="animate-float relative w-full drop-shadow-[0_30px_60px_rgba(240,138,36,.35)]" fetchpriority="high" /></div>
+      <div class="hero-in hero-visual relative mx-auto w-full max-w-[29rem] lg:ml-auto" aria-label="Sample Hive workflow: Scout, Hive, and Pulse work together. Critic reviews the answer. Sentry watches tool calls. Buddy is not in this installer.">
+        <div aria-hidden="true" class="hero-aura"></div>
+        <div aria-hidden="true" class="hero-orbit"></div>
+        <article class="hero-workspace relative z-10 overflow-hidden rounded-lg border border-white/15 bg-panel/90 p-4 backdrop-blur sm:p-6">
+          <header class="hero-windowbar flex items-center gap-2 border-b border-white/10 pb-4 font-mono text-[.65rem] uppercase tracking-[.12em] text-dim">
+            <span class="flex gap-1.5" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>Hive / sample workflow</span>
+            <span class="ml-auto rounded-full border border-white/15 px-2 py-1 text-[.58rem] text-soft">Example</span>
+          </header>
+          <div class="hero-request mt-5 rounded-sm border border-white/10 bg-white/[.035] p-4">
+            <span class="font-mono text-[.62rem] uppercase tracking-[.12em] text-honey-2">You asked</span>
+            <p class="mt-2 text-sm leading-relaxed text-text sm:text-base">“Compare these options and show me the sources.”</p>
+          </div>
+          <div class="hero-flow-track mt-6" aria-hidden="true"><span></span></div>
+          <ol class="hero-flow-list mt-3 grid gap-2">
+            <li class="hero-flow-step" style="--step-color:#9bd8c0"><span class="font-mono text-[.6rem] text-dim">01 / SCOUT</span><strong>Find sources</strong></li>
+            <li class="hero-flow-step" style="--step-color:#a0c3ec"><span class="font-mono text-[.6rem] text-dim">02 / HIVE</span><strong>Write clearly</strong></li>
+            <li class="hero-flow-step" style="--step-color:#e8c16a"><span class="font-mono text-[.6rem] text-dim">03 / PULSE</span><strong>Join the draft</strong></li>
+            <li class="hero-flow-step" style="--step-color:#f2a36c"><span class="font-mono text-[.6rem] text-dim">04 / CRITIC</span><strong>Check claims</strong></li>
+            <li class="hero-flow-step" style="--step-color:#c7b8e8"><span class="font-mono text-[.6rem] text-dim">05 / SENTRY</span><strong>Watch tool calls</strong></li>
+          </ol>
+          <div class="hero-workspace-foot mt-5 flex items-center gap-3 border-t border-white/10 pt-4 text-xs text-soft">
+            <span class="hero-approval-mark grid size-8 shrink-0 place-items-center rounded-full border border-honey/30 bg-honey/10 text-honey-2"><Icon name="shield" size={16} /></span>
+            <span>PC actions wait for your approval. Buddy is not in this installer.</span>
+          </div>
+        </article>
+        <div class="hero-float-chip absolute -bottom-5 -left-2 z-20 flex items-center gap-2 rounded-full border border-white/15 bg-[#171717] px-3 py-2 text-xs text-soft shadow-xl sm:-left-6">
+          <span class="hero-chip-dot"></span> More than one agent. One clear answer.
+        </div>
+      </div>
     </div>
   </section>
 
@@ -68,22 +98,45 @@ const faq = [
   <section id="demo-section" class="wrap py-16"><div class="grid items-center gap-12 lg:grid-cols-2"><div><SectionHead eyebrow="Scripted preview" title="A little work, handled together." lead="Watch a preview of the app. This demonstration does not submit prompts or control your PC." /></div><DemoChat /></div></section>
 
   <section id="features" class="wrap py-24">
-    <SectionHead eyebrow="What you get" title="Everything in one window." lead="Planned Hive features, including future integrations. Availability details may change before release." />
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{featureCards.map((feature, i) => <article data-reveal style={`--i:${i % 3}`} class="card glass lift p-6"><div class="flex items-center justify-between"><span class="grid size-11 place-items-center rounded-xl border border-honey/25 bg-honey/10 text-honey-2"><Icon name={feature.icon} size={22} /></span><span class="eyebrow">{feature.plan}</span></div><h3 class="mt-5 text-lg font-semibold">{feature.title}</h3><p class="mt-2 text-sm leading-relaxed text-dim">{feature.description}</p></article>)}</div>
+    <SectionHead eyebrow="What you get" title="Everything in one window." lead="Hive-Setup-v0.0.1.1 includes core chat, cited research, agent tools, and PC actions with Allow or Deny. Buddy is not in this installer. Paid checkout is closed." />
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{featureCards.map((feature, i) => <article data-reveal style={`--i:${i % 3}`} class="card glass lift p-6"><div class="flex items-center justify-between"><span class="grid size-11 place-items-center rounded-full border border-white/20 bg-white/[.04] text-soft"><Icon name={feature.icon} size={22} /></span><span class="eyebrow">{feature.plan}</span></div><h3 class="mt-5 text-lg font-normal tracking-tight">{feature.title}</h3><p class="mt-2 text-sm leading-relaxed text-dim">{feature.description}</p></article>)}</div>
   </section>
 
-  <section id="hive-design" class="wrap pb-16"><div class="glass relative overflow-hidden p-8 sm:p-12" data-reveal><div aria-hidden="true" class="absolute -right-16 -top-24 size-64 rounded-full bg-honey/15 blur-3xl"></div><div class="relative max-w-3xl"><span class="eyebrow">Live in the Hive app</span><h2 class="h-section mt-4">Meet Hive Design.</h2><p class="lead mt-5">A creative space for your work. Hive Design is live in the Hive app.</p></div></div></section>
+  <section id="hive-design" class="wrap pb-16"><div class="glass relative overflow-hidden p-8 sm:p-12" data-reveal><div class="relative max-w-3xl"><span class="eyebrow">Live in the Hive app</span><h2 class="h-section mt-4">Meet Hive Design.</h2><p class="lead mt-5">A creative space for your work. Hive Design is live in the Hive app.</p></div></div></section>
 
   <section id="safety" class="wrap py-24"><SectionHead eyebrow="Your PC, your call" title="What we can and can’t promise." lead="Permission, data handling, and who builds Hive." />
     <div class="grid gap-4 md:grid-cols-3">
-      <article class="glass p-6"><span class="grid size-11 place-items-center rounded-xl border border-honey/25 bg-honey/10 text-honey-2"><Icon name="shield" size={22} /></span><h3 class="mt-5 text-lg font-semibold">Permission</h3><p class="mt-2 text-sm leading-relaxed text-dim">Every PC action asks for Allow or Deny. Destructive commands are blocked before they reach the screen. Actions are logged locally.</p></article>
-      <article class="glass p-6"><span class="grid size-11 place-items-center rounded-xl border border-honey/25 bg-honey/10 text-honey-2"><Icon name="lock" size={22} /></span><h3 class="mt-5 text-lg font-semibold">Where data lives</h3><p class="mt-2 text-sm leading-relaxed text-dim">Chats stay on your device; this site does not run prompts. Account and usage counters are handled by Supabase. Model requests go to the provider selected in the app.</p></article>
-      <article class="glass p-6"><span class="grid size-11 place-items-center rounded-xl border border-honey/25 bg-honey/10 text-honey-2"><Icon name="hex" size={22} /></span><h3 class="mt-5 text-lg font-semibold">Who makes Hive</h3><p class="mt-2 text-sm leading-relaxed text-dim">Apis is an independent studio. Contact <a class="text-honey-2 underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> or join our <a class="text-honey-2 underline" href={DISCORD} target="_blank" rel="noopener noreferrer">Discord</a>.</p></article>
+      <article class="glass p-6"><span class="grid size-11 place-items-center rounded-full border border-white/20 bg-white/[.04] text-soft"><Icon name="shield" size={22} /></span><h3 class="mt-5 text-lg font-normal tracking-tight">Permission</h3><p class="mt-2 text-sm leading-relaxed text-dim">Every PC action asks for Allow or Deny. Destructive commands are blocked before they reach the screen. Actions are logged locally.</p></article>
+      <article class="glass p-6"><span class="grid size-11 place-items-center rounded-full border border-white/20 bg-white/[.04] text-soft"><Icon name="lock" size={22} /></span><h3 class="mt-5 text-lg font-normal tracking-tight">Where data lives</h3><p class="mt-2 text-sm leading-relaxed text-dim">Chats stay on your device; this site does not run prompts. Account and usage counters are handled by Supabase. Model requests go to the provider selected in the app.</p></article>
+      <article class="glass p-6"><span class="grid size-11 place-items-center rounded-full border border-white/20 bg-white/[.04] text-soft"><Icon name="hex" size={22} /></span><h3 class="mt-5 text-lg font-normal tracking-tight">Who makes Hive</h3><p class="mt-2 text-sm leading-relaxed text-dim">Apis is an independent studio. Contact <a class="text-honey-2 underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> or join our <a class="text-honey-2 underline" href={DISCORD} target="_blank" rel="noopener noreferrer">Discord</a>.</p></article>
+    </div>
+  </section>
+
+  <section id="partners" class="wrap py-20 sm:py-28" aria-labelledby="partners-title">
+    <div class="grid gap-8 border-t border-line pt-9 sm:pt-12 lg:grid-cols-[.8fr_1.2fr] lg:items-center lg:gap-16" data-reveal>
+      <div class="max-w-lg">
+        <span class="eyebrow"><span aria-hidden="true">[+]</span>Partners &amp; sponsors</span>
+        <h2 id="partners-title" class="h-section mt-4">Good company.<br class="hidden sm:block" /> Better work.</h2>
+        <p class="lead mt-5">Meet the products and teams we’re glad to work alongside.</p>
+      </div>
+      <article class="lift grid gap-6 rounded-sm border border-line bg-panel p-5 transition sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-8 sm:p-7">
+        <div class="flex min-w-0 items-center gap-5 sm:gap-7">
+          <div class="grid size-24 shrink-0 place-items-center rounded-sm border border-white/10 bg-[#11190f] p-3 sm:size-28 sm:p-4">
+            <img src="/partners/mori-logo.png" alt="Mori" width="260" height="80" loading="lazy" class="h-auto w-full object-contain" />
+          </div>
+          <div class="min-w-0">
+            <span class="eyebrow text-[.65rem] tracking-[.12em]"><span aria-hidden="true">[+]</span>Product partner</span>
+            <h3 class="mt-2 text-2xl font-normal tracking-tight">Mori</h3>
+            <p class="mt-2 max-w-xs text-sm leading-relaxed text-dim">A pixel-cat AI companion for Windows.</p>
+          </div>
+        </div>
+        <a href="https://mori-apis-ai.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-ghost min-h-11 w-full px-4 sm:w-auto" aria-label="Visit Mori's website">Visit Mori <Icon name="arrow-up-right" size={16} /></a>
+      </article>
     </div>
   </section>
 
 
-  <section id="faq" class="wrap py-16"><SectionHead eyebrow="Good to know" title="Hive, clearly explained." lead="A few quick answers about release status, plans, and data." /><div class="divide-y divide-line rounded-3xl border border-line bg-panel/50">{faq.map(([q, a]) => <details class="faq group px-6" data-reveal><summary class="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-4 font-medium text-text">{q}<span class="grid size-8 shrink-0 place-items-center rounded-full border border-line text-honey-2 transition duration-300 group-open:rotate-45">+</span></summary><p class="pb-5 text-dim">{a}</p></details>)}</div></section>
+  <section id="faq" class="wrap py-16"><SectionHead eyebrow="Good to know" title="Hive, clearly explained." lead="A few quick answers about release status, plans, and data." /><div class="divide-y divide-line border-y border-line">{faq.map(([q, a]) => <details class="faq group px-3" data-reveal><summary class="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-4 font-medium text-text">{q}<span aria-hidden="true" class="font-mono text-dim transition group-open:rotate-45">+</span></summary><p class="pb-5 text-dim">{a}</p></details>)}</div></section>
 
   <section id="team" class="wrap py-24 text-center"><div data-reveal><img src="/logohive.png" alt="" width="345" height="452" loading="lazy" class="mx-auto h-16 w-auto" /><span class="eyebrow mt-6">Who we are</span><h2 class="h-section mt-4">Built by Apis.</h2><p class="lead mx-auto mt-5 max-w-2xl">Apis is an independent studio building Hive. Questions? Email <a class="text-honey-2 underline-offset-4 hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a> or ask in the <a class="text-honey-2 underline-offset-4 hover:underline" href={DISCORD} target="_blank" rel="noopener noreferrer">Discord</a>.</p></div></section>
 </Base>
@@ -92,6 +145,33 @@ const faq = [
   .faq summary::-webkit-details-marker { display: none; }
   .faq[open] p { animation: fade .4s var(--ease-spring); }
   @keyframes fade { from { opacity: 0; transform: translateY(-6px); } }
+  .hero-visual { isolation: isolate; padding: 1.5rem .25rem 2rem; }
+  .hero-aura { position: absolute; z-index: -1; inset: 8% 4% 2%; border-radius: 50%; background: radial-gradient(ellipse, rgb(242 138 69 / .2), rgb(124 58 237 / .1) 46%, transparent 72%); filter: blur(22px); animation: aura-breathe 5.5s ease-in-out infinite alternate; }
+  .hero-orbit { position: absolute; z-index: -1; inset: -4% 8%; border: 1px solid rgb(255 255 255 / .07); border-radius: 50%; transform: rotate(-18deg); animation: orbit-drift 28s linear infinite; }
+  .hero-orbit::before, .hero-orbit::after { content: ''; position: absolute; width: 7px; height: 7px; border-radius: 50%; background: #ffc08c; box-shadow: 0 0 18px rgb(255 192 140 / .8); }
+  .hero-orbit::before { top: 16%; left: 18%; }
+  .hero-orbit::after { right: 13%; bottom: 17%; width: 5px; height: 5px; background: #9bd8c0; box-shadow: 0 0 15px rgb(155 216 192 / .7); }
+  .hero-workspace { box-shadow: 0 32px 100px -55px rgb(242 138 69 / .45), 0 18px 50px -40px #000; animation: workspace-enter .8s var(--ease-spring) both; }
+  .hero-windowbar i { display: block; width: 6px; height: 6px; border-radius: 50%; background: #777; }
+  .hero-windowbar i:first-child { background: #f28a45; }
+  .hero-windowbar i:nth-child(2) { background: #e8c16a; }
+  .hero-windowbar i:nth-child(3) { background: #9bd8c0; }
+  .hero-flow-track { height: 3px; }
+  .hero-flow-track span { display: block; height: 3px; border-radius: 4px; background: linear-gradient(90deg, #9bd8c0, #a0c3ec, #e8c16a, #f2a36c, #c7b8e8); transform-origin: left; animation: flow-arrive 1.1s .5s var(--ease-spring) both; }
+  .hero-flow-step { position: relative; display: grid; gap: 7px; min-height: 72px; align-content: start; border: 1px solid rgb(255 255 255 / .09); background: rgb(255 255 255 / .025); padding: 10px 8px; }
+  .hero-flow-step::before { content: ''; position: absolute; top: -4px; left: 8px; width: 7px; height: 7px; border: 1px solid var(--step-color); border-radius: 50%; background: #111; box-shadow: 0 0 12px color-mix(in srgb, var(--step-color) 55%, transparent); }
+  .hero-flow-step strong { color: var(--step-color); font-size: .72rem; font-weight: 500; }
+  .hero-approval-mark { animation: approval-pulse 3.8s 1.4s ease-in-out infinite; }
+  .hero-buddy { animation: float 4.8s ease-in-out infinite; }
+  .hero-chip-dot { width: 7px; height: 7px; flex: 0 0 auto; border-radius: 50%; background: #9bd8c0; box-shadow: 0 0 12px rgb(155 216 192 / .65); }
+  .hero-float-chip { animation: chip-enter .7s .45s var(--ease-spring) both; }
+  @keyframes aura-breathe { from { opacity: .55; transform: scale(.94); } to { opacity: 1; transform: scale(1.04); } }
+  @keyframes orbit-drift { to { transform: rotate(342deg); } }
+  @keyframes workspace-enter { from { opacity: 0; transform: translateY(14px) rotateX(2deg); } to { opacity: 1; transform: translateY(0) rotateX(0); } }
+  @keyframes flow-arrive { from { transform: scaleX(.2); opacity: .4; } to { transform: scaleX(1); opacity: 1; } }
+  @keyframes approval-pulse { 50% { box-shadow: 0 0 0 6px rgb(242 138 69 / .09); } }
+  @keyframes chip-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) { .hero-aura, .hero-orbit, .hero-workspace, .hero-flow-track span, .hero-approval-mark, .hero-buddy, .hero-float-chip { animation: none; } }
 </style>
 
 <script>

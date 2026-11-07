@@ -4,7 +4,7 @@ const path = Astro.url.pathname.replace(/\.html$/, '');
 ---
 <header id="site-nav" class="fixed inset-x-0 top-0 z-50 px-3 pt-3 transition-all duration-500">
   <nav class="nav mx-auto grid h-14 max-w-6xl [grid-template-columns:minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 rounded-2xl border border-transparent px-3 transition-all duration-500" aria-label="Main">
-    <a href="/" class="flex items-center gap-2.5 font-display text-lg font-bold text-text">
+    <a href="/" class="flex items-center gap-2.5 font-display text-lg font-normal tracking-[-.03em] text-text">
       <img src="/hive_symbol.png" alt="" width="30" height="30" class="h-[30px] w-auto object-contain" /> Hive
     </a>
     <div class="col-start-2 hidden items-center justify-center gap-0 lg:flex">
@@ -14,8 +14,9 @@ const path = Astro.url.pathname.replace(/\.html$/, '');
     </div>
     <div class="nav-actions col-start-3 flex items-center justify-self-end gap-2">
       <a id="nav-auth-link" href="/auth" class="hidden shrink-0 whitespace-nowrap text-sm text-dim hover:text-text sm:inline">Sign in</a>
-      <a href={DOWNLOAD_URL} class="btn btn-primary hidden shrink-0 whitespace-nowrap !min-h-9 !px-3 sm:inline-flex">Download</a>
-      <button id="menu-btn" type="button" class="relative grid size-11 place-items-center rounded-xl lg:hidden" aria-label="Open menu" aria-controls="menu" aria-expanded="false">
+      <a href={DISCORD} target="_blank" rel="noopener noreferrer" class="discord-nav-link hidden shrink-0 items-center gap-2 rounded-full border border-white/25 bg-[#0a0a0a] px-4 py-2 text-sm font-medium text-white transition hover:border-white/50 hover:bg-[#171717] sm:inline-flex"><span aria-hidden="true" class="discord-nav-dot"></span>Join Discord <span aria-hidden="true">↗</span></a>
+      <a href={DOWNLOAD_URL} class="btn btn-primary hidden shrink-0 whitespace-nowrap !min-h-11 !px-4 sm:inline-flex">Download</a>
+      <button id="menu-btn" type="button" class="relative grid size-11 place-items-center rounded-full border border-white/20 transition hover:bg-white/[.06] lg:hidden" aria-label="Open menu" aria-controls="menu" aria-expanded="false">
         <span class="bar absolute h-0.5 w-5 -translate-y-1.5 rounded bg-text transition duration-300"></span>
         <span class="bar absolute h-0.5 w-5 translate-y-1.5 rounded bg-text transition duration-300"></span>
       </button>
@@ -33,11 +34,12 @@ const path = Astro.url.pathname.replace(/\.html$/, '');
 </div>
 
 <style>
-  #site-nav.scrolled .nav { border-color: var(--color-line); background: rgb(15 17 22 / .75); backdrop-filter: blur(18px); }
+  #site-nav.scrolled .nav { border-color: rgb(255 255 255 / .16); background: rgb(10 10 10 / .82); backdrop-filter: blur(18px); }
   #menu .menu-link { opacity: 0; transform: translateY(16px); transition: all .5s var(--ease-spring) calc(var(--i) * 45ms); }
   #menu.open .menu-link { opacity: 1; transform: none; }
   #menu-btn[aria-expanded='true'] .bar:first-child { transform: rotate(45deg); }
   #menu-btn[aria-expanded='true'] .bar:last-child { transform: rotate(-45deg); }
+  .discord-nav-dot { width: 7px; height: 7px; border-radius: 50%; background: #dadbdf; box-shadow: 0 0 8px rgb(255 255 255 / .35); }
 </style>
 
 <script>

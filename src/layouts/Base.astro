@@ -22,7 +22,7 @@ const canonical = new URL(canonicalPath, SITE_URL).toString();
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#07080a" />
+    <meta name="theme-color" content="#0a0a0a" />
     {noindex && <meta name="robots" content="noindex" />}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -36,16 +36,13 @@ const canonical = new URL(canonicalPath, SITE_URL).toString();
     <link rel="icon" href="/hive_symbol.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <script is:inline>document.documentElement.classList.add('js')</script>
   </head>
   <body class="min-h-dvh">
     <script is:inline src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
     <script is:inline src="/hive-auth.js"></script>
-    <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 hex-bg"></div>
-    <div aria-hidden="true" id="glow" class="pointer-events-none fixed will-change-transform -z-10 size-[600px] rounded-full opacity-0 transition-opacity duration-700 md:opacity-100"
-      style="background:radial-gradient(circle, rgb(240 138 36 / .10), transparent 65%); left:-300px; top:-300px;"></div>
-    <div aria-hidden="true" id="progress" class="will-change-transform fixed inset-x-0 top-0 z-[60] h-0.5 origin-left scale-x-0 bg-gradient-to-r from-honey-2 to-honey"></div>
+    <div aria-hidden="true" id="progress" class="will-change-transform fixed inset-x-0 top-0 z-[60] h-px origin-left scale-x-0 bg-white/70"></div>
     {!bare && <Nav />}
     <main id="main" class="relative"><ReleaseStatus /><slot /></main>
     {!bare && <Footer />}
@@ -56,19 +53,16 @@ const canonical = new URL(canonicalPath, SITE_URL).toString();
       }, { rootMargin: '0px 0px -10% 0px' });
       document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
 
-      // Scroll progress + cursor glow (rAF-throttled)
+      // Scroll progress
       const bar = document.getElementById('progress')!;
-      const glow = document.getElementById('glow')!;
-      let mx = -999, my = -999, ticking = false;
+      let ticking = false;
       const frame = () => {
         const h = document.documentElement;
         bar.style.transform = `scaleX(${h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight)})`;
-        glow.style.transform = `translate(${mx}px, ${my}px)`;
         ticking = false;
       };
       const req = () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
       addEventListener('scroll', req, { passive: true });
-      if (matchMedia('(pointer: fine)').matches) addEventListener('pointermove', (e) => { mx = e.clientX; my = e.clientY; req(); }, { passive: true });
       frame();
     </script>
   </body>

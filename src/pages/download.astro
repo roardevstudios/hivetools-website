@@ -6,21 +6,20 @@ import PlatformDownload from '../components/PlatformDownload.astro';
 <Base title="Download Hive release" description="Download Hive release for Windows. Free tier, no card needed.">
   <section class="wrap grid min-h-[85dvh] place-items-center pt-28 pb-10">
     <div class="glass relative max-w-2xl overflow-hidden p-8 text-center sm:p-12" data-reveal>
-      <div aria-hidden="true" class="absolute -top-24 left-1/2 size-72 -translate-x-1/2 rounded-full bg-honey/20 blur-3xl"></div>
-      <div aria-hidden="true" class="relative mx-auto grid size-16 place-items-center rounded-2xl border border-honey/40 bg-honey/10 font-display text-2xl text-honey-2">01</div>
+      <div aria-hidden="true" class="relative mx-auto grid size-16 place-items-center rounded-full border border-white/20 bg-white/[.04] font-mono text-sm text-soft">01</div>
       <span class="eyebrow relative mt-6">Windows installer</span>
-      <h1 class="relative mt-4 text-3xl font-bold sm:text-5xl">Download Hive release</h1>
+      <h1 class="relative mt-4 text-3xl font-normal tracking-[-.04em] sm:text-5xl">Download Hive release</h1>
       <p class="lead relative mt-5">Free tier, no card needed. Windows 10 and 11.</p>
       <div class="relative mx-auto mt-8 flex max-w-lg flex-col items-center gap-3">
         <PlatformDownload />
         <a class="text-sm text-dim underline" href="https://github.com/Hive-AI-APP/Hive-Public-Hive/releases/tag/v0.0.1.1" target="_blank" rel="noopener noreferrer">Release notes on GitHub</a>
       </div>
       <div class="relative mt-6 rounded-2xl border border-line bg-panel-2/70 p-4 text-left text-sm text-dim">
-        <strong class="text-text">Before you install</strong><br />Windows may warn about an unknown publisher. Hive Design and connectors are live. Paid plans and checkout are not open yet. Buddy is coming soon.
+        <strong class="text-text">Before you install</strong><br />The installer is Hive-Setup-v0.0.1.1.exe. It includes chat, cited research, agent tools, Hive Design, and connectors. PC actions ask for Allow or Deny. Buddy is not in this installer. Paid checkout is closed. Windows SmartScreen may say the publisher is unknown because there is no code-signing certificate.
       </div>
       <section class="relative mt-6 rounded-2xl border border-line bg-panel-2/70 p-5 text-left text-sm text-dim" aria-labelledby="smartscreen-title">
         <h2 id="smartscreen-title" class="text-base font-semibold text-text">"Windows protected your PC" warning?</h2>
-        <p class="mt-2">This shows for new apps without a paid code-signing certificate. Hive is safe to run. Steps:</p>
+        <p class="mt-2">This shows because Hive has no code-signing certificate, so Windows does not recognize the publisher. Steps:</p>
         <ol class="mt-4 flex flex-col gap-5">
           <li>
             <p><span class="font-semibold text-text">1.</span> Click <mark class="hl">More info</mark> under the message.</p>

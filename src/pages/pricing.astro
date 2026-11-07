@@ -8,9 +8,9 @@ const price = (value: number) => `€${value.toFixed(2)}`;
 
 // Each plan gets its own accent so the cards read as separate tiers.
 const accent: Record<PlanId, string> = {
-  free: '#94a3b8',
-  pro: '#38bdf8',
-  max: '#F5B63B',
+  free: '#85888e',
+  pro: '#c9ced6',
+  max: '#ffffff',
 };
 const tagline: Record<PlanId, string> = {
   free: 'Start here',
@@ -20,20 +20,20 @@ const tagline: Record<PlanId, string> = {
 const includedFeatures = (planId: PlanId) =>
   planCatalog.features.filter((feature) => planIndex(planId) >= planIndex((feature.from ?? 'free') as PlanId));
 ---
-<Base title="Hive — plans and pricing" description="Hive Free, Pro and Max. Planned monthly plans from €2.49 to €22.99. Checkout is not open yet.">
-  <PageHero eyebrow="Plans and pricing" title='Hive plans, <span class="text-gradient">clearly compared.</span>' lead="Three planned tiers: Free, Pro and Max. Features and prices may change before release.">
+<Base title="Hive — plans and pricing" description="Hive Free, Pro and Max. Monthly plans from €4.99 to €22.99. Checkout is not open yet.">
+  <PageHero eyebrow="Plans and pricing" title='Hive plans, <span class="text-gradient">clearly compared.</span>' lead="Hive Free, Pro, and Max. The Windows installer includes Hive Free. Paid checkout is closed.">
     <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><a class="btn btn-primary" href="#plans">Compare plans</a><a class="btn btn-ghost" href="/download">Download for Windows</a></div>
   </PageHero>
 
   <section id="plans" class="wrap">
-    <div class="mx-auto grid max-w-6xl items-stretch gap-5 md:grid-cols-2 xl:grid-cols-4">
+    <div class="mx-auto grid max-w-6xl items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
       {planCatalog.plans.map((plan, index) => {
         const id = plan.id as PlanId;
         const isMax = id === 'max';
         return (
           <article
             data-reveal
-            style={`--i:${index};--accent:${accent[id]};border-color:color-mix(in srgb, ${accent[id]} ${isMax ? '60%' : '28%'}, transparent);${isMax ? 'box-shadow:0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent), 0 24px 60px -24px var(--accent);' : ''}`}
+            style={`--i:${index};--accent:${accent[id]};border-color:color-mix(in srgb, ${accent[id]} ${isMax ? '48%' : '24%'}, transparent);`}
             class:list={['glass relative flex flex-col rounded-3xl border p-7', isMax && 'xl:-translate-y-4']}
           >
             <div class="flex items-center justify-between gap-3">
@@ -87,7 +87,6 @@ const includedFeatures = (planId: PlanId) =>
             <tr class="border-t border-line">
               <th scope="row" class="p-4 font-medium text-text">Billing</th>
               <td class="p-4 text-dim">Free</td>
-              <td class="p-4 text-dim">Monthly</td>
               <td class="p-4 text-dim">Monthly</td>
               <td class="p-4 text-dim">Monthly</td>
             </tr>
