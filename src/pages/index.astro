@@ -15,12 +15,12 @@ const featureCards = [...planCatalog.features.filter((feature) => !['cloud', 'ba
   plan: levelNames[feature.from ?? 'free'],
   description: feature.id === 'tokens' ? '25,000 chat tokens per day on Hive Free.'
     : feature.id === 'voice' ? `${feature.values[0]} voice sessions per day on Hive Free.`
-    : feature.id === 'chat' ? 'Core chat is in the Windows installer, Hive-Setup-v0.0.1.1.'
+    : feature.id === 'chat' ? 'Core chat is in the Windows installer, Hive-Setup-v0.0.2.'
     : feature.id === 'research' ? 'Cited web research is in this installer. It is not a future plan item.'
     : feature.id === 'pc' ? 'PC actions in this installer ask for Allow or Deny. Destructive commands are blocked.'
     : feature.id === 'swarm' ? 'Scout, Hive, and Pulse work together in this installer. Critic reviews the answer. Sentry watches tool calls.'
     : feature.id === 'buddy' ? 'Buddy and the desktop notch are not in this installer.'
-    : feature.id === 'models' ? 'The plan catalog lists Qwen on Pro and Nemotron on Max. Paid checkout is closed, so this installer does not unlock those paid models.'
+    : feature.id === 'models' ? 'This installer uses Bonsai on Free, Pro, and Max. Paid checkout is closed.'
     : feature.id === 'tools' ? 'Standard agent tools are in this installer, together with chat and cited research.'
     : feature.id === 'support' ? 'Priority support is a Max catalog item. Checkout is closed, so it is not part of this installer.'
     : feature.home,
@@ -46,7 +46,7 @@ const faq = [
   <section class="border-b border-line pt-10 pb-16 sm:pt-14 sm:pb-24">
     <div class="wrap grid items-start gap-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,.85fr)] lg:gap-16">
       <div>
-        <p class="font-mono text-[.72rem] uppercase tracking-[.16em] text-honey">Windows desktop · Hive-Setup-v0.0.1.1</p>
+        <p class="font-mono text-[.72rem] uppercase tracking-[.16em] text-honey">Windows desktop · Hive-Setup-v0.0.2</p>
         <h1 class="mt-5 max-w-[14ch] text-[2.7rem] leading-[.96] sm:text-6xl lg:text-[4.4rem]">It asks before it touches the PC.</h1>
         <p class="lead mt-6 max-w-xl">Hive is a desktop AI for cited research and a crew of agents. PC actions wait for Allow or Deny. The free installer needs no card. Checkout is closed.</p>
         <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -91,7 +91,7 @@ const faq = [
   <section id="demo-section" class="wrap py-16"><div class="grid items-center gap-12 lg:grid-cols-2"><div><SectionHead eyebrow="Scripted preview" title="A little work, handled together." lead="Watch a preview of the app. This demonstration does not submit prompts or control your PC." /></div><DemoChat /></div></section>
 
   <section id="features" class="wrap py-24">
-    <SectionHead eyebrow="What you get" title="What this installer actually includes." lead="Hive-Setup-v0.0.1.1 includes core chat, cited research, agent tools, swarm, and PC actions with Allow or Deny. Buddy, HiveBox, and priority support are on Max and are not in this installer. Checkout is closed." />
+    <SectionHead eyebrow="What you get" title="What this installer actually includes." lead="Hive-Setup-v0.0.2 includes core chat, cited research, agent tools, swarm, and PC actions with Allow or Deny. Buddy, HiveBox, and priority support are on Max and are not in this installer. Checkout is closed." />
     <div class="border-y border-line">
       {featureCards.map((feature, i) => (
         <article data-reveal style={`--i:${i % 6}`} class="grid gap-2 border-b border-line py-5 last:border-b-0 sm:grid-cols-[7rem_minmax(0,16rem)_1fr] sm:items-baseline sm:gap-6">

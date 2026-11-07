@@ -19,15 +19,15 @@ export const docGroups: DocGroup[] = [
     items: [
       {
         id: 'overview', title: 'Overview', plan: 'All plans',
-        summary: 'A Windows desktop workspace. v0.0.1.1 includes chat, cited research, and PC actions.',
+        summary: 'A Windows desktop workspace. v0.0.2 includes chat, cited research, and PC actions.',
         content: `<h3>How Hive is organized</h3>
-          <p>Hive v0.0.1.1 is a Windows desktop workspace. This installer includes core chat, cited web research, agent tools, and PC actions that ask for Allow or Deny. The plan catalog still lists Pro and Max limits, but paid checkout is closed. The website provides account management and a scripted demo; it does not run prompts or control your computer.</p>`,
+          <p>Hive v0.0.2 is a Windows desktop workspace. This installer includes core chat, cited web research, agent tools, and PC actions that ask for Allow or Deny. The plan catalog still lists Pro and Max limits, but paid checkout is closed. The website provides account management and a scripted demo; it does not run prompts or control your computer.</p>`,
       },
       {
         id: 'get-hive', title: 'Download & Install', plan: 'All plans',
-        summary: 'Hive-Setup-v0.0.1.1.exe is on the download page.',
+        summary: 'Hive-Setup-v0.0.2.exe is on the download page.',
         content: `<h3>Release status</h3>
-          <p>The public Windows installer is <strong>Hive-Setup-v0.0.1.1</strong>, published October 29, 2026. Download it from the <a href="/download">download page</a>. It includes core chat, cited web research, agent tools, and PC actions with Allow or Deny. Hive Design and connectors are in this installer. Buddy is not in this installer. Paid checkout is closed. Windows may warn about an unknown publisher because there is no code-signing certificate. macOS and Linux are not in this installer. Check the <a href="/changelog">changelog</a> for the same notes.</p>`,
+          <p>The public Windows installer is <strong>Hive-Setup-v0.0.2</strong>, published November 7, 2026. The only model is Bonsai. Download it from the <a href="/download">download page</a>. It includes core chat, cited web research, agent tools, and PC actions with Allow or Deny. Hive Design and connectors are in this installer. Buddy and HiveBox are not in this installer. Paid checkout is closed. Windows may warn about an unknown publisher because there is no code-signing certificate. macOS and Linux are not in this installer. Check the <a href="/changelog">changelog</a> for the same notes.</p>`,
       },
     ],
   },
@@ -50,13 +50,13 @@ export const docGroups: DocGroup[] = [
       },
       {
         id: 'buddy', title: 'Buddy', plan: 'Max',
-        summary: 'Buddy is not in the v0.0.1.1 installer.',
+        summary: 'Buddy is not in the v0.0.2 installer.',
         content: `<h3>Buddy in the app</h3>
           <p>Buddy is not in this installer. The plan catalog lists it for Max, and checkout is closed. When Buddy ships, it is meant to hide when Hive hides and return when Hive is shown.</p>`,
       },
       {
         id: 'notch', title: 'Notch & hotkeys', plan: 'Max',
-        summary: 'The Buddy notch is not in the v0.0.1.1 installer.',
+        summary: 'The Buddy notch is not in the v0.0.2 installer.',
         content: `<h3>Open the notch</h3>
           <p>The Buddy notch is not in this installer. The shortcut reserved for it is <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>J</kbd>. It is not a control on this website.</p>`,
       },
@@ -76,19 +76,19 @@ export const docGroups: DocGroup[] = [
         id: 'palette', title: 'Command palette',
         summary: 'Ctrl+K opens the command palette in the desktop app. It is not a control on this website.',
         content: `<h3>Open the palette</h3>
-          <p><kbd>Ctrl</kbd> + <kbd>K</kbd> opens the command palette in the desktop app. The v0.0.1.1 release notes do not list the palette on its own. It is not a control on this website.</p>`,
+          <p><kbd>Ctrl</kbd> + <kbd>K</kbd> opens the command palette in the desktop app. The v0.0.2 release notes do not list the palette on its own. It is not a control on this website.</p>`,
       },
       {
         id: 'modes', title: 'Modes',
-        summary: 'Model access and request priority depend on the selected plan.',
+        summary: 'Every plan uses Bonsai. Checkout is closed.',
         content: `<h3>Plan access</h3>
-          <p>Hive Free uses Bonsai. Pro uses Qwen. Max uses Nemotron with top priority. Model availability and plan details may change before checkout opens.</p>`,
+          <p>Free, Pro, and Max all use Bonsai. Free includes 25,000 chat tokens and 5 voice sessions a day. Pro is 50,000 tokens and 25 voice sessions. Max is 2,000,000 tokens and unlimited voice. Checkout is closed.</p>`,
       },
       {
         id: 'cloud', title: 'HiveBox', plan: 'Max',
-        summary: 'HiveBox is a Max catalog item. It is not named in the v0.0.1.1 release notes.',
+        summary: 'HiveBox is a Max catalog item. It is not named in the v0.0.2 release notes.',
         content: `<h3>Plan availability</h3>
-          <p>HiveBox cloud disk and background tasks are listed for Max. They are not named in the v0.0.1.1 release notes. Paid checkout is closed, so Max is not unlocked by this installer.</p>`,
+          <p>HiveBox cloud disk and background tasks are listed for Max. They are not named in the v0.0.2 release notes. Paid checkout is closed, so Max is not unlocked by this installer.</p>`,
       },
     ],
   },
@@ -99,14 +99,14 @@ export const docGroups: DocGroup[] = [
         id: 'settings', title: 'Settings',
         summary: 'Settings for the Windows desktop app. They do nothing on this website.',
         content: `<h3>Settings reference</h3>
-          <p>Desktop controls. They do nothing on this website. The v0.0.1.1 release notes do not list each setting.</p>
+          <p>Desktop controls. They do nothing on this website. The v0.0.2 release notes do not list each setting.</p>
           <div class="docs-table-scroll" role="region" aria-label="Desktop settings" tabindex="0">
             <table>
               <caption>Settings in the Hive desktop app</caption>
               <thead><tr><th scope="col">Area</th><th scope="col">Planned controls</th></tr></thead>
               <tbody>
                 <tr><th scope="row">General</th><td>Chat preferences, workspace behavior, and local history controls.</td></tr>
-                <tr><th scope="row">Models</th><td>Plan-eligible model access and request preferences.</td></tr>
+                <tr><th scope="row">Models</th><td>Bonsai is the included model.</td></tr>
                 <tr><th scope="row">Appearance</th><td>Accent color and reduced-motion preference.</td></tr>
                 <tr><th scope="row">Integrations</th><td>Connection setup and permissions when available.</td></tr>
               </tbody>
@@ -142,7 +142,7 @@ export const docGroups: DocGroup[] = [
         id: 'faq', title: 'FAQ',
         summary: 'Answers about supported platform, availability, and account data.',
         content: `<details class="docs-faq"><summary>Windows only?</summary><p>This installer is Windows 10/11 only. The click and type engine is Windows-native. macOS and Linux are not in this installer.</p></details>
-          <details class="docs-faq"><summary>Is Hive free?</summary><p>Hive Free is included with Hive-Setup-v0.0.1.1.exe. Paid plans are monthly, and checkout is closed. The installer is on the <a href="/download">download page</a>.</p></details>
+          <details class="docs-faq"><summary>Is Hive free?</summary><p>Hive Free is included with Hive-Setup-v0.0.2.exe. Paid plans are monthly, and checkout is closed. The installer is on the <a href="/download">download page</a>.</p></details>
           <details class="docs-faq"><summary>Where is my data?</summary><p>Chats stay on the device. This site does not run prompts. Account sign-in and profile details are handled on this website.</p></details>
           <details class="docs-faq"><summary>Where is Buddy?</summary><p>Buddy is not in this installer and not on this website. The plan catalog lists it for Max. Checkout is closed.</p></details>`,
       },
