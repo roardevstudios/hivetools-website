@@ -18,7 +18,7 @@ const tips = [
 ];
 ---
 <Base title="Use Cases — Put Hive to Work" description="Practical ways to use Hive for research, planning, collaboration, PC control and focused project work.">
-  <PageHero eyebrow="A practical guide" title='Put your AI crew <span class="text-gradient">to work.</span>' lead="Ways to use the Hive app in this installer. Scout, Hive, and Pulse work together. Critic reviews the answer. Sentry watches tool calls. Buddy is not in this installer.">
+  <PageHero eyebrow="A practical guide" title="Put your AI crew to work." lead="Ways to use the Hive app in this installer. Crew order: Scout, Hive, Pulse, Critic, Sentry. Buddy is not in this installer. Checkout is closed.">
     <div class="mt-8 flex flex-col gap-3 sm:flex-row">
       <a class="btn btn-primary" href="/#demo-section">Try the scripted homepage demo</a>
       <a class="btn btn-ghost" href="/docs">Explore the guide</a>
@@ -29,14 +29,14 @@ const tips = [
     <p class="mb-6 rounded-xl border border-honey/30 bg-honey/10 px-4 py-3 text-sm text-honey-2">The free download includes chat, cited research, and PC actions with Allow or Deny. Buddy, the notch, and HiveBox are not in this installer. Nothing here runs on this website.</p>
     <div class="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0 lg:grid-cols-3">
       {cases.map(([tag, icon, t, d, q], i) => (
-        <article class="glass group flex w-[85%] shrink-0 snap-center flex-col p-6 transition duration-500 hover:-translate-y-1 hover:border-honey/40 md:w-auto" data-reveal style={`--i:${i % 3}`}>
+        <article class="glass group flex w-[85%] shrink-0 snap-center flex-col p-6 md:w-auto" data-reveal style={`--i:${i % 3}`}>
           <div class="flex items-center justify-between">
-            <span class="grid size-11 place-items-center rounded-xl border border-honey/25 bg-honey/10 text-honey-2" aria-hidden="true"><Icon name={icon as any} size={22} /></span>
+            <span class="grid size-11 place-items-center border border-line text-honey" aria-hidden="true"><Icon name={icon as any} size={22} /></span>
             <span class="text-xs uppercase tracking-widest text-dim">0{i + 1} / {tag}</span>
           </div>
           <h2 class="mt-5 text-xl font-semibold">{t}</h2>
           <p class="mt-2 flex-1 text-sm leading-relaxed text-dim">{d}</p>
-          <p class="mt-5 rounded-2xl border border-line bg-panel-2 px-4 py-3 text-sm text-text">“{q}”</p>
+          <p class="mt-5 border border-line bg-panel-2 px-4 py-3 text-sm text-text">“{q}”</p>
         </article>
       ))}
     </div>
@@ -54,7 +54,7 @@ const tips = [
         </li>
       ))}
     </ol>
-    <div class="mt-10 rounded-3xl border border-mint/30 bg-mint/[.06] p-6" data-reveal>
+    <div class="mt-10 border border-line p-6" data-reveal>
       <h3 class="font-semibold">You stay in control of your PC</h3>
       <p class="mt-2 text-sm text-soft/90">Website examples are illustrative. Real desktop actions run in the Hive app and require your approval. Your chats stay on your device.</p>
     </div>

@@ -8,7 +8,7 @@ interface Props { title: string; html: string; noindex?: boolean }
 const { title, html, noindex } = Astro.props;
 ---
 <Base title={title} noindex={noindex}>
-  <div class="app-legacy pt-32 sm:pt-36">
+  <div class="app-legacy pt-8 sm:pt-10">
     <Fragment set:html={html} />
   </div>
 </Base>

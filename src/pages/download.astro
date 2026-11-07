@@ -4,7 +4,7 @@ import { DISCORD } from '../lib/site';
 import PlatformDownload from '../components/PlatformDownload.astro';
 ---
 <Base title="Download Hive release" description="Download Hive release for Windows. Free tier, no card needed.">
-  <section class="wrap grid min-h-[85dvh] place-items-center pt-28 pb-10">
+  <section class="wrap grid min-h-[85dvh] place-items-center pt-8 pb-10">
     <div class="glass relative max-w-2xl overflow-hidden p-8 text-center sm:p-12" data-reveal>
       <div aria-hidden="true" class="relative mx-auto grid size-16 place-items-center rounded-full border border-white/20 bg-white/[.04] font-mono text-sm text-soft">01</div>
       <span class="eyebrow relative mt-6">Windows installer</span>
@@ -14,10 +14,10 @@ import PlatformDownload from '../components/PlatformDownload.astro';
         <PlatformDownload />
         <a class="text-sm text-dim underline" href="https://github.com/Hive-AI-APP/Hive-Public-Hive/releases/tag/v0.0.1.1" target="_blank" rel="noopener noreferrer">Release notes on GitHub</a>
       </div>
-      <div class="relative mt-6 rounded-2xl border border-line bg-panel-2/70 p-4 text-left text-sm text-dim">
+      <div class="relative mt-6 border border-line bg-panel-2 p-4 text-left text-sm text-dim">
         <strong class="text-text">Before you install</strong><br />The installer is Hive-Setup-v0.0.1.1.exe. It includes chat, cited research, agent tools, Hive Design, and connectors. PC actions ask for Allow or Deny. Buddy is not in this installer. Paid checkout is closed. Windows SmartScreen may say the publisher is unknown because there is no code-signing certificate.
       </div>
-      <section class="relative mt-6 rounded-2xl border border-line bg-panel-2/70 p-5 text-left text-sm text-dim" aria-labelledby="smartscreen-title">
+      <section class="relative mt-6 border border-line bg-panel-2 p-5 text-left text-sm text-dim" aria-labelledby="smartscreen-title">
         <h2 id="smartscreen-title" class="text-base font-semibold text-text">"Windows protected your PC" warning?</h2>
         <p class="mt-2">This shows because Hive has no code-signing certificate, so Windows does not recognize the publisher. Steps:</p>
         <ol class="mt-4 flex flex-col gap-5">

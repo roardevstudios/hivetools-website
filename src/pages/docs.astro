@@ -183,9 +183,9 @@ const related = (section: (typeof sections)[number]) => {
 </script>
 
 <style is:global>
-  .docs-page { padding-top: 7.5rem; }
+  .docs-page { padding-top: 2rem; }
   .docs-intro { max-width: 52rem; margin-bottom: 2.5rem; }
-  .docs-intro h1 { margin-top: 1rem; font-size: clamp(2.5rem, 6vw, 4.25rem); line-height: 1.02; font-weight: 750; letter-spacing: -.045em; }
+  .docs-intro h1 { margin-top: 1rem; font-size: clamp(2.5rem, 6vw, 4.25rem); line-height: 1.02; font-weight: 400; letter-spacing: -.03em; }
   .docs-intro > p:last-child { margin-top: 1.1rem; max-width: 42rem; color: var(--color-soft); font-size: 1.05rem; line-height: 1.7; }
   .docs-layout { display: grid; gap: 2rem; align-items: start; }
   .docs-article { min-width: 0; max-width: 72ch; }
@@ -205,7 +205,7 @@ const related = (section: (typeof sections)[number]) => {
   .docs-section { padding: 2rem 0 2.25rem; border-bottom: 1px solid var(--color-line); scroll-margin-top: 10rem; }
   .docs-section-head { margin-bottom: 1.25rem; }
   .docs-plan-badge { display: inline-flex; margin-bottom: .75rem; padding: .25rem .6rem; border: 1px solid rgb(240 138 36 / .36); border-radius: 999px; background: rgb(240 138 36 / .08); color: var(--color-honey-2); font-size: .7rem; font-weight: 700; letter-spacing: .04em; }
-  .docs-section-head h2 { margin: 0; color: var(--color-text); font-size: clamp(1.65rem, 3vw, 2.15rem); line-height: 1.2; font-weight: 700; letter-spacing: -.025em; }
+  .docs-section-head h2 { margin: 0; color: var(--color-text); font-size: clamp(1.65rem, 3vw, 2.15rem); line-height: 1.15; font-weight: 400; letter-spacing: -.03em; }
   .docs-summary { margin: .55rem 0 0; color: var(--color-soft); font-size: .98rem; line-height: 1.6; }
   .docs-prose { color: var(--color-soft); font-size: .96rem; line-height: 1.75; }
   .docs-prose > :first-child { margin-top: 0; }
@@ -256,7 +256,7 @@ const related = (section: (typeof sections)[number]) => {
     .docs-layout { grid-template-columns: 240px minmax(0, 72ch); gap: 2.5rem; }
     .docs-sidebar { position: sticky; top: 6.5rem; display: block; max-height: calc(100dvh - 7.5rem); overflow: auto; padding-right: .5rem; }
     .docs-mobile-bar, .docs-mobile-dialog { display: none; }
-    .docs-page { padding-top: 8.5rem; }
+    .docs-page { padding-top: 2.5rem; }
   }
   @media (min-width: 1280px) {
     .docs-layout { grid-template-columns: 240px minmax(0, 72ch) 180px; gap: 2.5rem; }

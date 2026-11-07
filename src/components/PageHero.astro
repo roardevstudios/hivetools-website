@@ -2,9 +2,9 @@
 interface Props { eyebrow: string; title: string; lead?: string }
 const { eyebrow, title, lead } = Astro.props;
 ---
-<header class="pt-32 pb-12 sm:pt-40">
+<header class="pt-10 pb-12 sm:pt-14">
   <div class="wrap" data-reveal>
-    <span class="eyebrow"><span aria-hidden="true">[+]</span>{eyebrow}</span>
+    <span class="eyebrow">{eyebrow}</span>
     <h1 class="mt-4 max-w-3xl text-4xl font-normal leading-[1.02] tracking-[-.05em] sm:text-6xl" set:html={title} />
     {lead && <p class="lead mt-5 max-w-2xl">{lead}</p>}
     <slot />

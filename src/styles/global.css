@@ -2,18 +2,18 @@
 
 /* ── Hive design tokens ─────────────────────────────────────────── */
 @theme {
-  --color-ink: #0a0a0a;
-  --color-panel: #141414;
-  --color-panel-2: #1a1c20;
-  --color-line: #292a2d;
-  --color-text: #ffffff;
-  --color-soft: #dadbdf;
-  --color-dim: #8f9298;
-  --color-honey: #f28a45;
-  --color-honey-2: #ffc08c;
-  --color-mint: #9bd8c0;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-ink: #090909;
+  --color-panel: #161616;
+  --color-panel-2: #1e1e1e;
+  --color-line: #3a3a3a;
+  --color-text: #f4f1ea;
+  --color-soft: #d8d3c8;
+  --color-dim: #9a958b;
+  --color-honey: #e7b15a;
+  --color-honey-2: #e7b15a;
+  --color-mint: #b7c4b1;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --ease-spring: cubic-bezier(.2, .8, .2, 1);
 }
@@ -21,7 +21,8 @@
 @layer base {
   html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
   body { @apply bg-ink text-soft font-sans antialiased; overflow-x: hidden; }
-  h1, h2, h3 { @apply font-display text-text font-normal; font-weight: 400 !important; letter-spacing: -.04em !important; text-wrap: balance; }
+  h1, h2 { @apply font-display text-text; font-weight: 400 !important; letter-spacing: -.03em !important; text-wrap: balance; }
+  h3 { @apply font-sans text-text; font-weight: 500 !important; letter-spacing: -.02em !important; text-wrap: balance; }
   p { text-wrap: pretty; }
   ::selection { background: rgb(255 255 255 / .22); color: #fff; }
   :focus-visible { outline: 2px solid var(--color-text); outline-offset: 3px; border-radius: 8px; }
@@ -31,14 +32,14 @@
 @layer components {
   .wrap { @apply mx-auto w-full max-w-6xl px-4 sm:px-6; }
   .eyebrow { @apply inline-flex items-center gap-2 font-mono text-[.7rem] font-normal uppercase tracking-[.12em] text-soft; }
-  .h-section { @apply text-3xl sm:text-4xl md:text-5xl font-normal leading-[1.05] tracking-[-.04em]; }
+  .h-section { @apply font-display text-3xl sm:text-4xl md:text-5xl font-normal leading-[1.05] tracking-[-.03em]; }
   .lead { @apply text-base sm:text-lg text-dim leading-relaxed; }
   .glass {
-    @apply rounded-sm border border-line bg-panel;
+    @apply rounded-none border border-line bg-panel;
   }
   .btn {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 text-sm font-normal
-      transition duration-300 active:scale-[.97];
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-none px-5 text-sm font-medium
+      transition duration-200 active:translate-y-px;
   }
   .btn-primary {
     @apply border border-white bg-white text-ink;
@@ -46,11 +47,9 @@
   .btn-primary:hover { @apply border-white/80 bg-white/90; }
   .btn-ghost { @apply border border-white/25 bg-transparent text-text hover:border-white/60 hover:bg-white/[.06]; }
   .text-gradient {
-    background: linear-gradient(105deg, #fff 8%, #ffc08c 58%, #f28a45 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: #fff;
+    color: var(--color-honey);
+    background: none;
+    -webkit-text-fill-color: currentColor;
   }
   .hex-bg {
     background-image: none;
@@ -84,9 +83,9 @@
 }
 
 /* Interactive surfaces: lift and glow on pointer devices only */
-.glass { transition: transform .3s var(--ease-spring), border-color .3s ease; }
+.glass { transition: border-color .2s ease; }
 @media (hover: hover) and (pointer: fine) {
-  .lift:hover { transform: translateY(-3px); border-color: rgb(242 138 69 / .45); box-shadow: 0 14px 42px -30px rgb(242 138 69 / .42); }
+  .lift:hover { border-color: rgb(231 177 90 / .7); }
 }
 .card-index { @apply font-mono text-sm font-normal text-dim tabular-nums; }
 .chip { @apply inline-flex min-h-9 items-center gap-2 rounded-full border border-white/20 bg-transparent px-3 py-1.5 text-xs font-normal text-soft; }
